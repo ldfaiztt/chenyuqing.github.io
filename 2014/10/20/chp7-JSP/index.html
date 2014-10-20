@@ -4,12 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hello World | Tim Chan&#39;s Blog!</title>
+    <title>chp7_JSP | Tim Chan&#39;s Blog!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Tim Chan">
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+    <meta name="description" content="第七章 JDBC数据库开发接口
+
+7.3.1 JDBC的四种类型(page171)
+
+JDBC-ODBC桥加ODBC驱动程序
+本地API
+JDBC网络纯Java驱动程序
+本地协议纯Java驱动程序
+
+
+7.3.2 数据驱动程序(page172)
+
+加载Oracle的JDBC驱动程序的语句为：
+
+Cl">
     
     
     
@@ -70,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/10/18/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2014/10/20/chp7-JSP/" title="chp7_JSP" itemprop="url">chp7_JSP</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
 		
   <p class="article-time">
-    <time datetime="2014-10-17T17:32:46.000Z" itemprop="datePublished"> Published Oct 18 2014</time>
+    <time datetime="2014-10-20T14:26:46.000Z" itemprop="datePublished"> Published Oct 20 2014</time>
     
   </p>
 </header>
@@ -87,40 +101,175 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第七章_JDBC数据库开发接口"><span class="toc-number">1.</span> <span class="toc-text">第七章 JDBC数据库开发接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-1_JDBC的四种类型(page171)"><span class="toc-number">1.0.1.</span> <span class="toc-text">7.3.1 JDBC的四种类型(page171)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-2_数据驱动程序(page172)"><span class="toc-number">1.0.2.</span> <span class="toc-text">7.3.2 数据驱动程序(page172)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-3_Connection对象(page172)"><span class="toc-number">1.0.3.</span> <span class="toc-text">7.3.3 Connection对象(page172)</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2>
-<h3 id="Create_a_new_post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+		<h1 id="第七章_JDBC数据库开发接口">第七章 JDBC数据库开发接口</h1>
+<hr>
+<h3 id="7-3-1_JDBC的四种类型(page171)">7.3.1 JDBC的四种类型(page171)</h3>
+<ul>
+<li>JDBC-ODBC桥加ODBC驱动程序</li>
+<li>本地API</li>
+<li>JDBC网络纯Java驱动程序</li>
+<li>本地协议纯Java驱动程序</li>
+</ul>
+<hr>
+<h3 id="7-3-2_数据驱动程序(page172)">7.3.2 数据驱动程序(page172)</h3>
+<ul>
+<li><p>加载Oracle的JDBC驱动程序的语句为：</p>
+<blockquote>
+<p><strong>Class.forName(“oracle.jdbc.driver.OracleDriver”);</strong></p>
+</blockquote>
+</li>
+<li><p>使用JDBC-ODBC桥驱动程序的语句为：</p>
+<blockquote>
+<p><strong>Class.forName(“sun.jdbc.odbc.JdbcOdbcDriver”);</strong></p>
+</blockquote>
+</li>
+<li><p>加载Sql2005驱动程序的语句为：</p>
+<blockquote>
+<p><strong>Class.forName(“com.microsoft.jdbc.sqlserver.SQLServerDriver”);</strong></p>
+</blockquote>
+</li>
+<li><p>加载MySQL驱动下次语句为：</p>
+<blockquote>
+<p><strong>Class.forName(“com.mysql.jdbc.Driver”);</strong></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="7-3-3_Connection对象(page172)">7.3.3 Connection对象(page172)</h3>
+<pre>
+<code>
+import java.sql.*;
 
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+public class DB {
+    public static Connection getConn() {
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/shopping?user=root&password=123456");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+        return conn;
+    }
 
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+    public static PreparedStatement prepare(Connection conn,  String sql) {
+        PreparedStatement pstmt = null; 
+        try {
+            if(conn != null) {
+                pstmt = conn.prepareStatement(sql);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pstmt;
+    }
 
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-  
+    public static PreparedStatement prepare(Connection conn,  String sql, int autoGenereatedKeys) {
+        PreparedStatement pstmt = null; 
+        try {
+            if(conn != null) {
+                pstmt = conn.prepareStatement(sql, autoGenereatedKeys);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pstmt;
+    }
+
+    public static Statement getStatement(Connection conn) {
+        Statement stmt = null; 
+        try {
+            if(conn != null) {
+                stmt = conn.createStatement();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return stmt;
+    }
+
+    /*
+    public static ResultSet getResultSet(Connection conn, String sql) {
+        Statement stmt = getStatement(conn);
+        ResultSet rs = getResultSet(stmt, sql);
+        close(stmt);
+        return rs;
+    }
+    */
+
+    public static ResultSet getResultSet(Statement stmt, String sql) {
+        ResultSet rs = null;
+        try {
+            if(stmt != null) {
+                rs = stmt.executeQuery(sql);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs;
+    }
+
+    public static void executeUpdate(Statement stmt, String sql) {
+        try {
+            if(stmt != null) {
+                stmt.executeUpdate(sql);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void close(Connection conn) {
+        try {
+            if(conn != null) {
+                conn.close();
+                conn = null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void close(Statement stmt) {
+        try {
+            if(stmt != null) {
+                stmt.close();
+                stmt = null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+</code>
+</pre>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JSP-Review/">JSP_Review</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/JSP-网页开发/">JSP 网页开发</a>
+  </div>
 
 </div>
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://tim4chan.com/2014/10/18/hello-world/" data-title="Hello World | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  <div data-url="http://tim4chan.com/2014/10/20/chp7-JSP/" data-title="chp7_JSP | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
   </div>
 
 </div>
@@ -130,13 +279,21 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/10/18/RegularExpression/" title="正则表达式课堂笔记">
+ <a href="/2014/10/20/chp8-JSP/" title="chp8_JSP">
   <strong>上一篇：</strong><br/>
   <span>
-  正则表达式课堂笔记</span>
+  chp8_JSP</span>
 </a>
 </div>
 
+
+<div class="next">
+<a href="/2014/10/20/chp6-JSP/"  title="chp6_JSP">
+ <strong>下一篇：</strong><br/> 
+ <span>chp6_JSP
+</span>
+</a>
+</div>
 
 </nav>
 
@@ -148,7 +305,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第七章_JDBC数据库开发接口"><span class="toc-number">1.</span> <span class="toc-text">第七章 JDBC数据库开发接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-1_JDBC的四种类型(page171)"><span class="toc-number">1.0.1.</span> <span class="toc-text">7.3.1 JDBC的四种类型(page171)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-2_数据驱动程序(page172)"><span class="toc-number">1.0.2.</span> <span class="toc-text">7.3.2 数据驱动程序(page172)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-3_Connection对象(page172)"><span class="toc-number">1.0.3.</span> <span class="toc-text">7.3.3 Connection对象(page172)</span></a></li></ol></li></ol></li></ol>
  
   </div>
 

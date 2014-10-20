@@ -4,12 +4,17 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hello World | Tim Chan&#39;s Blog!</title>
+    <title>图像二值化算法笔记 | Tim Chan&#39;s Blog!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Tim Chan">
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+    <meta name="description" content="写在开头的话
+本次笔记是上海交通大学在Coursera上开设的《医学图像处理技术》第二周课程的笔记之一。
+二值化操作
+   
+
+二值化是一个最简单的，没有前后关联的，非常有效的图像分割技术。">
     
     
     
@@ -70,14 +75,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/10/18/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2014/10/20/图像二值化算法/" title="图像二值化算法笔记" itemprop="url">图像二值化算法笔记</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
 		
   <p class="article-time">
-    <time datetime="2014-10-17T17:32:46.000Z" itemprop="datePublished"> Published Oct 18 2014</time>
+    <time datetime="2014-10-20T04:44:15.000Z" itemprop="datePublished"> Published Oct 20 2014</time>
     
   </p>
 </header>
@@ -87,40 +92,39 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二值化操作"><span class="toc-number">2.</span> <span class="toc-text">二值化操作</span></a></li></ol>
 		
 		</div>
 		
-		<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2>
-<h3 id="Create_a_new_post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<h2 id="写在开头的话">写在开头的话</h2>
+<p>本次笔记是上海交通大学在Coursera上开设的<a href="https://www.coursera.org/course/sjtumia" target="_blank" rel="external">《医学图像处理技术》</a>第二周课程的笔记之一。</p>
+<h2 id="二值化操作">二值化操作</h2>
+<p><img src="/img/01_BinaryOperation.JPG" alt="slide 01">   </p>
+<ul>
+<li>二值化是一个最简单的，没有前后关联的，非常有效的图像分割技术。</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/医学图像处理/">医学图像处理</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/图像处理-二值化/">图像处理 二值化</a>
+  </div>
 
 </div>
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://tim4chan.com/2014/10/18/hello-world/" data-title="Hello World | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  <div data-url="http://tim4chan.com/2014/10/20/图像二值化算法/" data-title="图像二值化算法笔记 | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
   </div>
 
 </div>
@@ -130,13 +134,21 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/10/18/RegularExpression/" title="正则表达式课堂笔记">
+ <a href="/2014/10/20/chp1-JSP/" title="chp1_JSP">
   <strong>上一篇：</strong><br/>
   <span>
-  正则表达式课堂笔记</span>
+  chp1_JSP</span>
 </a>
 </div>
 
+
+<div class="next">
+<a href="/2014/10/18/RegularExpression/"  title="正则表达式课堂笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>正则表达式课堂笔记
+</span>
+</a>
+</div>
 
 </nav>
 
@@ -148,7 +160,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二值化操作"><span class="toc-number">2.</span> <span class="toc-text">二值化操作</span></a></li></ol>
  
   </div>
 

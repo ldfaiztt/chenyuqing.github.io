@@ -4,22 +4,22 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>chp2_JSP | Tim Chan&#39;s Blog!</title>
+    <title>灰度直方图及其应用和特点 | Tim Chan&#39;s Blog!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Tim Chan">
     
-    <meta name="description" content="第二章
+    <meta name="description" content="写在开头的话
+本次笔记是上海交通大学在Coursera上开设的《医学图像处理技术》第二周课程的笔记之一。文中引用资料归原作者所有。
+灰度直方图
 
-2.3 安装和配置Tomcat(page15)
+灰度直方图是图像信息的另一种展示，从数字上模拟图像的某些特征，这个在图像处理当中是一个非常基本的操作。
 
-Tomcat 服务器的默认端口是 8080
-访问Tomcat的默认路径是：http://localhost:8080 
+更多：互动百科
+什么是灰度直方图？
 
-
-2.3.1 配置Tomcat(page18)
-
-更改服务端口：在Tomcat下打开conf文件夹找到server.x">
+PPT：
+">
     
     
     
@@ -82,14 +82,14 @@ Tomcat 服务器的默认端口是 8080
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/06/chp2-JSP/" title="chp2_JSP" itemprop="url">chp2_JSP</a>
+      <a href="/2014/10/20/灰度直方图及其应用和特点/" title="灰度直方图及其应用和特点" itemprop="url">灰度直方图及其应用和特点</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
 		
   <p class="article-time">
-    <time datetime="2014-07-06T14:19:41.000Z" itemprop="datePublished"> Published Jul 6 2014</time>
+    <time datetime="2014-10-20T02:44:15.000Z" itemprop="datePublished"> Published Oct 20 2014</time>
     
   </p>
 </header>
@@ -99,38 +99,60 @@ Tomcat 服务器的默认端口是 8080
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章"><span class="toc-number">1.</span> <span class="toc-text">第二章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3_安装和配置Tomcat(page15)"><span class="toc-number">1.0.1.</span> <span class="toc-text">2.3 安装和配置Tomcat(page15)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1_配置Tomcat(page18)"><span class="toc-number">1.0.2.</span> <span class="toc-text">2.3.1 配置Tomcat(page18)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2_测试第一个JSP页面(page20)"><span class="toc-number">1.0.3.</span> <span class="toc-text">2.3.2 测试第一个JSP页面(page20)</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#灰度直方图"><span class="toc-number">2.</span> <span class="toc-text">灰度直方图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是灰度直方图？"><span class="toc-number">2.1.</span> <span class="toc-text">什么是灰度直方图？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#灰度直方图的例子"><span class="toc-number">2.2.</span> <span class="toc-text">灰度直方图的例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#灰度直方图的特征"><span class="toc-number">2.3.</span> <span class="toc-text">灰度直方图的特征</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#灰度直方图与像素位置的关系"><span class="toc-number">2.3.1.</span> <span class="toc-text">灰度直方图与像素位置的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#灰度直方图与图像的面积关系"><span class="toc-number">2.3.2.</span> <span class="toc-text">灰度直方图与图像的面积关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#灰度直方图的应用"><span class="toc-number">2.4.</span> <span class="toc-text">灰度直方图的应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="第二章">第二章</h1>
-<hr>
-<h3 id="2-3_安装和配置Tomcat(page15)">2.3 安装和配置Tomcat(page15)</h3>
+		<h2 id="写在开头的话">写在开头的话</h2>
+<p>本次笔记是上海交通大学在Coursera上开设的<a href="https://www.coursera.org/course/sjtumia" target="_blank" rel="external">《医学图像处理技术》</a>第二周课程的笔记之一。文中引用资料归原作者所有。</p>
+<h2 id="灰度直方图">灰度直方图</h2>
 <ul>
-<li>Tomcat 服务器的默认端口是 <strong>8080</strong></li>
-<li>访问Tomcat的默认路径是：<strong><a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a></strong> </li>
+<li>灰度直方图是图像信息的另一种展示，从数字上模拟图像的某些特征，这个在图像处理当中是一个非常基本的操作。</li>
 </ul>
+<p>更多：<a href="http://www.baike.com/wiki/%E7%81%B0%E5%BA%A6%E7%9B%B4%E6%96%B9%E5%9B%BE" target="_blank" rel="external">互动百科</a></p>
+<h3 id="什么是灰度直方图？">什么是灰度直方图？</h3>
 <hr>
-<h3 id="2-3-1_配置Tomcat(page18)">2.3.1 配置Tomcat(page18)</h3>
+<p>PPT：<br><img src="/img/img-process-SHJU/week02/01-hist/02-hist-definition.JPG" alt=""><br><img src="/img/img-process-SHJU/week02/01-hist/03-hist-def.JPG" alt=""></p>
 <ul>
-<li>更改服务端口：在Tomcat下打开conf文件夹找到<strong>server.xml</strong>文件用记事本打开在<strong>&lt; connector port =”8080” &gt;</strong>中把8080更改即可</li>
+<li>灰度直方图是基于灰度值的像素频数分布函数图。</li>
+<li>X轴表示的是灰度值(范围：0-255)</li>
+<li>Y轴表示的该灰度值像素的频数(出现在图像上的个数)</li>
 </ul>
+<h3 id="灰度直方图的例子">灰度直方图的例子</h3>
 <hr>
-<h3 id="2-3-2_测试第一个JSP页面(page20)">2.3.2 测试第一个JSP页面(page20)</h3>
+<p>PPT：<br><img src="/img/img-process-SHJU/week02/01-hist/04-girl.JPG" alt="原图像"><br><img src="/img/img-process-SHJU/week02/01-hist/05-girl-hist.JPG" alt="灰度直方图"></p>
+<h3 id="灰度直方图的特征">灰度直方图的特征</h3>
+<hr>
+<h4 id="灰度直方图与像素位置的关系">灰度直方图与像素位置的关系</h4>
+<p>PPT：<br><img src="/img/img-process-SHJU/week02/01-hist/06-hist-features.JPG" alt=""></p>
 <ul>
-<li><p>第一段JSP程序（Hello World）</p>
-<blockquote>
-<p><strong>&lt;%</strong><br><strong>out.print(“Hello World”);</strong><br><strong>%&gt;</strong></p>
-</blockquote>
+<li>灰度直方图丢失了像素的位置，只记录了像素的大小和个数。<ul>
+<li>只知道像素的个数</li>
+<li>无法得知像素的位置</li>
+<li>图像翻转，在图像中移动某个位置或者区域，灰度直方图不发生变化</li>
+<li><strong>推论：</strong>一个图像只对应一个灰度直方图，而一个灰度直方图则对应多个图像。</li>
+</ul>
 </li>
-<li><p>对这个程序做简单的说明：</p>
+</ul>
+<h4 id="灰度直方图与图像的面积关系">灰度直方图与图像的面积关系</h4>
+<p><img src="/img/img-process-SHJU/week02/01-hist/hist-area.PNG" alt=""></p>
 <ul>
-<li>所有的JSP脚本程序都必须用<strong>“&lt;%”和“%&gt;”</strong>括起来；</li>
-<li>可以用<strong>out</strong>对象的<strong>print</strong>方法输出信息，输出的字符需要用<strong>双引号</strong>括起来；</li>
-<li>每一条JSP语句的<strong>末尾</strong>用<strong>分号</strong>结束。</li>
+<li>灰度直方图求积分等于图像的面积。</li>
+</ul>
+<h3 id="灰度直方图的应用">灰度直方图的应用</h3>
+<hr>
+<p>PPT：<br><img src="/img/img-process-SHJU/week02/01-hist/08-hist-application.JPG" alt=""></p>
+<ul>
+<li>设置数字化参数，譬如，利用数字相机照相时，可以用自带的灰度直方图功能判别图像好坏。</li>
+<li>寻找图像的二值化值<ul>
+<li>图像的灰度直方图通常具有双峰性(即有2个波峰)</li>
+<li>2个波峰相交的地方就是波谷，波谷的周围大概就是二值化值的位置。</li>
 </ul>
 </li>
 </ul>
+<h2 id="后记">后记</h2>
+<p>本次课只要学习了灰度直方图的概念，特点和应用。</p>
+<p>推荐学习：<a href="http://wenku.baidu.com/link?url=lH5fLvs96uA9hgMXovkBzm8_m11Q-_eumj9Dha6SALbqIO2AKRVVVyrl5Nj3FQ-8F6VOtOKRei79SyD3G9QM8cInvCv6NBzF5Jz4YBMaOUC" target="_blank" rel="external">灰度直方图_中国传媒大学课件</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -138,13 +160,13 @@ Tomcat 服务器的默认端口是 8080
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/JSP-Review/">JSP_Review</a>
+  <a class="article-category-link" href="/categories/医学图像处理/">医学图像处理</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/JSP-网页开发/">JSP 网页开发</a>
+  <span></span> <a href="/tags/灰度直方图/">灰度直方图</a>
   </div>
 
 </div>
@@ -152,7 +174,7 @@ Tomcat 服务器的默认端口是 8080
 
 <div class="article-share" id="share">
 
-  <div data-url="http://tim4chan.com/2014/07/06/chp2-JSP/" data-title="chp2_JSP | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  <div data-url="http://tim4chan.com/2014/10/20/灰度直方图及其应用和特点/" data-title="灰度直方图及其应用和特点 | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
   </div>
 
 </div>
@@ -162,18 +184,18 @@ Tomcat 服务器的默认端口是 8080
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/07/06/chp3-JSP/" title="chp3_JSP">
+ <a href="/2014/10/20/图像二值化算法/" title="图像二值化算法笔记">
   <strong>上一篇：</strong><br/>
   <span>
-  chp3_JSP</span>
+  图像二值化算法笔记</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/07/06/chp1-JSP/"  title="chp1_JSP">
+<a href="/2014/10/18/RegularExpression/"  title="正则表达式课堂笔记">
  <strong>下一篇：</strong><br/> 
- <span>chp1_JSP
+ <span>正则表达式课堂笔记
 </span>
 </a>
 </div>
@@ -188,7 +210,7 @@ Tomcat 服务器的默认端口是 8080
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章"><span class="toc-number">1.</span> <span class="toc-text">第二章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3_安装和配置Tomcat(page15)"><span class="toc-number">1.0.1.</span> <span class="toc-text">2.3 安装和配置Tomcat(page15)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1_配置Tomcat(page18)"><span class="toc-number">1.0.2.</span> <span class="toc-text">2.3.1 配置Tomcat(page18)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2_测试第一个JSP页面(page20)"><span class="toc-number">1.0.3.</span> <span class="toc-text">2.3.2 测试第一个JSP页面(page20)</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#灰度直方图"><span class="toc-number">2.</span> <span class="toc-text">灰度直方图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是灰度直方图？"><span class="toc-number">2.1.</span> <span class="toc-text">什么是灰度直方图？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#灰度直方图的例子"><span class="toc-number">2.2.</span> <span class="toc-text">灰度直方图的例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#灰度直方图的特征"><span class="toc-number">2.3.</span> <span class="toc-text">灰度直方图的特征</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#灰度直方图与像素位置的关系"><span class="toc-number">2.3.1.</span> <span class="toc-text">灰度直方图与像素位置的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#灰度直方图与图像的面积关系"><span class="toc-number">2.3.2.</span> <span class="toc-text">灰度直方图与图像的面积关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#灰度直方图的应用"><span class="toc-number">2.4.</span> <span class="toc-text">灰度直方图的应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
  
   </div>
 

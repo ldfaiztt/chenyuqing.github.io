@@ -161,14 +161,14 @@ size : 河流规">
 <h3 id="数据分布状况-hist">数据分布状况-hist</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; hist(algae<span class="variable">$mxPH</span>, prob = T)</div></pre></td></tr></table></figure>
 
-<p>plot：<br><img src="/img/DMwr/02_algae/01-hist.PNG" alt=""></p>
+<p>plot：<br><img src="/img/DMwR/02_algae/01-hist.PNG" alt=""></p>
 <ul>
 <li>该指令绘制变量mxPH的直方图。设置参数pro=T，我们可以得到每个取值区间的概率，如果该参数设置为FALSE或者忽略该参数，它将给出频数。</li>
 <li>由图中观察，变量mxPH的分布非常接近正态分布，它的值大部分聚集在该均值的周围。我们通过QQ图来检验该变量是否为正态分布。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">library(<span class="string">"car"</span>, lib.loc=<span class="string">"e:/R/R-3.1.1/library"</span>)</div><div class="line">par(mfrow=c(<span class="number">1</span>,<span class="number">2</span>))</div><div class="line">hist(algae<span class="variable">$mxPH</span>,prob = T, xlab=<span class="string">''</span>,</div><div class="line">     main=<span class="string">"Histogram of maximun pH value"</span>, ylim=<span class="number">0</span>:<span class="number">1</span>)</div><div class="line">lines(density(algae<span class="variable">$mxPH</span>, na.rm = T))</div><div class="line">rug(jitter(algae<span class="variable">$mxPH</span>))</div><div class="line">qqplot(algae<span class="variable">$mxPH</span>, main=<span class="string">"Normal QQ plot of maximum pH"</span>)</div><div class="line">par(mfrow=c(<span class="number">1</span>,<span class="number">1</span>))</div></pre></td></tr></table></figure>
 
-<p>plot：<br><img src="/img/DMwr/02_algae/02-hist-qqplot.PNG" alt=""></p>
+<p>plot：<br><img src="/img/DMwR/02_algae/02-hist-qqplot.PNG" alt=""></p>
 <ul>
 <li>左图中的曲线是平滑版本的直方图，而在X轴上密密麻麻的小直线就是变量的实际值，利用它我们可以识别出离群点。譬如，小于6的两个奇异点。</li>
 <li>右图是<a href="http://en.wikipedia.org/wiki/Q%E2%80%93Q_plot" target="_blank" rel="external">Q-Q图</a>，图中黑色实线是正态分布的理论分位数，而散点图就是实际变量值的描述。另外，虚线组成的区域就是符合正态分布的95%置信区间的带状图。由图可知，变量有几个小的值明显在95%的置信区间之外，它们不服从正态分布。</li>
@@ -177,12 +177,12 @@ size : 河流规">
 <p>百度百科：<a href="http://baike.baidu.com/view/1376547.htm?fr=aladdin" target="_blank" rel="external">箱型图</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">boxplot(algae<span class="variable">$oPO4</span>, ylab = <span class="string">"Orthophosphate(oPO4)"</span>)</div><div class="line">rug(jitter(algae<span class="variable">$oPO4</span>),side=<span class="number">2</span>)</div><div class="line">abline(h = mean(algae<span class="variable">$oPO4</span>, na.rm = T), lty = <span class="number">2</span>)</div></pre></td></tr></table></figure>
 
-<p>plot:<br><img src="/img/DMwr/02_algae/03-boxplot.PNG" alt=""></p>
+<p>plot:<br><img src="/img/DMwR/02_algae/03-boxplot.PNG" alt=""></p>
 <h3 id="lattice版本的箱图-bwplot">lattice版本的箱图-bwplot</h3>
 <p>条件绘图室依赖于某个特定因子的图形表示。因子是一个取值为有限集合的名义的变量。例如，对于变量size的不同取值，可以绘制变量a1的一组箱图。每个箱图是对应于变量size的某个特定值的水样子集。通过这些箱图可以研究名义变量size如何影响变量a1值的分布。   </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">library(lattice)</div><div class="line">bwplot(size ~ a1, data = algae, ylab=<span class="string">'River Size'</span>, xlab=<span class="string">'Algal A1'</span>)</div></pre></td></tr></table></figure>
 
-<p>plot：<br><img src="/img/DMwr/02_algae/04-bwplot.PNG" alt=""></p>
+<p>plot：<br><img src="/img/DMwR/02_algae/04-bwplot.PNG" alt=""></p>
 <ul>
 <li>由上图可知，在规模较小的河流中，海藻a1的频率较高，这是很有用的信息。</li>
 </ul>
@@ -190,7 +190,7 @@ size : 河流规">
 <p>分位箱图</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">library(Hmisc)</div><div class="line">bwplot(size ~ a1, data = algae, panel = panel.bpplot,</div><div class="line">       probs=seq(.<span class="number">01</span>,.<span class="number">49</span>,by=.<span class="number">01</span>), datadensity = TRUE,</div><div class="line">       ylab = <span class="string">'River Size'</span>, xlab = <span class="string">'Algal A1'</span>)</div></pre></td></tr></table></figure>
 
-<p>plot：<br><img src="/img/DMwr/02_algae/05-bwplot.PNG" alt=""></p>
+<p>plot：<br><img src="/img/DMwR/02_algae/05-bwplot.PNG" alt=""></p>
 <ul>
 <li>图中的点代表均值，而图中的竖线分别代表变量的第一个分位数、中位数和第三个分位数。图中的小竖线代表数据的真实取值，这些值的分布则由分位数图来体现。分位数箱图比上一个箱图提供了更多的信息。</li>
 <li>我们可以得到以下结论：小型的河流有更高频率的海藻，但我们也观察到小型河流的海藻频率的分布比其他类型的河流频率的分布分散。</li>
@@ -199,7 +199,7 @@ size : 河流规">
 <p>这种类型的条件绘图不局限于名义变量，也不局限于单个因子。只要先把连续变量“离散化”，也同样可以进行条件绘图。下面给出一个两个因子条件绘图的例子。考虑变量a3在给定变量season和变量mnO2下的条件绘图，变量mnO2是一个连续变量，绘图代码如下所示：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">minO2 &lt;- equal.count(na.omit(algae<span class="variable">$mnO2</span>),number=<span class="number">4</span>, overlap=<span class="number">1</span>/<span class="number">5</span>)</div><div class="line">stripplot(season ~ a3|minO2,</div><div class="line">          data = algae[!is.na(algae<span class="variable">$mnO2</span>),])</div></pre></td></tr></table></figure>
 
-<p>plot：<br><img src="/img/DMwr/02_algae/06-stripplot.PNG" alt=""></p>
+<p>plot：<br><img src="/img/DMwR/02_algae/06-stripplot.PNG" alt=""></p>
 <ul>
 <li>第一行调用equal.count()对连续变量mnO2离散化，把该变量转换为因子类型。参数number设置需要的区间个数，参数overlap设置两个区间之间的靠近边界的重合(这意味着某些观测值将被分配到相邻的区间中)。每个区间的观测值的个数相等。注意，变量algae$mnO2中含有NA值，所以上面的指令中没有直接应用该变量，否则会导致其后的绘图函数出错。函数na.omit()可以用来剔除向量中的任何NA值。</li>
 <li>第二行调用绘图函数stripplot()，该函数是lattice包中的一个绘图函数，它根据另一个变量(这里是season)把变量的实际值绘制到不同的图形。这些区间按照从左到右，从下到上的顺序排列。即与左下方的图形相对应的是较小的mnO2值。变量mnO2中的NA值也会对图形的绘制产生影响。不能像绘制上图中那样直接应用参数data=algae，而应该先剔除水样中变量mnO2含有NA值才行。</li>
@@ -291,17 +291,17 @@ size : 河流规">
 		
 			<li><a href="/tags/JSP-网页开发/" title="JSP 网页开发">JSP 网页开发<sup>10</sup></a></li>
 		
+			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+		
 			<li><a href="/tags/数据挖掘/" title="数据挖掘">数据挖掘<sup>1</sup></a></li>
 		
 			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
 		
-			<li><a href="/tags/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
-		
 			<li><a href="/tags/灰度直方图/" title="灰度直方图">灰度直方图<sup>1</sup></a></li>
 		
-			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
-		
 			<li><a href="/tags/二值化/" title="二值化">二值化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
 		
 		</ul>
 </div>

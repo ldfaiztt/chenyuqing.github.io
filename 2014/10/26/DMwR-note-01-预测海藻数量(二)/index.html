@@ -1,0 +1,598 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>DMwR-note-01-预测海藻数量(二) | Tim Chan&#39;s Blog!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Tim Chan">
+    
+    <meta name="description" content="写在开头的话
+
+上次的笔记讲了数据的读取，窥探和可视化，这次我们来分析一下数据当中的缺失值。对于缺失值的正确处理也是数据分析当中很重要的一步。
+数据缺失
+
+
+数据缺失是一种非常普遍的情形，但是有些数据分析的方法无法对缺失值进行处理，这样就会带来问题。
+当我们处理含有缺失值的数据时，可以运用一下几种最">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Tim Chan&#39;s Blog!" title="Tim Chan&#39;s Blog!"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tim Chan&#39;s Blog!">Tim Chan&#39;s Blog!</a></h1>
+				<h2 class="blog-motto">记录生活点滴！</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/todolist">ToDo</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:tim4chan.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/26/DMwR-note-01-预测海藻数量(二)/" title="DMwR-note-01-预测海藻数量(二)" itemprop="url">DMwR-note-01-预测海藻数量(二)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-26T12:12:23.000Z" itemprop="datePublished"> Published Oct 26 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据缺失"><span class="toc-number">2.</span> <span class="toc-text">数据缺失</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#将缺失部分剔除"><span class="toc-number">2.1.</span> <span class="toc-text">将缺失部分剔除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用最高频率值来填补缺失值"><span class="toc-number">2.2.</span> <span class="toc-text">用最高频率值来填补缺失值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过变量的相关关系来填补缺失值"><span class="toc-number">2.3.</span> <span class="toc-text">通过变量的相关关系来填补缺失值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过探索案例之间的相似性来填补缺失值"><span class="toc-number">2.4.</span> <span class="toc-text">通过探索案例之间的相似性来填补缺失值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="写在开头的话">写在开头的话</h2>
+<hr>
+<p>上次的笔记讲了数据的读取，窥探和可视化，这次我们来分析一下数据当中的缺失值。对于缺失值的正确处理也是数据分析当中很重要的一步。</p>
+<h2 id="数据缺失">数据缺失</h2>
+<hr>
+<ul>
+<li>数据缺失是一种非常普遍的情形，但是有些数据分析的方法无法对缺失值进行处理，这样就会带来问题。</li>
+<li><p>当我们处理含有缺失值的数据时，可以运用一下几种最常见的策略：</p>
+<ul>
+<li>将含有缺失值的案例剔除</li>
+<li>根据变量之间的相关关系填补缺失值</li>
+<li>根据案例之间的相似性填补缺失值</li>
+<li>使用能够处理缺失值数据的工具</li>
+</ul>
+</li>
+<li><p>在开始之前，我们先在Rstudio中载入包和数据</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">library(DMwR)</div><div class="line">data(algae)</div></pre></td></tr></table></figure>
+
+<h3 id="将缺失部分剔除">将缺失部分剔除</h3>
+<hr>
+<ul>
+<li>剔除缺失值的操作非常容易实现，特别当缺失值在数据当中所占的比例比较小的时候，这个选择比较合理。</li>
+<li>在剔除缺失值之前，我们勿急，最好先检查观测值，或者至少得到这些观测值的个数，</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">algae[!complete.cases(algae),]</div><div class="line">    season   size  speed mxPH mnO2    Cl   NO3 NH4    oPO4     PO4  Chla   a1</div><div class="line"><span class="number">28</span>  autumn  small   high <span class="number">6.80</span> <span class="number">11.1</span> <span class="number">9.000</span> <span class="number">0.630</span>  <span class="number">20</span>   <span class="number">4.000</span>      NA  <span class="number">2.70</span> <span class="number">30.3</span></div><div class="line"><span class="number">38</span>  spring  small   high <span class="number">8.00</span>   NA <span class="number">1.450</span> <span class="number">0.810</span>  <span class="number">10</span>   <span class="number">2.500</span>   <span class="number">3.000</span>  <span class="number">0.30</span> <span class="number">75.8</span></div><div class="line"><span class="number">48</span>  winter  small    low   NA <span class="number">12.6</span> <span class="number">9.000</span> <span class="number">0.230</span>  <span class="number">10</span>   <span class="number">5.000</span>   <span class="number">6.000</span>  <span class="number">1.10</span> <span class="number">35.5</span></div><div class="line"><span class="number">55</span>  winter  small   high <span class="number">6.60</span> <span class="number">10.8</span>    NA <span class="number">3.245</span>  <span class="number">10</span>   <span class="number">1.000</span>   <span class="number">6.500</span>    NA <span class="number">24.3</span></div><div class="line"><span class="number">56</span>  spring  small medium <span class="number">5.60</span> <span class="number">11.8</span>    NA <span class="number">2.220</span>   <span class="number">5</span>   <span class="number">1.000</span>   <span class="number">1.000</span>    NA <span class="number">82.7</span></div><div class="line"><span class="number">57</span>  autumn  small medium <span class="number">5.70</span> <span class="number">10.8</span>    NA <span class="number">2.550</span>  <span class="number">10</span>   <span class="number">1.000</span>   <span class="number">4.000</span>    NA <span class="number">16.8</span></div><div class="line"><span class="number">58</span>  spring  small   high <span class="number">6.60</span>  <span class="number">9.5</span>    NA <span class="number">1.320</span>  <span class="number">20</span>   <span class="number">1.000</span>   <span class="number">6.000</span>    NA <span class="number">46.8</span></div><div class="line"><span class="number">59</span>  summer  small   high <span class="number">6.60</span> <span class="number">10.8</span>    NA <span class="number">2.640</span>  <span class="number">10</span>   <span class="number">2.000</span>  <span class="number">11.000</span>    NA <span class="number">46.9</span></div><div class="line"><span class="number">60</span>  autumn  small medium <span class="number">6.60</span> <span class="number">11.3</span>    NA <span class="number">4.170</span>  <span class="number">10</span>   <span class="number">1.000</span>   <span class="number">6.000</span>    NA <span class="number">47.1</span></div><div class="line"><span class="number">61</span>  spring  small medium <span class="number">6.50</span> <span class="number">10.4</span>    NA <span class="number">5.970</span>  <span class="number">10</span>   <span class="number">2.000</span>  <span class="number">14.000</span>    NA <span class="number">66.9</span></div><div class="line"><span class="number">62</span>  summer  small medium <span class="number">6.40</span>   NA    NA    NA  NA      NA  <span class="number">14.000</span>    NA <span class="number">19.4</span></div><div class="line"><span class="number">63</span>  autumn  small   high <span class="number">7.83</span> <span class="number">11.7</span> <span class="number">4.083</span> <span class="number">1.328</span>  <span class="number">18</span>   <span class="number">3.333</span>   <span class="number">6.667</span>    NA <span class="number">14.4</span></div><div class="line"><span class="number">116</span> winter medium   high <span class="number">9.70</span> <span class="number">10.8</span> <span class="number">0.222</span> <span class="number">0.406</span>  <span class="number">10</span>  <span class="number">22.444</span>  <span class="number">10.111</span>    NA <span class="number">41.0</span></div><div class="line"><span class="number">161</span> spring  large    low <span class="number">9.00</span>  <span class="number">5.8</span>    NA <span class="number">0.900</span> <span class="number">142</span> <span class="number">102.000</span> <span class="number">186.000</span> <span class="number">68.05</span>  <span class="number">1.7</span></div><div class="line"><span class="number">184</span> winter  large   high <span class="number">8.00</span> <span class="number">10.9</span> <span class="number">9.055</span> <span class="number">0.825</span>  <span class="number">40</span>  <span class="number">21.083</span>  <span class="number">56.091</span>    NA <span class="number">16.8</span></div><div class="line"><span class="number">199</span> winter  large medium <span class="number">8.00</span>  <span class="number">7.6</span>    NA    NA  NA      NA      NA    NA  <span class="number">0.0</span></div><div class="line">      a2  a3   a4  a5  a6  a7</div><div class="line"><span class="number">28</span>   <span class="number">1.9</span> <span class="number">0.0</span>  <span class="number">0.0</span> <span class="number">2.1</span> <span class="number">1.4</span> <span class="number">2.1</span></div><div class="line"><span class="number">38</span>   <span class="number">0.0</span> <span class="number">0.0</span>  <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">48</span>   <span class="number">0.0</span> <span class="number">0.0</span>  <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">55</span>   <span class="number">0.0</span> <span class="number">0.0</span>  <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">56</span>   <span class="number">0.0</span> <span class="number">0.0</span>  <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">57</span>   <span class="number">4.6</span> <span class="number">3.9</span> <span class="number">11.5</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">58</span>   <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">28.8</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">59</span>   <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">13.4</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">60</span>   <span class="number">0.0</span> <span class="number">0.0</span>  <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">1.2</span> <span class="number">0.0</span></div><div class="line"><span class="number">61</span>   <span class="number">0.0</span> <span class="number">0.0</span>  <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">62</span>   <span class="number">0.0</span> <span class="number">0.0</span>  <span class="number">2.0</span> <span class="number">0.0</span> <span class="number">3.9</span> <span class="number">1.7</span></div><div class="line"><span class="number">63</span>   <span class="number">0.0</span> <span class="number">0.0</span>  <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">116</span>  <span class="number">1.5</span> <span class="number">0.0</span>  <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">161</span> <span class="number">20.6</span> <span class="number">1.5</span>  <span class="number">2.2</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">184</span> <span class="number">19.6</span> <span class="number">4.0</span>  <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">0.0</span></div><div class="line"><span class="number">199</span> <span class="number">12.5</span> <span class="number">3.7</span>  <span class="number">1.0</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">4.9</span></div><div class="line"></div><div class="line">nrow(algae[!complete.cases(algae),])</div><div class="line">[<span class="number">1</span>] <span class="number">16</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li><p>函数complete.cases()产生一个布尔值向量，该向量的元素个数与algae数据框中的行数相同，如果数据框的相应行中不含NA值(即为一个完整的观测值)，函数返回值就是TRUE。“！”逻辑非，因此上述指令显示了含有缺失值的水样记录。</p>
+</li>
+<li><p>为了从数据框中剔除这16个样本，我们可以这样简单的输入：</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">algae1 &lt;- na.omit(algae)</div></pre></td></tr></table></figure>
+
+<ul>
+<li>这样我们就剔除了源数据中的所有含有缺失值的记录。但同时问题也浮出来了：数据分析的前提是有效数据越多越好。若果数据中含有缺失值的记录比例不低，那么这种做法会导致剩余数据的分析结果出现很大的偏差；或者另外一种情况，虽然缺失值的记录比例低，但是缺失值记录当中有很多是只是含有一个缺失值的，这样的剔除有点浪费数据，所以，下面我们利用函数找到缺失值记录当中含有缺失值最多的来进行剔除。</li>
+<li>例如，观察样本中的数据，我们可以看到第62条和第199条记录中的11个解释变量中有6个是缺失值。我们就来剔除它们。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">algae2 &lt;- algae[-c(<span class="number">62</span>,<span class="number">199</span>),]</div></pre></td></tr></table></figure>
+
+<ul>
+<li>更进一步的，如果数据量大，单凭肉眼观察是不合理的，所以我们需要找出缺失值较多的记录的下标。下面的代码可以找出海藻数据集中每行数据的缺失值个数：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">algae3 &lt;- apply(algae, <span class="number">1</span>, function(x) sum(is.na(x)))</div><div class="line">algae3</div><div class="line">  [<span class="number">1</span>] <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div><div class="line"> [<span class="number">37</span>] <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">6</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div><div class="line"> [<span class="number">73</span>] <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div><div class="line">[<span class="number">109</span>] <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div><div class="line">[<span class="number">145</span>] <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div><div class="line">[<span class="number">181</span>] <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">6</span> <span class="number">0</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>函数apply()属于R中功能非常强大的一类函数。这类函数又称为元函数，它们可以在某些条件下对对象应用其他函数。对函数apply()而言，它可以把任何其他函数应用到一个多维对象的各个维度上。使用函数apply()时，它把一个函数应用到数据框的每一行。这个被应用的函数在apply()函数的第三个参数给出，对数据框的每一个行都分别调用该函数。</li>
+<li><p>在这个案例中我们使用一个临时函数。它只在调用apply()函数时才存在。另外，函数apply()的第三个也可以是一个“正常”函数的函数名。临时函数的功能室计算对象x中NA的数量。在R中逻辑值TRUE等于数值1，逻辑值FALSE等于0，这意味着当加一个布尔值向量时，得到向量中取值为TRUE的元素的个数。</p>
+</li>
+<li><p>根据以上代码，可以编写一个程序找出algae中含有给定数目缺失值的行。在本书提供的添加包中有这个函数。</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">manyNAs(algae, <span class="number">0.2</span>)</div><div class="line">[<span class="number">1</span>]  <span class="number">62</span> <span class="number">199</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>函数manyNAs()的功能是找出缺失值个数大于20%的行。在第二个参数中可以设置一个精确的列数作为界限。因此，用下面的代码就无须知道含有缺失值较多的行的具体数量：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">algae4 &lt;- algae[-manyNAs(algae),]</div></pre></td></tr></table></figure>
+
+<ul>
+<li>manyNAs()函数的第二个参数的默认值是0.2。</li>
+</ul>
+<h3 id="用最高频率值来填补缺失值">用最高频率值来填补缺失值</h3>
+<hr>
+<ul>
+<li>填补含有缺失值的记录的另一个方法就是尝试找到这些缺失值最可能的值。同样的，这里有多种策略可供选择，不同策略对逼近程度和算法复杂度的权衡不同。</li>
+<li>填补缺失数据最简单和快捷的方法是使用一些代表中心趋势的值。代表中心趋势的值反映了变量分布的最常见值，因此中心趋势值是最自然的选择。有多个代表数据中心趋势的指标，例如，平均值、中位数、众数等。最合适的选择由变量的分布决定。对于接近正态分布来说，所有的观测值都较好地集中在平均值周围，平均值就是最佳的选择。然而，对于偏态分布，或者有离群值的变量来说，选择平均值不好。偏态分布的大部分值都聚集在变量分布的一侧，因此平均值不能作为最常见值的代表。另一方面，离群值(极值)的存在会扭曲平均值，这就导致了平均值不具有代表性的问题。因此，在对变量分布进行检查之前选择平均值作为中心趋势的代表是不明智的例如，某些R的绘图工具。对偏态分布或者有离群值的分布而言，中位数是更好的代表数据中心趋势的指标。</li>
+<li>比如，样本algae[48,]中的变量mxPH有缺失值。由于该变量分布近似正态分布，见<a href="http://tim4chan.com/2014/10/23/DMwR-note-01-%E9%A2%84%E6%B5%8B%E6%B5%B7%E8%97%BB%E6%95%B0%E9%87%8F/" target="_blank" rel="external">DMwR-note-01-预测海藻数量(一)</a>，我们可以选用平均值来填补这个“洞”，计算方法如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">temp[<span class="number">48</span>,<span class="string">"mxPH"</span>] &lt;- mean(algae<span class="variable">$mxPH</span>, na.rm=T)</div></pre></td></tr></table></figure>
+
+<ul>
+<li>这里，函数mean()计算数值向量的平均值，参数na.rm=T使计算时忽略缺失数据。</li>
+<li>大多数时候采用一次填补一列中的所有缺失值而不是像上面那样一行一行地逐个填补。以变量Chla为例，这个变量在第12行上有缺失值。另外，这也是平均值不能代表大多数变量值的一种情况。事实上，Chla的分布偏向较低的数值，并且它有几个极端值，这些都使得平均值不能代表大多数的变量值。因此，我们使用中位数来填补这一类的缺失值：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">temp[is.na(algae<span class="variable">$Chla</span>), <span class="string">"Chla"</span>] &lt;- median(algae<span class="variable">$Chla</span>, na.rm=T)</div></pre></td></tr></table></figure>
+
+<ul>
+<li>本书插件包中提供的函数centralInputation()可以用数据的中心趋势值来填补数据集的所有缺失值。岁数值型变量，该函数用中位数；对名义变量，它采用众数。该函数的应用如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">temp &lt;- temp[-manyNAs(algae),]</div><div class="line">temp &lt;- centralInputation(temp)</div></pre></td></tr></table></figure>
+
+<ul>
+<li>使用无偏方法来寻找最佳数据填补值复杂，对于大型数据挖掘问题可能并不适用。</li>
+</ul>
+<h3 id="通过变量的相关关系来填补缺失值">通过变量的相关关系来填补缺失值</h3>
+<hr>
+<ul>
+<li>另一种获取缺失值较少偏差估计值的方法是探寻变量之间的相关关系。比如，听过变量值之间的相关关系，能够发现某变量与mxPH高度相关。这可以使我们得到含有缺失值的第48条样本更可能的填补值。这比之前使用平均值的方法将更胜一筹。</li>
+<li>应用如下命令来得到变量间的相关值：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">cor(temp[, <span class="number">4</span>:<span class="number">18</span>], use = <span class="string">"complete.obs"</span>)</div></pre></td></tr></table></figure>
+
+<ul>
+<li>函数cor()的功能室产生变量之间的相关值矩阵(因为前3个变量时名义变量，所以计算相关值时不考虑它们)。设定参数use = “complete.obs”时，R在计算相关值时忽略含有NA的记录。相关值在1（或-1）周围表示相应的两个变量之间的强正（或负）线性相关关系。然后其他R函数可以得到变量间相关的近似函数形式，它可以让我们通过一个变量的值计算出另一个变量的值</li>
+<li>函数cor()的输出结果并不是很清晰，但可以通过symnum()来改善结果的输出形式，例如：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">symnum(cor(temp[, <span class="number">4</span>:<span class="number">18</span>], use = <span class="string">"complete.obs"</span>))</div><div class="line">     mP mO Cl NO NH o P Ch a1 a2 a3 a4 a5 a6 a7</div><div class="line">mxPH <span class="number">1</span>                                         </div><div class="line">mnO2    <span class="number">1</span>                                      </div><div class="line">Cl         <span class="number">1</span>                                   </div><div class="line">NO3           <span class="number">1</span>                                </div><div class="line">NH4           ,  <span class="number">1</span>                             </div><div class="line">oPO4    .  .        <span class="number">1</span>                          </div><div class="line">PO4     .  .        * <span class="number">1</span>                        </div><div class="line">Chla .                  <span class="number">1</span>                      </div><div class="line">a1         .        . .    <span class="number">1</span>                   </div><div class="line">a2   .                  .     <span class="number">1</span>                </div><div class="line">a3                               <span class="number">1</span>             </div><div class="line">a4      .           . .             <span class="number">1</span>          </div><div class="line">a5                                     <span class="number">1</span>       </div><div class="line">a6            .  .                     .  <span class="number">1</span>    </div><div class="line">a7                                           <span class="number">1</span> </div><div class="line">attr(,<span class="string">"legend"</span>)</div><div class="line">[<span class="number">1</span>] <span class="number">0</span> <span class="string">' '</span> <span class="number">0.3</span> <span class="string">'.'</span> <span class="number">0.6</span> <span class="string">','</span> <span class="number">0.8</span> <span class="string">'+'</span> <span class="number">0.9</span> <span class="string">'*'</span> <span class="number">0.95</span> <span class="string">'B'</span> <span class="number">1</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>这种用符号表示相关值的方法更为清晰，特别是对于大的相关矩阵。</li>
+<li>在本案例中，大多数变量之间是不相关的。然而，有2个例外：变量NH4和NO3之间，变量PO4和oPO4之间。后两者之间的相关值很高（大于0.9）。变量NH4和NO3之间的相关性不是特别明显（为0.72），因此根据他们来确定缺失数据是很危险的。此外，因为样本62和样本199有太多的变量含有缺失值，所以如果剔除它们，样本中的变量NH4和NO3就没有缺失值了。至于变量PO4和oPO4，它们之间相关性可以帮助填补这两个变量的缺失值。为了达到这个目标，我们需要找到这两个变量之间的线性关系，方法如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">temp &lt;- temp[-manyNAs(temp),]</div><div class="line">lm(PO4 ~ oPO4, data = temp)</div><div class="line"></div><div class="line">Call:</div><div class="line">lm(formula = PO4 ~ oPO4, data = temp)</div><div class="line"></div><div class="line">Coefficients:</div><div class="line">(Intercept)         oPO4  </div><div class="line">     <span class="number">42.897</span>        <span class="number">1.293</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>函数lm()可以用来获取形如Y=β0+β1χ1+…+βnχn的线性模型。上述结果得到的线性模型是：PO4 = 42.897 + 1.293 * oPO4。如果这两个变量不是同是有缺失值，那么通过这个模型计算这些变量的缺失值。</li>
+<li>在剔除样本62和样本199后，还剩下一个样本（样本28）在变量PO4上有缺失值，可以简单地使用上面的线性关系计算缺失值的填补值：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">temp[<span class="number">28</span>, <span class="string">"PO4"</span>] &lt;- <span class="number">42.897</span> + <span class="number">1.293</span> * temp[<span class="number">28</span>, <span class="string">"oPO4"</span>]</div></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>然而，为了说明这个方法，我们假设变量PO4有很多个缺失值。如何使用上述的线性关系计算所有的缺失值呢？最好的方法就是构造一个函数，它可以根据给定的oPO4的值就是PO4的值，然后对所有缺失值应用这个函数。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">temp &lt;- temp[-manyNAs(temp),]</div><div class="line">fillPO4 &lt;- function(oP) {</div><div class="line">	<span class="keyword">if</span>(is.na(oP))</div><div class="line">		<span class="keyword">return</span>(NA)</div><div class="line">	<span class="keyword">else</span> <span class="keyword">return</span>(<span class="number">42.897</span>+<span class="number">1.293</span>*oP)</div><div class="line">}</div><div class="line">temp[is.na(temp<span class="variable">$PO4</span>), <span class="string">"PO4"</span>] &lt;- sapply(temp[is.na(temp<span class="variable">$PO4</span>),<span class="string">"PO4"</span>], fillPO4)</div></pre></td></tr></table></figure>
+
+<ul>
+<li>上面代码中创建了一个叫做fillPO4()的函数，该函数有一个参数来接受变量oPO4的值，通过这个值，根据模型计算对应的PO4的值。然后，将这个函数应用到变量PO4有缺失值的所有样本中。这个过程可以通过另外一个元函数sapply()来实现。函数sapply()的第一个参数是一个向量，第二个参数为一个函数，返回的结果是另一个向量，该向量和第一个参数有相同的长度，向量中的元素为sapply()中第一个向量中的每一个元素作为参数传递到第二个函数后返回的结果。这意味着sapply()的结果将是填补变量PO4缺失值的向量。</li>
+<li>对线性关系的研究使我们能够填充一些新的缺失值。然而，还有几个观测值含有缺失值。可以试探着探索案例数据中含有缺失值的变量和名义变量之间的关系。这可以通过应用R添加包lattice中的函数来绘制条件直方图来进行。代码如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">histogram(~mxPH|season, data = temp)</div></pre></td></tr></table></figure>
+
+<p>Pot:<br><img src="/img/DMwR/02_algae_NA/01_mxPH_season.PNG" alt=""></p>
+<ul>
+<li>上面代码绘制在不同季节变量mxPH的直方图。每个直方图对应于某个季节的观测值数据。注意，上图的季节顺序不是按照自然的时间顺序，可以转换数据框中因子季节标签的顺序，这样可以使图形中的季节值为自然顺序。代码如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">temp<span class="variable">$season</span> &lt;- factor(temp<span class="variable">$season</span>, levels = c(<span class="string">"spring"</span>, <span class="string">"summer"</span>, <span class="string">"autumn"</span>, <span class="string">"winter"</span>))</div><div class="line">histogram(~mxPH|season, data = temp)</div></pre></td></tr></table></figure>
+
+<p>Pot:<br><img src="/img/DMwR/02_algae_NA/02_mxPH_season.PNG" alt=""></p>
+<ul>
+<li>由图看出，季节对mxPH的值没有显著的影响。</li>
+</ul>
+<h3 id="通过探索案例之间的相似性来填补缺失值">通过探索案例之间的相似性来填补缺失值</h3>
+<ul>
+<li>不同于探索数据集列（变量）之间的相关性，本节尝试使用行（观测值）之间的相似性来填补缺失值。我们可以使用这种方法来填补除去那两个含有太多NA值的样本外的其他缺失数据。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">temp &lt;- temp[-manyNAs(temp),]</div></pre></td></tr></table></figure>
+
+<ul>
+<li><p>本节所描述的方法假设如果两个水样是相似的，其中一个水样在某些变量上有缺失值，那么该缺失值很可能与另外一个水样的值是相似的。为了使用这种直观的方法，首先定义相似性的概念。相似性经常由描述观察值的多元度量空间的变量所定义。在文献中有许多度量相似性的指标，常用的就是欧氏距离。这个距离可以非正式地定义为任何两个案例的观测值之差的平方和。计算公式如下：<br><img src="/img/DMwR/02_algae_NA/03_formular.PNG" alt=""></p>
+</li>
+<li><p>下面描述的方法将使用这种度量来寻找与任何含有缺失值的案例最相似的10个水样，并用它们来填补缺失值。我们考虑两种应用这些值的方法。第一种方法简单地计算着10个最相近的案例的中位数并用这个中位数来填补缺失值。如果缺失值是名义变量（本案例的algae数据不存在这种情况），我们采用这10个最相似数据中出现次数最多的值（众数）。第二种方法采用这些相似数据的加权均值。权重的大小随着距待填补缺失值的个案的距离增大而减小。这里用高斯核函数从距离获得权重。如果相邻个案距待填补缺失值的个案的距离为d，则它的值在加权平均重的权重为：<br><img src="/img/DMwR/02_algae_NA/04_formular.PNG" alt=""></p>
+</li>
+<li><p>上面的方法可以通过本书添加包中的函数knnImputation()来实现。这个函数用一个欧氏距离的变种来找到距任何个案最近的k个邻居。这个变种的欧氏距离可以应用于同时含有名义变量和数值变量的数据集中。计算公式如下：<br><img src="/img/DMwR/02_algae_NA/05_formular.PNG" alt=""></p>
+</li>
+<li><p>其中δi是变量i的两个值之间的距离，即<br><img src="/img/DMwR/02_algae_NA/06_formular.PNG" alt=""></p>
+</li>
+<li><p>在计算距离时，一般要对数值变量进行标准化，即<br><img src="/img/DMwR/02_algae_NA/07_formular.PNG" alt=""></p>
+</li>
+<li><p>下面说明如何使用knnImputation()函数。</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">temp &lt;- knnImputation(temp, k -<span class="number">10</span>)</div></pre></td></tr></table></figure>
+
+<ul>
+<li>吐过用中位数来填补缺失值，可以使用如下代码</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">temp &lt;- algae</div><div class="line">temp &lt;- knnImputation(temp, k = <span class="number">10</span>, meth = <span class="string">"median"</span>)</div></pre></td></tr></table></figure>
+
+<ul>
+<li>总之，通过这些简单的操作，数据集中不在含有NA值（缺失值），为使用R的其他函数进行分析做好充分的准备工作。</li>
+</ul>
+<h2 id="后记">后记</h2>
+<hr>
+<ul>
+<li>本节主要讨论了数据缺失值的处理，缺失值少的时候可以直接删除，但是当缺失值比较多的时候，然后会影响到整个数据集的正确性时，就要考虑用相关性或相似性来处理了。</li>
+<li>本次博文是根据《数据挖掘与R语言(Luis Torgo著)》这本书的内容而写的笔记，本博文中所涉及的内容版权均归原作者所有。</li>
+<li>下节讨论的主题是数据的建模。</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据挖掘与R语言-案例学习/">数据挖掘与R语言-案例学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/数据挖掘/">数据挖掘</a>
+  </div>
+
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://tim4chan.com/2014/10/26/DMwR-note-01-预测海藻数量(二)/" data-title="DMwR-note-01-预测海藻数量(二) | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/10/23/DMwR-note-01-预测海藻数量(一)/"  title="DMwR-note-01-预测海藻数量(一)">
+ <strong>下一篇：</strong><br/> 
+ <span>DMwR-note-01-预测海藻数量(一)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据缺失"><span class="toc-number">2.</span> <span class="toc-text">数据缺失</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#将缺失部分剔除"><span class="toc-number">2.1.</span> <span class="toc-text">将缺失部分剔除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用最高频率值来填补缺失值"><span class="toc-number">2.2.</span> <span class="toc-text">用最高频率值来填补缺失值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过变量的相关关系来填补缺失值"><span class="toc-number">2.3.</span> <span class="toc-text">通过变量的相关关系来填补缺失值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过探索案例之间的相似性来填补缺失值"><span class="toc-number">2.4.</span> <span class="toc-text">通过探索案例之间的相似性来填补缺失值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+			<li><a href="/categories/JSP-Review/" title="JSP_Review">JSP_Review<sup>10</sup></a></li>
+		
+			<li><a href="/categories/医学图像处理/" title="医学图像处理">医学图像处理<sup>2</sup></a></li>
+		
+			<li><a href="/categories/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
+		
+			<li><a href="/categories/技术开发/" title="技术开发">技术开发<sup>1</sup></a></li>
+		
+			<li><a href="/categories/数据挖掘与R语言-案例学习/" title="数据挖掘与R语言-案例学习">数据挖掘与R语言-案例学习<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/JSP-网页开发/" title="JSP 网页开发">JSP 网页开发<sup>10</sup></a></li>
+		
+			<li><a href="/tags/数据挖掘/" title="数据挖掘">数据挖掘<sup>2</sup></a></li>
+		
+			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
+		
+			<li><a href="/tags/灰度直方图/" title="灰度直方图">灰度直方图<sup>1</sup></a></li>
+		
+			<li><a href="/tags/二值化/" title="二值化">二值化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
+		
+			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/JSP-网页开发/" style="font-size: 20.00px;">JSP 网页开发</a><a href="/tags/linux-C/" style="font-size: 10.00px;">linux C</a><a href="/tags/二值化/" style="font-size: 10.00px;">二值化</a><a href="/tags/原型设计/" style="font-size: 10.00px;">原型设计</a><a href="/tags/数据挖掘/" style="font-size: 15.00px;">数据挖掘</a><a href="/tags/正则表达式/" style="font-size: 10.00px;">正则表达式</a><a href="/tags/灰度直方图/" style="font-size: 10.00px;">灰度直方图</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+<iframe width="100%" height="300" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=300&fansRow=2&ptype=1&speed=300&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2155417625&verifier=9f994c23&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+	  <li><a href="http://zjdian.com/" target="_blank" title="zjdian">中继点</li>
+      <li><a href="http://ripeconan.com/" target="_blank" title="ripeconan">Ripeconan</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Tim Chan. <br/>
+			Welcome to my personal blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2155417625" target="_blank" class="icon-weibo" title="weibo"></a>
+		
+		
+		<a href="https://github.com/chenyuqing" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:motoleisure@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2014 
+		
+		<a href="http://tim4chan.com/about" target="_blank" title="Tim Chan">Tim Chan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+
+
+<div id="totop">
+<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+
+
+
+  </body>
+</html>
+
+
+<a href="https://github.com/chenyuqing/chenyuqing.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>

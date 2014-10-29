@@ -4,19 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>DMwR-note-01-预测海藻数量(三) | Tim Chan&#39;s Blog!</title>
+    <title>DMwR-note-01-预测海藻数量(四) | Tim Chan&#39;s Blog!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Tim Chan">
     
-    <meta name="description" content="写在开头的话
-
-讨论了缺失值的处理，相当于对数据进行了简单的预处理，今天我们来继续探讨数据集模型的建立。
-数据的模型
-
-
-数据的模型简单的说就是一个函数，输入就是我们之前的数据algae，而输出就是我们预期的一些值。
-本案例的主要研究目的是预测140个水样中7种海藻的出现频率。假设海藻频率是数值型数">
+    <meta name="description" content="写在开头的话">
     
     
     
@@ -79,7 +72,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/10/28/DMwR-note-01-预测海藻数量(三)/" title="DMwR-note-01-预测海藻数量(三)" itemprop="url">DMwR-note-01-预测海藻数量(三)</a>
+      <a href="/2014/10/28/DMwR-note-01-预测海藻数量(四)/" title="DMwR-note-01-预测海藻数量(四)" itemprop="url">DMwR-note-01-预测海藻数量(四)</a>
   </h1>
   <p class="article-author">By
        
@@ -96,45 +89,12 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据的模型"><span class="toc-number">2.</span> <span class="toc-text">数据的模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#多元化线性回归"><span class="toc-number">2.1.</span> <span class="toc-text">多元化线性回归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归树"><span class="toc-number">2.2.</span> <span class="toc-text">回归树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li></ol>
 		
 		</div>
 		
 		<h2 id="写在开头的话">写在开头的话</h2>
 <hr>
-<p>讨论了缺失值的处理，相当于对数据进行了简单的预处理，今天我们来继续探讨数据集模型的建立。</p>
-<h2 id="数据的模型">数据的模型</h2>
-<hr>
-<ul>
-<li>数据的模型简单的说就是一个函数，输入就是我们之前的数据algae，而输出就是我们预期的一些值。</li>
-<li>本案例的主要研究目的是预测140个水样中7种海藻的出现频率。假设海藻频率是数值型数据，因此可以考虑进行回归分析。简单地说，预测任务是建立一个模型来找到一个数值变量和一组解释变量的关系。这个模型既可以根据未来解释变量的值来预测目标变量，也可以帮助更好地理解问题中各个变量之间的相互联系。<h3 id="多元化线性回归">多元化线性回归</h3>
-</li>
-</ul>
-<hr>
-<ul>
-<li>多元线性回归模型是最常用的统计数据分析方法，该模型给出了一个有关目标变量与一组解释变量关系的线性函数。</li>
-<li>数据缺失值的处理：</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">library(DMwR)</div><div class="line">data(algae)</div><div class="line">temp &lt;- algae</div><div class="line">temp &lt;- temp[-manyNAs(temp),]</div><div class="line">clean.algae &lt;- knnImputation(temp, k = <span class="number">10</span>)</div></pre></td></tr></table></figure>
-
-<ul>
-<li>上面的代码首先移除了第62条和第199条水样记录，因为在这两条记录的11个预测变量中有6个是有缺失值的。然后利用数据集个案的相似性来填补缺失值。以上代码运行之后，得到的数据框将不含缺失值。</li>
-<li>接下来，将建立一个用于预测海藻频率的线性回归模型：</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">summary(lm.a1)</div></pre></td></tr></table></figure>
-
-<ul>
-<li>函数lm()建立一个线性回归模型，其中的第一个参数给出了模型的函数形式。在这个例子中，函数的形式是用数据中其他所有变量来预测变量a1，第一个参数中的点”.”代表数据框中除了a1之外的变量。如果需要用预测变量mxPH和NH4来预测变量a1，就要定义模型为“a1~mxPH + NH4”。还有很多其他定义模型的方式，这都称为R公式，后边用到时进行介绍。参数data是用来设定建模所用的数据集。</li>
-<li>函数lm()的结果是一个含有线性模型信息的对象。可以通过下列代码获取更多线性模型的信息：</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">lm.a1 &lt;- lm(a1~., data = clean.algae[,<span class="number">1</span>:<span class="number">12</span>])</div><div class="line"></div><div class="line">Call:</div><div class="line">lm(formula = a1 ~ ., data = clean.algae[, <span class="number">1</span>:<span class="number">12</span>])</div><div class="line"></div><div class="line">Residuals:</div><div class="line">    M<span class="keyword">in</span>      <span class="number">1</span>Q  Median      <span class="number">3</span>Q     Max </div><div class="line">-<span class="number">37.679</span> -<span class="number">11.893</span>  -<span class="number">2.567</span>   <span class="number">7.410</span>  <span class="number">62.190</span> </div><div class="line"></div><div class="line">Coefficients:</div><div class="line">              Estimate Std. Error t value Pr(&gt;|t|)   </div><div class="line">(Intercept)  <span class="number">42.942055</span>  <span class="number">24.010879</span>   <span class="number">1.788</span>  <span class="number">0.07537</span> . </div><div class="line">seasonspring  <span class="number">3.726978</span>   <span class="number">4.137741</span>   <span class="number">0.901</span>  <span class="number">0.36892</span>   </div><div class="line">seasonsummer  <span class="number">0.747597</span>   <span class="number">4.020711</span>   <span class="number">0.186</span>  <span class="number">0.85270</span>   </div><div class="line">seasonwinter  <span class="number">3.692955</span>   <span class="number">3.865391</span>   <span class="number">0.955</span>  <span class="number">0.34065</span>   </div><div class="line">sizemedium    <span class="number">3.263728</span>   <span class="number">3.802051</span>   <span class="number">0.858</span>  <span class="number">0.39179</span>   </div><div class="line">sizesmall     <span class="number">9.682140</span>   <span class="number">4.179971</span>   <span class="number">2.316</span>  <span class="number">0.02166</span> * </div><div class="line">speedlow      <span class="number">3.922084</span>   <span class="number">4.706315</span>   <span class="number">0.833</span>  <span class="number">0.40573</span>   </div><div class="line">speedmedium   <span class="number">0.246764</span>   <span class="number">3.241874</span>   <span class="number">0.076</span>  <span class="number">0.93941</span>   </div><div class="line">mxPH         -<span class="number">3.589118</span>   <span class="number">2.703528</span>  -<span class="number">1.328</span>  <span class="number">0.18598</span>   </div><div class="line">mnO2          <span class="number">1.052636</span>   <span class="number">0.705018</span>   <span class="number">1.493</span>  <span class="number">0.13715</span>   </div><div class="line">Cl           -<span class="number">0.040172</span>   <span class="number">0.033661</span>  -<span class="number">1.193</span>  <span class="number">0.23426</span>   </div><div class="line">NO3          -<span class="number">1.511235</span>   <span class="number">0.551339</span>  -<span class="number">2.741</span>  <span class="number">0.00674</span> **</div><div class="line">NH4           <span class="number">0.001634</span>   <span class="number">0.001003</span>   <span class="number">1.628</span>  <span class="number">0.10516</span>   </div><div class="line">oPO4         -<span class="number">0.005435</span>   <span class="number">0.039884</span>  -<span class="number">0.136</span>  <span class="number">0.89177</span>   </div><div class="line">PO4          -<span class="number">0.052241</span>   <span class="number">0.030755</span>  -<span class="number">1.699</span>  <span class="number">0.09109</span> . </div><div class="line">Chla         -<span class="number">0.088022</span>   <span class="number">0.079998</span>  -<span class="number">1.100</span>  <span class="number">0.27265</span>   </div><div class="line">---</div><div class="line">Signif. codes:  <span class="number">0</span> ?**?<span class="number">0.001</span> ?*?<span class="number">0.01</span> ??<span class="number">0.05</span> ??<span class="number">0.1</span> ??<span class="number">1</span></div><div class="line"></div><div class="line">Residual standard error: <span class="number">17.65</span> on <span class="number">182</span> degrees of freedom</div><div class="line">Multiple R-squared:  <span class="number">0.3731</span>,	Adjusted R-squared:  <span class="number">0.3215</span> </div><div class="line">F-statistic: <span class="number">7.223</span> on <span class="number">15</span> and <span class="number">182</span> DF,  p-value: <span class="number">2.444</span>e-<span class="number">12</span></div></pre></td></tr></table></figure>
-
-<ul>
-<li>在解释函数summary()应用到线性模型对象所得到的信息之前，先介绍R如何处理3个名义变量。当像上面一样进行模型构建时，R会生成一组的辅助变量，即对每一个有k个水平的因子变量，R会生成k-1个辅助变量。这些辅助变量的值为0或者1.当辅助变量的值为1，表明该因子出现，同时表明其他所有辅助变量的值为0。如果所有的k-1个变量的值都是0，则表明因子变量的取值为第k个剩余的值。在以上的汇总结果中，可以看到R为因子变量season生成了3个辅助变量(seasonspring, seasonsummer和seasonwinter)。如果某个水样的season变量的取值为”autumn”，则所有3个赋值变量的值将全部为零。</li>
-</ul>
-<h3 id="回归树">回归树</h3>
-<hr>
-<h2 id="后记">后记</h2>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -156,7 +116,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://tim4chan.com/2014/10/28/DMwR-note-01-预测海藻数量(三)/" data-title="DMwR-note-01-预测海藻数量(三) | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  <div data-url="http://tim4chan.com/2014/10/28/DMwR-note-01-预测海藻数量(四)/" data-title="DMwR-note-01-预测海藻数量(四) | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
   </div>
 
 </div>
@@ -165,11 +125,19 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2014/10/28/DMwR-note-01-预测海藻数量(三)/" title="DMwR-note-01-预测海藻数量(三)">
+  <strong>上一篇：</strong><br/>
+  <span>
+  DMwR-note-01-预测海藻数量(三)</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/2014/10/28/DMwR-note-01-预测海藻数量(四)/"  title="DMwR-note-01-预测海藻数量(四)">
+<a href="/2014/10/26/DMwR-note-01-预测海藻数量(二)/"  title="DMwR-note-01-预测海藻数量(二)">
  <strong>下一篇：</strong><br/> 
- <span>DMwR-note-01-预测海藻数量(四)
+ <span>DMwR-note-01-预测海藻数量(二)
 </span>
 </a>
 </div>
@@ -184,7 +152,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据的模型"><span class="toc-number">2.</span> <span class="toc-text">数据的模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#多元化线性回归"><span class="toc-number">2.1.</span> <span class="toc-text">多元化线性回归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归树"><span class="toc-number">2.2.</span> <span class="toc-text">回归树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li></ol>
  
   </div>
 

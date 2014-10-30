@@ -131,6 +131,8 @@
 
 <ul>
 <li>在解释函数summary()应用到线性模型对象所得到的信息之前，先介绍R如何处理3个名义变量。当像上面一样进行模型构建时，R会生成一组的辅助变量，即对每一个有k个水平的因子变量，R会生成k-1个辅助变量。这些辅助变量的值为0或者1.当辅助变量的值为1，表明该因子出现，同时表明其他所有辅助变量的值为0。如果所有的k-1个变量的值都是0，则表明因子变量的取值为第k个剩余的值。在以上的汇总结果中，可以看到R为因子变量season生成了3个辅助变量(seasonspring, seasonsummer和seasonwinter)。如果某个水样的season变量的取值为”autumn”，则所有3个赋值变量的值将全部为零。</li>
+<li>对得到的线性模型对象应用函数summary()，将给出所建立模型的一些诊断信息。首先是有关线性模型中数据拟合的残差(residual)。残差应该是均值为0并且为正态分布。（显然残差最好尽可能的小！）</li>
+<li></li>
 </ul>
 <h3 id="回归树">回归树</h3>
 <hr>
@@ -207,6 +209,8 @@
 		
 			<li><a href="/categories/数据挖掘与R语言-案例学习/" title="数据挖掘与R语言-案例学习">数据挖掘与R语言-案例学习<sup>4</sup></a></li>
 		
+			<li><a href="/categories/数据挖掘算法总结/" title="数据挖掘算法总结">数据挖掘算法总结<sup>1</sup></a></li>
+		
 		</ul>
 </div>
 
@@ -218,17 +222,17 @@
 		
 			<li><a href="/tags/JSP-网页开发/" title="JSP 网页开发">JSP 网页开发<sup>10</sup></a></li>
 		
-			<li><a href="/tags/数据挖掘/" title="数据挖掘">数据挖掘<sup>4</sup></a></li>
+			<li><a href="/tags/数据挖掘/" title="数据挖掘">数据挖掘<sup>5</sup></a></li>
+		
+			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
 		
 			<li><a href="/tags/灰度直方图/" title="灰度直方图">灰度直方图<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
 		
 			<li><a href="/tags/二值化/" title="二值化">二值化<sup>1</sup></a></li>
 		
 			<li><a href="/tags/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
-		
-			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
-		
-			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
 		
 		</ul>
 </div>

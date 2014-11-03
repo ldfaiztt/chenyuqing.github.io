@@ -1,11 +1,10 @@
 
-  
-    <!DOCTYPE HTML>
+  <!DOCTYPE HTML>
 <html >
 <head>
   <meta charset="UTF-8">
   
-    <title>ToDo | Tim Chan&#39;s Blog!</title>
+    <title>Category: 概率论笔记 | Tim Chan&#39;s Blog!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Tim Chan">
@@ -28,9 +27,9 @@
 
 </head>
 
-      <body>
-        <header>
-          <div>
+    <body>
+      <header>
+        <div>
 		
 			<div id="imglogo">
 				<a href="/"><img src="/img/logo.png" alt="Tim Chan&#39;s Blog!" title="Tim Chan&#39;s Blog!"/></a>
@@ -66,50 +65,49 @@
 				</ul>
 			</nav>			
 </div>
-        </header>
-        <div id="container">
-          <div id="main" class="page" itemscope itemprop="blogPost">
-	<article itemprop="articleBody"> 
-		<header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/todolist/index.html" title="ToDo" itemprop="url">ToDo</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
-		
-  <p class="article-time">
-    <time datetime="2014-10-20T15:29:51.000Z" itemprop="datePublished"> Published Oct 20 2014</time>
-    
-  </p>
-</header>
-	<div class="article-content">
-		
-		
-		  
-	</div>
-		<footer class="article-footer clearfix">
-<div class="article-catetags">
+      </header>
+      <div id="container">
+        
 
-
+<div class="archive-title" >
+  <h2 class="category-icon">概率论笔记</h2>
+  
 </div>
+<div id="main" class="archive-part clearfix">
+  <div id="archive-page">
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2014/11/02/概率论笔记week02/" title="概率论笔记week02" itemprop="url">
+  
+
+    <time datetime="2014-11-02T02:21:15.000Z" itemprop="datePublished">Nov 2 2014</time>
 
 
-<div class="article-share" id="share">
+    <h1 itemprop="name">概率论笔记week02</h1>
 
-  <div data-url="http://tim4chan.com/todolist/index.html" data-title="ToDo | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2014/11/01/概率论笔记week01/" title="概率论笔记week01" itemprop="url">
+  
+
+    <time datetime="2014-11-01T05:58:18.000Z" itemprop="datePublished">Nov 1 2014</time>
+
+
+    <h1 itemprop="name">概率论笔记week01</h1>
+
+  </a>
+</section>
+
+
   </div>
-
 </div>
-</footer>   	       
-	</article>
-	
-	
 
-</div>  
-        </div>
-        <footer><div id="footer" >
+      </div>
+      <footer><div id="footer" >
 	
 	<div class="line">
 		<span></span>
@@ -145,7 +143,7 @@
 		</p>
 </div>
 </footer>
-        <script src="/js/jquery-2.0.3.min.js"></script>
+      <script src="/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
   $('.navbar').click(function(){
@@ -192,63 +190,10 @@ $(document).ready(function(){
 </script>
 
 
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var $this = $('.share'),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      title = $this.attr('data-title'),
-      tsina = $this.attr('data-tsina'),
-      description = $this.attr('description');
-  var html = [
-  '<a href="#" class="overlay" id="qrcode"></a>',
-  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
-  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
-  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-  $this.append(html);
-  $('.article-share-qrcode').click(function(){
-    var imgSrc = $('#qrcode-pic').attr('data-src');
-    $('#qrcode-pic').attr('src', imgSrc);
-    $('#qrcode-pic').load(function(){
-        $('.qrcode strong').text(' ');
-    });
-  });
-});     
-</script>
 
 
 
 
-
-
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-}); 
-</script>
 
 
 
@@ -263,9 +208,8 @@ $(document).ready(function(){
 
 
 
-      </body>
-     </html>
-     
+    </body>
+   </html>
 
 
 <a href="https://github.com/chenyuqing/chenyuqing.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>

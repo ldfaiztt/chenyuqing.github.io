@@ -96,7 +96,7 @@ Aprior ">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Aprior_Algorithm"><span class="toc-number">2.</span> <span class="toc-text">Aprior Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法背景"><span class="toc-number">2.1.</span> <span class="toc-text">算法背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法原理"><span class="toc-number">2.2.</span> <span class="toc-text">算法原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Aprior的基本思想：频繁项集的任何子集也一定是频繁的。"><span class="toc-number">2.2.1.</span> <span class="toc-text">Aprior的基本思想：频繁项集的任何子集也一定是频繁的。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念和定义"><span class="toc-number">2.2.2.</span> <span class="toc-text">基本概念和定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法应用"><span class="toc-number">2.3.</span> <span class="toc-text">算法应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法改进"><span class="toc-number">2.4.</span> <span class="toc-text">算法改进</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Aprior_Algorithm"><span class="toc-number">2.</span> <span class="toc-text">Aprior Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法背景"><span class="toc-number">2.1.</span> <span class="toc-text">算法背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法原理"><span class="toc-number">2.2.</span> <span class="toc-text">算法原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Aprior的基本思想"><span class="toc-number">2.2.1.</span> <span class="toc-text">Aprior的基本思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念和定义"><span class="toc-number">2.2.2.</span> <span class="toc-text">基本概念和定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法应用"><span class="toc-number">2.3.</span> <span class="toc-text">算法应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法改进"><span class="toc-number">2.4.</span> <span class="toc-text">算法改进</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
 		
 		</div>
 		
@@ -111,9 +111,10 @@ Aprior ">
 <li>关于“购物篮分析”还有一个很有名的故事：美国的妈妈经常叫丈夫到超市帮孩子买尿布，而作为一个男人，由于心理作用，他们觉得自己只是买了尿布就往家提总感觉有点别扭，所以在超市他们顺便提上啤酒这种看上去比较狼性的商品。这一有趣的现象慢慢被超市经理发现了，后来超市就在尿布的旁边摆上了啤酒，这样就省得丈夫们走来走去，可以随手一提就是自己想要的2样东西，结果超市的尿布和啤酒都大卖了。</li>
 </ul>
 <h2 id="算法原理">算法原理</h2>
-<h3 id="Aprior的基本思想：频繁项集的任何子集也一定是频繁的。">Aprior的基本思想：<strong>频繁项集的任何子集也一定是频繁的。</strong></h3>
-<h3 id="基本概念和定义">基本概念和定义</h3>
+<h3 id="Aprior的基本思想">Aprior的基本思想</h3>
 <ul>
+<li><strong>频繁项集的任何子集也一定是频繁的。</strong><h3 id="基本概念和定义">基本概念和定义</h3>
+</li>
 <li>资料库(Transaction Database):存储着二维结构的记录集。定义为：D</li>
 <li>所有项集(Items):所有项目的集合。定义为：I</li>
 <li>记录(Transaction):资料库里的子集。定义为：T (T ∈ D)</li>
@@ -175,7 +176,7 @@ Aprior ">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Aprior_Algorithm"><span class="toc-number">2.</span> <span class="toc-text">Aprior Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法背景"><span class="toc-number">2.1.</span> <span class="toc-text">算法背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法原理"><span class="toc-number">2.2.</span> <span class="toc-text">算法原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Aprior的基本思想：频繁项集的任何子集也一定是频繁的。"><span class="toc-number">2.2.1.</span> <span class="toc-text">Aprior的基本思想：频繁项集的任何子集也一定是频繁的。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念和定义"><span class="toc-number">2.2.2.</span> <span class="toc-text">基本概念和定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法应用"><span class="toc-number">2.3.</span> <span class="toc-text">算法应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法改进"><span class="toc-number">2.4.</span> <span class="toc-text">算法改进</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Aprior_Algorithm"><span class="toc-number">2.</span> <span class="toc-text">Aprior Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法背景"><span class="toc-number">2.1.</span> <span class="toc-text">算法背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法原理"><span class="toc-number">2.2.</span> <span class="toc-text">算法原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Aprior的基本思想"><span class="toc-number">2.2.1.</span> <span class="toc-text">Aprior的基本思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念和定义"><span class="toc-number">2.2.2.</span> <span class="toc-text">基本概念和定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法应用"><span class="toc-number">2.3.</span> <span class="toc-text">算法应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法改进"><span class="toc-number">2.4.</span> <span class="toc-text">算法改进</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
  
   </div>
 
@@ -219,15 +220,15 @@ Aprior ">
 		
 			<li><a href="/tags/灰度直方图/" title="灰度直方图">灰度直方图<sup>1</sup></a></li>
 		
+			<li><a href="/tags/Aprior-Algorithm/" title="Aprior Algorithm">Aprior Algorithm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/二值化/" title="二值化">二值化<sup>1</sup></a></li>
+		
 			<li><a href="/tags/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
 		
 			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
 		
 			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
-		
-			<li><a href="/tags/二值化/" title="二值化">二值化<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Aprior-Algorithm/" title="Aprior Algorithm">Aprior Algorithm<sup>1</sup></a></li>
 		
 		</ul>
 </div>

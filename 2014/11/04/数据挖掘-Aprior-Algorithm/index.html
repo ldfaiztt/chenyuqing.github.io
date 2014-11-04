@@ -4,19 +4,19 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>概率论笔记week01 | Tim Chan&#39;s Blog!</title>
+    <title>数据挖掘-Aprior-Algorithm | Tim Chan&#39;s Blog!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Tim Chan">
     
     <meta name="description" content="写在前面的话
 
-本系列博客是Coursera上台大葉丙成老师的機率 (Probability)课程的笔记。其中涉及的版权内容均属原版权人所有。
+Aprior Algorithm(先验算法)，它是我在数据挖掘这门课学的第一个算法，由于当时觉得数据挖掘是一门很深奥的学科，所以在学习之前就对它心怀敬畏之心，学起来压力也是很大。不过后来弄懂了之后觉得理解思路也不是很难。
 
-概率概述
-概率是什么？
+Aprior Algorithm
+算法背景
 
-概率，又称或然率、机会率、机率或可能性，是概率论的基本概念。概率是对随机事件发生的可能性的度量，一般以一个在0到1之间的实数表示">
+Aprior ">
     
     
     
@@ -79,14 +79,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/01/概率论笔记week01/" title="概率论笔记week01" itemprop="url">概率论笔记week01</a>
+      <a href="/2014/11/04/数据挖掘-Aprior-Algorithm/" title="数据挖掘-Aprior-Algorithm" itemprop="url">数据挖掘-Aprior-Algorithm</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
 		
   <p class="article-time">
-    <time datetime="2014-11-01T05:58:18.000Z" itemprop="datePublished"> Published Nov 1 2014</time>
+    <time datetime="2014-11-04T00:57:44.000Z" itemprop="datePublished"> Published Nov 4 2014</time>
     
   </p>
 </header>
@@ -96,114 +96,36 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#概率概述"><span class="toc-number">2.</span> <span class="toc-text">概率概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概率是什么？"><span class="toc-number">2.1.</span> <span class="toc-text">概率是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#概率示例"><span class="toc-number">2.2.</span> <span class="toc-text">概率示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么我们要研究概率？"><span class="toc-number">2.3.</span> <span class="toc-text">为什么我们要研究概率？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#概率和统计的差异"><span class="toc-number">2.4.</span> <span class="toc-text">概率和统计的差异</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集合论"><span class="toc-number">3.</span> <span class="toc-text">集合论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#集合论复习"><span class="toc-number">3.1.</span> <span class="toc-text">集合论复习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#概率论名词"><span class="toc-number">3.2.</span> <span class="toc-text">概率论名词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集合论和概率的关系"><span class="toc-number">3.3.</span> <span class="toc-text">集合论和概率的关系</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Aprior_Algorithm"><span class="toc-number">2.</span> <span class="toc-text">Aprior Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法背景"><span class="toc-number">2.1.</span> <span class="toc-text">算法背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法原理"><span class="toc-number">2.2.</span> <span class="toc-text">算法原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Aprior的基本思想：频繁项集的任何子集也一定是频繁的。"><span class="toc-number">2.2.1.</span> <span class="toc-text">Aprior的基本思想：频繁项集的任何子集也一定是频繁的。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念和定义"><span class="toc-number">2.2.2.</span> <span class="toc-text">基本概念和定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法应用"><span class="toc-number">2.3.</span> <span class="toc-text">算法应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法改进"><span class="toc-number">2.4.</span> <span class="toc-text">算法改进</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
 		
 		</div>
 		
 		<h1 id="写在前面的话">写在前面的话</h1>
 <ul>
-<li>本系列博客是Coursera上台大<strong>葉丙成</strong>老师的<a href="https://class.coursera.org/prob-001" target="_blank" rel="external">機率 (Probability)</a>课程的笔记。其中涉及的版权内容均属原版权人所有。</li>
+<li>Aprior Algorithm(先验算法)，它是我在数据挖掘这门课学的第一个算法，由于当时觉得数据挖掘是一门很深奥的学科，所以在学习之前就对它心怀敬畏之心，学起来压力也是很大。不过后来弄懂了之后觉得理解思路也不是很难。</li>
 </ul>
-<h1 id="概率概述">概率概述</h1>
-<h2 id="概率是什么？">概率是什么？</h2>
+<h1 id="Aprior_Algorithm">Aprior Algorithm</h1>
+<h2 id="算法背景">算法背景</h2>
 <ul>
-<li>概率，又称或然率、机会率、机率或可能性，是概率论的基本概念。概率是对随机事件发生的可能性的度量，一般以一个在0到1之间的实数表示一个事件发生的可能性大小。越接近1，该事件更可能发生；越接近0，则该事件更不可能发生。</li>
-<li><a href="http://baike.baidu.com/view/45320.htm?fr=aladdin" target="_blank" rel="external">百度百科定义</a></li>
+<li>Aprior Algorithm是关联规则里的一项基本算法，它是由<a href="http://rakesh.agrawal-family.com/papers/vldb94apriori.pdf" target="_blank" rel="external">Rakesh Agrawal和Ramakrishnan Srikant</a>两位博士在1994年提出的。所谓关联，反映的是一个事件和其他事件之间的依赖或关联程度，它包括事件之间的频繁模式、关联、相关性或因果结构，在数据挖掘中它通常也被称为“购物篮分析”(Market Basket analysis)。</li>
+<li>关于“购物篮分析”还有一个很有名的故事：美国的妈妈经常叫丈夫到超市帮孩子买尿布，而作为一个男人，由于心理作用，他们觉得自己只是买了尿布就往家提总感觉有点别扭，所以在超市他们顺便提上啤酒这种看上去比较狼性的商品。这一有趣的现象慢慢被超市经理发现了，后来超市就在尿布的旁边摆上了啤酒，这样就省得丈夫们走来走去，可以随手一提就是自己想要的2样东西，结果超市的尿布和啤酒都大卖了。</li>
 </ul>
-<h2 id="概率示例">概率示例</h2>
+<h2 id="算法原理">算法原理</h2>
+<h3 id="Aprior的基本思想：频繁项集的任何子集也一定是频繁的。">Aprior的基本思想：<strong>频繁项集的任何子集也一定是频繁的。</strong></h3>
+<h3 id="基本概念和定义">基本概念和定义</h3>
 <ul>
-<li>人们常说某人有百分之多少的把握能通过这次考试，某件事发生的可能性是多少，这都是概率的实例。</li>
-<li><a href="http://baike.baidu.com/view/45320.htm?fr=aladdin" target="_blank" rel="external">百度百科定义</a></li>
+<li>资料库(Transaction Database):存储着二维结构的记录集。定义为：D</li>
+<li>所有项集(Items):所有项目的集合。定义为：I</li>
+<li>记录(Transaction):资料库里的子集。定义为：T (T ∈ D)</li>
+<li>项集(Itemset)：同时出现的项的集合。定义为：k-itemset(k项集)</li>
+<li>支持度(Suppor)：定义为supp(X) = occur(x) / count(D) = P(X)</li>
 </ul>
-<h2 id="为什么我们要研究概率？">为什么我们要研究概率？</h2>
+<h2 id="算法应用">算法应用</h2>
+<h2 id="算法改进">算法改进</h2>
+<h1 id="后记">后记</h1>
 <ul>
-<li>我们对这个世界了解的太少，这世界的运作有很多事未知的</li>
-<li>世间事不见得都是必然的(deterministic)，有很多事情是有随机性的(random)</li>
-<li>我们学习概率的目的就是为了发现事物发展的规律，从而可以预先推测未发生的事物。</li>
+<li>参考链接<a href="http://zh.wikipedia.org/wiki/%E5%85%88%E9%AA%8C%E7%AE%97%E6%B3%95" target="_blank" rel="external">wikipedia</a></li>
 </ul>
-<h2 id="概率和统计的差异">概率和统计的差异</h2>
-<ul>
-<li>概率<ul>
-<li>概率模型已知，要学会怎么算某些事件的概率</li>
-</ul>
-</li>
-<li>统计<ul>
-<li>概率模型未知，要学会怎么从大量的实验结果中去建立概率模型</li>
-</ul>
-</li>
-</ul>
-<h1 id="集合论">集合论</h1>
-<h2 id="集合论复习">集合论复习</h2>
-<ul>
-<li>集合论名词复习<ul>
-<li>元素(Element)</li>
-<li>集合(Set)</li>
-<li>子集合(Subset)</li>
-<li></li>
-<li>全集(universal Set)</li>
-<li>空集合(Empty Set)</li>
-<li>交集(Intersection)</li>
-<li></li>
-<li>并集(Union)</li>
-<li>补集(Complement)</li>
-<li>差集(Difference)</li>
-<li></li>
-<li>不相交(disjoint)</li>
-<li>互斥(Mutually Exclusive)</li>
-</ul>
-</li>
-</ul>
-<p>参考：<a href="http://zh.wikipedia.org/wiki/%E9%9B%86%E5%90%88_(%E6%95%B0%E5%AD%A6" target="_blank" rel="external">维基百科条目</a></p>
-<ul>
-<li><p>De Morgan’s Law（德摩根定理）<br><img src="/img/pro_twu/w01/de_morgen.PNG" alt=""></p>
-</li>
-<li><p>证明：</p>
-<ul>
-<li>证明等式的方法就是“你中有我，我中有你”<br><img src="/img/pro_twu/w01/de_morgen_prove.PNG" alt=""></li>
-</ul>
-</li>
-</ul>
-<h2 id="概率论名词">概率论名词</h2>
-<ul>
-<li><p>实验(Experiment)</p>
-<ul>
-<li>一个概率[实验]包含了：步骤(procedures)、模型(model)、观察(observation)</li>
-</ul>
-</li>
-<li><p>结果(Outcome)</p>
-<ul>
-<li>[结果]是实验中可能的结果</li>
-</ul>
-</li>
-<li><p>样本空间(Sample Space)</p>
-<ul>
-<li>[样本空间]是概率实验所有可能的结果的集合，通常用S来表示</li>
-</ul>
-</li>
-<li><p>事件(Event)</p>
-<ul>
-<li>[事件]指的是对于实验结果的某种叙述。</li>
-<li>概率就是在讲实验结果符合某事件叙述的机会多大</li>
-<li>在数学上，[事件]可以看成[结果]的结合，亦就是[样本空间]的子集。</li>
-</ul>
-</li>
-<li><p>事件空间(Event Space)</p>
-<ul>
-<li>[事件空间]是包含所有事件的结合</li>
-</ul>
-</li>
-<li><p>概率是一个函数</p>
-<ul>
-<li>P(事件) = [0,1]</li>
-<li>概率函数是从[事件空间]映射到[0,1]</li>
-</ul>
-</li>
-</ul>
-<h2 id="集合论和概率的关系">集合论和概率的关系</h2>
-<ul>
-<li>将随机试验的的所有可能结果组成的集合称为基本事件空间，事件是一个集合，因而事件间的关系与事件的运算自然可以按照集合论中的集合之间的关系和运算来处理。</li>
-</ul>
-<p><img src="/img/pro_twu/w01/set_pro.PNG" alt=""></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -211,13 +133,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/概率论笔记/">概率论笔记</a>
+  <a class="article-category-link" href="/categories/数据挖掘算法总结/">数据挖掘算法总结</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/概率论/">概率论</a>
+  <span></span> <a href="/tags/Aprior-Algorithm/">Aprior Algorithm</a>
   </div>
 
 </div>
@@ -225,7 +147,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://tim4chan.com/2014/11/01/概率论笔记week01/" data-title="概率论笔记week01 | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  <div data-url="http://tim4chan.com/2014/11/04/数据挖掘-Aprior-Algorithm/" data-title="数据挖掘-Aprior-Algorithm | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
   </div>
 
 </div>
@@ -234,19 +156,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/11/02/概率论笔记week02/" title="概率论笔记week02">
-  <strong>上一篇：</strong><br/>
-  <span>
-  概率论笔记week02</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/10/30/数据挖掘课堂算法总结_Junior/"  title="数据挖掘课堂算法总结_Junior">
+<a href="/2014/11/02/概率论笔记week02/"  title="概率论笔记week02">
  <strong>下一篇：</strong><br/> 
- <span>数据挖掘课堂算法总结_Junior
+ <span>概率论笔记week02
 </span>
 </a>
 </div>
@@ -261,7 +175,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#概率概述"><span class="toc-number">2.</span> <span class="toc-text">概率概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概率是什么？"><span class="toc-number">2.1.</span> <span class="toc-text">概率是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#概率示例"><span class="toc-number">2.2.</span> <span class="toc-text">概率示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么我们要研究概率？"><span class="toc-number">2.3.</span> <span class="toc-text">为什么我们要研究概率？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#概率和统计的差异"><span class="toc-number">2.4.</span> <span class="toc-text">概率和统计的差异</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集合论"><span class="toc-number">3.</span> <span class="toc-text">集合论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#集合论复习"><span class="toc-number">3.1.</span> <span class="toc-text">集合论复习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#概率论名词"><span class="toc-number">3.2.</span> <span class="toc-text">概率论名词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集合论和概率的关系"><span class="toc-number">3.3.</span> <span class="toc-text">集合论和概率的关系</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Aprior_Algorithm"><span class="toc-number">2.</span> <span class="toc-text">Aprior Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法背景"><span class="toc-number">2.1.</span> <span class="toc-text">算法背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法原理"><span class="toc-number">2.2.</span> <span class="toc-text">算法原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Aprior的基本思想：频繁项集的任何子集也一定是频繁的。"><span class="toc-number">2.2.1.</span> <span class="toc-text">Aprior的基本思想：频繁项集的任何子集也一定是频繁的。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念和定义"><span class="toc-number">2.2.2.</span> <span class="toc-text">基本概念和定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法应用"><span class="toc-number">2.3.</span> <span class="toc-text">算法应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法改进"><span class="toc-number">2.4.</span> <span class="toc-text">算法改进</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
  
   </div>
 

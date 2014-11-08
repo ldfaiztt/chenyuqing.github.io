@@ -1,0 +1,462 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>数据挖掘-FP-growth-tree | Tim Chan&#39;s Blog!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Tim Chan">
+    
+    <meta name="description" content="写在前面的话
+
+上次讨论完了关联规则中的Aprior Algorithm算法，这次我们讨论的是FP growth tree，它是Aprior Algorithm的一种改进的算法。那么，让我们开始吧！
+
+FP growth tree
+算法背景
+
+FP，即Frequent Pattern，中文是频繁模式">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Tim Chan&#39;s Blog!" title="Tim Chan&#39;s Blog!"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tim Chan&#39;s Blog!">Tim Chan&#39;s Blog!</a></h1>
+				<h2 class="blog-motto">记录生活点滴！</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+						<li><a href="https://pomotodo.com/app/">ToDo</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:tim4chan.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/04/数据挖掘-FP-growth-tree/" title="数据挖掘-FP-growth-tree" itemprop="url">数据挖掘-FP-growth-tree</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-04T14:06:29.000Z" itemprop="datePublished"> Published Nov 4 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FP_growth_tree"><span class="toc-number">2.</span> <span class="toc-text">FP growth tree</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法背景"><span class="toc-number">2.1.</span> <span class="toc-text">算法背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法原理"><span class="toc-number">2.2.</span> <span class="toc-text">算法原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法步骤"><span class="toc-number">2.3.</span> <span class="toc-text">算法步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法应用"><span class="toc-number">2.4.</span> <span class="toc-text">算法应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法不足与改进"><span class="toc-number">2.5.</span> <span class="toc-text">算法不足与改进</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="写在前面的话">写在前面的话</h1>
+<ul>
+<li>上次讨论完了关联规则中的Aprior Algorithm算法，这次我们讨论的是FP growth tree，它是Aprior Algorithm的一种改进的算法。那么，让我们开始吧！</li>
+</ul>
+<h1 id="FP_growth_tree">FP growth tree</h1>
+<h2 id="算法背景">算法背景</h2>
+<ul>
+<li>FP，即Frequent Pattern，中文是频繁模式的意思。</li>
+</ul>
+<h2 id="算法原理">算法原理</h2>
+<h2 id="算法步骤">算法步骤</h2>
+<h2 id="算法应用">算法应用</h2>
+<h2 id="算法不足与改进">算法不足与改进</h2>
+<h1 id="后记">后记</h1>
+<p>参考链接：<br><a href="http://baike.baidu.com/view/3342544.htm" target="_blank" rel="external">百度百科</a><br><a href="https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=8&amp;cad=rja&amp;uact=8&amp;ved=0CFEQFjAH&amp;url=http%3A%2F%2Fwww.cs.uvm.edu%2F~xwu%2Fkdd%2FFPTree-09.ppt&amp;ei=selYVLf3HY7asAT2iYGoDA&amp;usg=AFQjCNF_RmxJN4MYEfpeNnR76dbAJyYb5A&amp;sig2=gVUQcXTpTA4JvZm9sJFLzQ" target="_blank" rel="external">推荐PPT</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据挖掘算法总结/">数据挖掘算法总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/FP-growth-tree/">FP-growth-tree</a>
+  </div>
+
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://tim4chan.com/2014/11/04/数据挖掘-FP-growth-tree/" data-title="数据挖掘-FP-growth-tree | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/11/06/概率论基本概念1/" title="概率论基本概念1">
+  <strong>上一篇：</strong><br/>
+  <span>
+  概率论基本概念1</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/11/04/数据挖掘-Aprior-Algorithm/"  title="数据挖掘-Aprior-Algorithm">
+ <strong>下一篇：</strong><br/> 
+ <span>数据挖掘-Aprior-Algorithm
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FP_growth_tree"><span class="toc-number">2.</span> <span class="toc-text">FP growth tree</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法背景"><span class="toc-number">2.1.</span> <span class="toc-text">算法背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法原理"><span class="toc-number">2.2.</span> <span class="toc-text">算法原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法步骤"><span class="toc-number">2.3.</span> <span class="toc-text">算法步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法应用"><span class="toc-number">2.4.</span> <span class="toc-text">算法应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法不足与改进"><span class="toc-number">2.5.</span> <span class="toc-text">算法不足与改进</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+			<li><a href="/categories/JSP-Review/" title="JSP_Review">JSP_Review<sup>10</sup></a></li>
+		
+			<li><a href="/categories/probability-theory-basic-conception/" title="probability-theory-basic-conception">probability-theory-basic-conception<sup>1</sup></a></li>
+		
+			<li><a href="/categories/医学图像处理/" title="医学图像处理">医学图像处理<sup>2</sup></a></li>
+		
+			<li><a href="/categories/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
+		
+			<li><a href="/categories/技术开发/" title="技术开发">技术开发<sup>1</sup></a></li>
+		
+			<li><a href="/categories/数据挖掘与R语言-案例学习/" title="数据挖掘与R语言-案例学习">数据挖掘与R语言-案例学习<sup>4</sup></a></li>
+		
+			<li><a href="/categories/数据挖掘算法总结/" title="数据挖掘算法总结">数据挖掘算法总结<sup>3</sup></a></li>
+		
+			<li><a href="/categories/概率论笔记/" title="概率论笔记">概率论笔记<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/JSP-网页开发/" title="JSP 网页开发">JSP 网页开发<sup>10</sup></a></li>
+		
+			<li><a href="/tags/数据挖掘/" title="数据挖掘">数据挖掘<sup>5</sup></a></li>
+		
+			<li><a href="/tags/概率论/" title="概率论">概率论<sup>2</sup></a></li>
+		
+			<li><a href="/tags/FP-growth-tree/" title="FP-growth-tree">FP-growth-tree<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Aprior-Algorithm/" title="Aprior Algorithm">Aprior Algorithm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
+		
+			<li><a href="/tags/概率论基本概念/" title="概率论基本概念">概率论基本概念<sup>1</sup></a></li>
+		
+			<li><a href="/tags/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
+		
+			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+		
+			<li><a href="/tags/灰度直方图/" title="灰度直方图">灰度直方图<sup>1</sup></a></li>
+		
+			<li><a href="/tags/二值化/" title="二值化">二值化<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Aprior-Algorithm/" style="font-size: 10.00px;">Aprior Algorithm</a><a href="/tags/FP-growth-tree/" style="font-size: 10.00px;">FP-growth-tree</a><a href="/tags/JSP-网页开发/" style="font-size: 20.00px;">JSP 网页开发</a><a href="/tags/linux-C/" style="font-size: 10.00px;">linux C</a><a href="/tags/二值化/" style="font-size: 10.00px;">二值化</a><a href="/tags/原型设计/" style="font-size: 10.00px;">原型设计</a><a href="/tags/数据挖掘/" style="font-size: 16.67px;">数据挖掘</a><a href="/tags/概率论/" style="font-size: 13.33px;">概率论</a><a href="/tags/概率论基本概念/" style="font-size: 10.00px;">概率论基本概念</a><a href="/tags/正则表达式/" style="font-size: 10.00px;">正则表达式</a><a href="/tags/灰度直方图/" style="font-size: 10.00px;">灰度直方图</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+<iframe width="100%" height="300" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=300&fansRow=2&ptype=1&speed=300&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2155417625&verifier=9f994c23&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+	  <li><a href="http://zjdian.com/" target="_blank" title="zjdian">中继点</li>
+      <li><a href="http://ripeconan.com/" target="_blank" title="ripeconan">Ripeconan</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Tim Chan. <br/>
+			Welcome to my personal blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2155417625" target="_blank" class="icon-weibo" title="weibo"></a>
+		
+		
+		<a href="https://github.com/chenyuqing" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:motoleisure@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2014 
+		
+		<a href="http://tim4chan.com/about" target="_blank" title="Tim Chan">Tim Chan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+
+
+<div id="totop">
+<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+
+
+
+  </body>
+</html>
+
+
+<a href="https://github.com/chenyuqing/chenyuqing.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>

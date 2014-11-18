@@ -9,7 +9,15 @@
     
     <meta name="author" content="Tim Chan">
     
-    <meta name="description" content="写在开头的话">
+    <meta name="description" content="写在开头的话
+
+
+Ok，上一节我们利用多元回归和回归树两种方法建立了数据模型，那么数据模型可不可靠呢？这一节的任务就是对模型进行评估。
+
+模型的评价和选择
+
+
+上一节给出了本案例的两个预测模型的例子。最明显的问题是，应该使用哪一个模型来获得7种海藻的140个测试样品的预测。为了回答这个问题，需要在可">
     
     
     
@@ -89,12 +97,114 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型的评价和选择"><span class="toc-number">2.</span> <span class="toc-text">模型的评价和选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#预测函数predict()"><span class="toc-number">2.1.</span> <span class="toc-text">预测函数predict()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#平均绝对误差(MAE)"><span class="toc-number">2.2.</span> <span class="toc-text">平均绝对误差(MAE)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均方误差(MSE)"><span class="toc-number">2.3.</span> <span class="toc-text">均方误差(MSE)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准化的平均绝对误差(NMSE)"><span class="toc-number">2.4.</span> <span class="toc-text">标准化的平均绝对误差(NMSE)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可视化比较模型"><span class="toc-number">2.5.</span> <span class="toc-text">可视化比较模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#k折交叉验证"><span class="toc-number">2.6.</span> <span class="toc-text">k折交叉验证</span></a></li></ol></li></ol>
 		
 		</div>
 		
 		<h2 id="写在开头的话">写在开头的话</h2>
 <hr>
+<ul>
+<li>Ok，上一节我们利用多元回归和回归树两种方法建立了数据模型，那么数据模型可不可靠呢？这一节的任务就是对模型进行评估。</li>
+</ul>
+<h2 id="模型的评价和选择">模型的评价和选择</h2>
+<hr>
+<ul>
+<li>上一节给出了本案例的两个预测模型的例子。最明显的问题是，应该使用哪一个模型来获得7种海藻的140个测试样品的预测。为了回答这个问题，需要在可供选择的模型空间中指定一些模型的偏好标准，也就是说，需要详细说明应该如何评价模型的性能。</li>
+<li>有多种评价(和比较)模型的标准。其中最流行的标准是计算模型的预测性能。当然还有其他衡量的标准，例如模型的可解释性，还有对大型数据挖掘特别重要的标准，即模型的计算效率。<h3 id="预测函数predict()">预测函数predict()</h3>
+</li>
+<li>回归模型的预测性能是通过将目标变量的预测值与实际值进行比较得到的，并从这些比较中计算某些平均误差的度量。一种度量方法是平均绝对误差(MAE)。下面描述如何获得线性回归和回归树的平均绝对误差。第一步，获取需要评价模型预测性能的测试集个案的预测值。在R中，要获得任何模型的预测，就要使用函数predict()进行预测。函数predict()是一个泛型函数，它的一个参数为需要应用的模型，另一个参数为数据的测试集，输出结果为相应的模型预测值：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">lm.predictions.a1 &lt;- predict(final.lm, clean.algae)</div><div class="line">rt.predictions.a1 &lt;- predict(rt.a1, algae)</div></pre></td></tr></table></figure>
+
+<ul>
+<li>上面连个命令得到预测海藻a1的两个模型的预测值。注意，因为原始训练集数据含有缺失值，所以在线性回归模型中使用的是数据框clean.algae。<h3 id="平均绝对误差(MAE)">平均绝对误差(MAE)</h3>
+</li>
+<li>得到模型的预测值后，就可以计算出其平均绝对误差：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 计算平均绝对误差</span></div><div class="line">(mae.a1.lm &lt;- mean(abs(lm.predictions.a1 - algae[,<span class="string">"a1"</span>])))</div><div class="line">[<span class="number">1</span>] <span class="number">13.10681</span></div><div class="line"></div><div class="line">(mae.a1.rt &lt;- mean(abs(rt.predictions.a1 - algae[,<span class="string">"a1"</span>])))</div><div class="line">[<span class="number">1</span>] <span class="number">10.36242</span></div></pre></td></tr></table></figure>
+
+<h3 id="均方误差(MSE)">均方误差(MSE)</h3>
+<ul>
+<li>另一种流行的误差度量是均方误差(MSE)。可以由下列代码计算均方误差：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 计算均方误差(MSE)</span></div><div class="line">(mse.a1.lm &lt;- mean((lm.predictions.a1 - algae[,<span class="string">"a1"</span>])^<span class="number">2</span>))</div><div class="line">[<span class="number">1</span>] <span class="number">295.5407</span></div><div class="line"></div><div class="line">(mse.a1.rt &lt;- mean((rt.predictions.a1 - algae[,<span class="string">"a1"</span>])^<span class="number">2</span>))</div><div class="line">[<span class="number">1</span>] <span class="number">227.0339</span></div></pre></td></tr></table></figure>
+
+<h3 id="标准化的平均绝对误差(NMSE)">标准化的平均绝对误差(NMSE)</h3>
+<ul>
+<li>以上后一种误差度量方法的不足之处是：误差值和目标值变量的目标不统一，因此从用户的角度看，这种误差不好解释。即使应用平均绝对误差(MAE)来度量误差，问题是如何判断模型的得分是好还是差。能够解决这一问题的误差度量是标准化后的平均绝对误差(NMSE)。这一统计量是计算模型预测性能和基准模型的预测性能之间的比率。通常采用目标变量的平均值来作为基准模型，代码如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 计算标准化后的平均绝对误差(NMSE)</span></div><div class="line">(nmse.a1.lm &lt;- mean((lm.predictions.a1 - algae[,<span class="string">'a1'</span>])^<span class="number">2</span> / mean((mean(algae[,<span class="string">'a1'</span>])-algae[,<span class="string">'a1'</span>])^<span class="number">2</span>)))</div><div class="line">[<span class="number">1</span>] <span class="number">0.6473034</span></div><div class="line"></div><div class="line">(nmse.a1.rt &lt;- mean(rt.predictions.a1-algae[,<span class="string">'a1'</span>])^<span class="number">2</span> / mean((mean(algae[,<span class="string">'a1'</span>])-algae[,<span class="string">'a1'</span>])^<span class="number">2</span>))</div><div class="line">[<span class="number">1</span>] <span class="number">3.121937</span>e-<span class="number">34</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>NMSE是一个比值，其取值范围通常为0-1。如果模型表现优于这个非常简单基准模型预测，那么NMSE应明显小于1。NMSE的值越小，模型的性能就越好。NMSE的值大于1，意味着模型预测还不如简单地把所有个案的平均值作为预测值。</li>
+<li>在本书提供的R添加包中，函数regr.eval()用来计算线性回归模型的性能度量指标。下面给出应用该函数一个例子。可以查找该函数的帮助文档来获取这个函数的不同用法。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">regr.eval(algae[,<span class="string">'a1'</span>], rt.predictions.a1, train.y = algae[,<span class="string">'a1'</span>])</div><div class="line">       mae         mse        rmse        mape        nmse        nmae </div><div class="line"><span class="number">10.3624227</span> <span class="number">227.0338940</span>  <span class="number">15.0676439</span>         Inf   <span class="number">0.4972574</span>   <span class="number">0.6202654</span></div></pre></td></tr></table></figure>
+
+<h3 id="可视化比较模型">可视化比较模型</h3>
+<ul>
+<li>可视化地查看模型的预测值将更加有趣。一种方法是绘制误差的散点图。代码如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 可视化查看模型的预测值</span></div><div class="line">old.par &lt;- par(mfrow = c(<span class="number">1</span>,<span class="number">2</span>))</div><div class="line">plot(lm.predictions.a1, algae[,<span class="string">'a1'</span>], main=<span class="string">"Linear Model"</span>, xlab=<span class="string">"Predictions"</span>, ylab=<span class="string">"True Values"</span>)</div><div class="line">abline(<span class="number">0</span>,<span class="number">1</span>,lty=<span class="number">2</span>)</div><div class="line">plot(rt.predictions.a1, algae[,<span class="string">'a1'</span>], main=<span class="string">"Regression Tree"</span>, xlab=<span class="string">"Predictions"</span>, ylab=<span class="string">"True Values"</span>)</div><div class="line">abline(<span class="number">0</span>,<span class="number">1</span>,lty=<span class="number">2</span>)</div><div class="line">par(old.par)</div></pre></td></tr></table></figure>
+
+<ul>
+<li>plot:<br><img src="/img/DMwR/02_algae_model_judge/01_prediction_true.PNG" alt=""></li>
+<li>由上图可以看出，这两个模型在许多个案上的性能比较差。在理想的情况下，模型对所有的个案做出正确的预测时，图中的所有圈应该在虚线上，这条虚线是通过函数abline(0,1,lty=2)来绘制的。这条虚线穿过坐标系的原点，代表x坐标和y坐标相等的点集。图中圆圈的x坐标和y坐标分别代表目标变量的预测值和真实值，如果他们相等，那么这些圆圈就会落在这条理想的直线上。但从上图可以看到，情况并非如此！可以用函数identify()来检查哪些预测特别差的样本点，该函数可以让用户通过互动方式点击图形中的点，代码如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># identify()</span></div><div class="line">plot(lm.predictions.a1, algae[,<span class="string">'a1'</span>],main=<span class="string">"Linear Model"</span>, xlab=<span class="string">"Predictions"</span>, ylab=<span class="string">"True Values"</span>)</div><div class="line">abline(<span class="number">0</span>,<span class="number">1</span>,lty=<span class="number">2</span>)</div><div class="line">algae[identify(lm.predictions.a1, algae[,<span class="string">'a1'</span>]),]</div></pre></td></tr></table></figure>
+
+<ul>
+<li>运行上面的代码，并在图形上点击，然后右击结束交互过程后，应该看到相应于所点击的圆圈的海藻数据框的行数据—因为这里用函数identify()得到的向量来索引海藻数据框。</li>
+<li>观察上图的左图，他对应的是线性回归模型。注意，有一些个案的海藻频率的预测值为负值。在本案例中，海藻在出现频率为负值时没有意义(至少是0个)。因此，可以用以上知识和海藻频率的最小可能取值来优化上面的线性回归模型。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">sensible.lm.predictions.a1 &lt;- ifelse(lm.predictions.a1 &lt;<span class="number">0</span>,<span class="number">0</span>,lm.predictions.a1)</div><div class="line">regr.eval(algae[,<span class="string">'a1'</span>], lm.predictions.a1,stats = c(<span class="string">"mae"</span>,<span class="string">"mse"</span>))</div><div class="line">     mae       mse </div><div class="line"><span class="number">13.10681</span> <span class="number">295.54069</span> </div><div class="line">regr.eval(algae[,<span class="string">'a1'</span>], sensible.lm.predictions.a1, stats = c(<span class="string">"mae"</span>,<span class="string">"mse"</span>))</div><div class="line">     mae       mse </div><div class="line"><span class="number">12.48276</span> <span class="number">286.28541</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>上面代码应用函数ifelse()来改进模型的预测结果。该函数有三个参数，第一个参数是逻辑条件，第二个参数是当逻辑条件为真时函数的取值，第三个参数是当逻辑条件为假时的取值。注意，通过这一小的细节就提高了模型的性能。</li>
+</ul>
+<h3 id="k折交叉验证">k折交叉验证</h3>
+<ul>
+<li>根据以上计算出的模型的性能指标，我们倾向于选择回归树模型来预测140个测试样品的频率值，因为该模型有较低的NMSE值。然而，这种推理有一种那个缺陷。我们的分析目标是获得能够对140个测试样品的频率进行预测的最佳模型。由于不知道这些测试样本的目标变量值，所以我们需要估计哪一个模型将在这些测试样本上有较好的性能。这里的关键问题是在不知道数据集真实的目标变量取值时，要获得模型在该数据集上可靠的性能估计。使用已有的训练数据获得模型的性能指标(如前面获得模型的过程)是不可靠的，因为这些计算是有偏的。</li>
+<li>实际上，有的模型可以很容易地获得训练数据的零误差预测。然而，模型的这一优秀性能很难推广到目标变量值未知的心样本上。正如之前所述，这种现象通常称为过拟合训练数据。因为，为了选择一个合适的模型，我们需要获得模型在未知数据上预测性能的更加可靠的估计。k折交叉验证是获得模型性能可靠估计的一种常用方法，它适用于像本案例这样的小数据集。这种方法可以简要介绍如下。<ul>
+<li>首先获取k个同样大小的随机训练数据子集。</li>
+<li>对于这k个子集的每一个子集，用除去它之外的其余k-1个子集建立模型，然后用第k个子集来评估这个模型，最后存储模型的性能指标</li>
+<li>对其余的每个子集重复以上过程，最后有K个性能指标的测量值，这些性能指标是通过在没有用于建模的数据上计算得到，这也是关键之处。</li>
+</ul>
+</li>
+<li>k折交叉验证估计是这k个性能指标的平均。常见的k=10.有时我们会重复进行多次k折交叉验证以获得更加可靠的估计。<ul>
+<li>总之，党对一项预测任务时，需要作出以下决策：<ul>
+<li>为预测任务选择模型(同一算法的不同参数设定也可以认为是不同的模型)。</li>
+<li>选择比较模型性能的评估指标</li>
+<li>选择获取评估指标的可靠估计的实验方法。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在本书提供的R包中，提供了函数experimentalComparison()，它用来进行模型的选择和比较任务。它可以和不同的估计方法一起使用，如交叉验证法。这个函数有三个参数：1.用于比较的数据集，2.需要比较的可选模型，3.实验过程中的系数。我们以海藻数据集为例，用它来比较线性回归模型和几个不同回归树模型。</li>
+<li>函数experimentalComparison()使用于任何模型和任何数据，在这个意义上，它是一个泛型函数。使用者提供一组实现待比较的模型的函数。其中每一个函数应该对训练集和测试集实现一个完整的“训练+测试+评估”周期。在评估过程的每一次迭代中，调用这些函数。这些函数应该返回一个向量，其元素为交叉验证中用户需要的性能评估指标值。下面给出两个目标模型的函数：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">cv.rpart &lt;- function(form,train,test,...){</div><div class="line">  m &lt;- rpartXse(from,train,...)</div><div class="line">  p &lt;- predict(m,test)</div><div class="line">  mse &lt;- mean((p-resp(form,test))^<span class="number">2</span>)</div><div class="line">  c(nmse = mse/mean((mean(resp(form,train))-resp(form,test))^<span class="number">2</span>))</div><div class="line">}</div><div class="line"></div><div class="line">cv.lm &lt;- function(form, train, test,...){</div><div class="line">  m &lt;- lm(form,train,...)</div><div class="line">  p &lt;- predict(m,test)</div><div class="line">  p &lt;- ifelse(p&lt;<span class="number">0</span>,<span class="number">0</span>,p)</div><div class="line">  mse &lt;- mean((p-resp(form,test))^<span class="number">2</span>)</div><div class="line">  c(nmse=mse/mean((mean(resp(form,train))-resp(form,test))^<span class="number">2</span>))</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<ul>
+<li>在这个示例中，假设用NMSE作为线性回归模型和回归树模型的性能评估指标。所有这些用户定义的函数的前三个参数应该是公式、训练数据和测试数据。实验过程调用函数时可以应用的其他参数包括要评估模型所需要的参数。虽然所评估的两个模型应用了完全不同的学习算法，但是两个模型函数都有同样的“训练+测试+评估”周期。函数的定义还包括一个特殊参数“…”。这个特殊参数可以用在任意的R函数中，它允许一个特定函数具有可变的参数。这个结构用于给实际模型传递所需要的额外参数(例如在函数rpartXse()中和函数lm()中)。这些函数的另一个特殊之处是应用本书添加包提供的函数resp()，它用于根据公式获得数据集的目标变量值。</li>
+<li>在定义好用于模型学习和测试的函数后，就可以按下列代码进行模型的交叉验证比较：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">res &lt;- experimentalComparison(</div><div class="line">  c(dataset(a1~.,clean.algae[,<span class="number">1</span>:<span class="number">12</span>],<span class="string">"a1"</span>)),</div><div class="line">  c(variants(<span class="string">'cv.lm'</span>),</div><div class="line">    variants(<span class="string">'cv.rpart'</span>,se=c(<span class="number">0</span>,<span class="number">0.5</span>,<span class="number">1</span>))),</div><div class="line">    cvSettings(<span class="number">3</span>,<span class="number">10</span>,<span class="number">1234</span>)</div><div class="line">  )</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#####  CROSS VALIDATION  EXPERIMENTAL COMPARISON #####</span></div><div class="line"></div><div class="line">** DATASET :: a1</div><div class="line"></div><div class="line">++ LEARNER :: cv.lm  variant -&gt;  cv.lm.v1 </div><div class="line"></div><div class="line"> <span class="number">3</span> x <span class="number">10</span> - Fold Cross Validation run with seed =  <span class="number">1234</span> </div><div class="line">Repetition  <span class="number">1</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div><div class="line">Repetition  <span class="number">2</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div><div class="line">Repetition  <span class="number">3</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div><div class="line"></div><div class="line"></div><div class="line">++ LEARNER :: cv.rpart  variant -&gt;  cv.rpart.v1 </div><div class="line"></div><div class="line"> <span class="number">3</span> x <span class="number">10</span> - Fold Cross Validation run with seed =  <span class="number">1234</span> </div><div class="line">Repetition  <span class="number">1</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div><div class="line">Repetition  <span class="number">2</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div><div class="line">Repetition  <span class="number">3</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div><div class="line"></div><div class="line"></div><div class="line">++ LEARNER :: cv.rpart  variant -&gt;  cv.rpart.v2 </div><div class="line"></div><div class="line"> <span class="number">3</span> x <span class="number">10</span> - Fold Cross Validation run with seed =  <span class="number">1234</span> </div><div class="line">Repetition  <span class="number">1</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div><div class="line">Repetition  <span class="number">2</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div><div class="line">Repetition  <span class="number">3</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div><div class="line"></div><div class="line"></div><div class="line">++ LEARNER :: cv.rpart  variant -&gt;  cv.rpart.v3 </div><div class="line"></div><div class="line"> <span class="number">3</span> x <span class="number">10</span> - Fold Cross Validation run with seed =  <span class="number">1234</span> </div><div class="line">Repetition  <span class="number">1</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div><div class="line">Repetition  <span class="number">2</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div><div class="line">Repetition  <span class="number">3</span> </div><div class="line">Fold:  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>  <span class="number">10</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>像先前提到的那样，第一个参数是含有在实验比较中所应用数据集的一个向量。每个数据集的声明形式为dataset(<formular>,<data frame="">,<label>)。函数experimentalComparison()的第二个参数包含要研究的可选的模型方法。每个模型方法通过函数variant()来指定，该函数的第一个参数是用户定义的用于“学习+测试+评估”周期的函数名称。其余的可选参数用来给出估计方法的其他参数的可选值。函数variantes()根据所有参数值的组合生成一组可选模型。在上面的例子代码中，模型“cv.lm”采用了默认参数值，而模型“cv.rpart”的参数se则给出了不同的取值。这意味着实验将包含回归树的三个版本，这点可以在上面的函数输出中得到确认。函数experimentalComparison()的第三个参数是设定交叉验证实验的参数，即k折交叉验证实验过程重复的次数(这里设为3)、k的取值(10)、随机数生成器的种子。最后的参数(随机数种子)设定可以保证在必要的情况之下可以重视我们的实验(例如更换了训练模型系统)。</label></data></formular></li>
+<li>这个代码调用的结果是一个复杂的对象，它包含实验比较的所有信息。在本书的R添加包中提供了多种获取这些信息的函数。例如，下面代码提供了比较结果的概要：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">summary(res)</div><div class="line"></div><div class="line">== Summary of a  Cross Validation  Experiment ==</div><div class="line"></div><div class="line"> <span class="number">3</span> x <span class="number">10</span> - Fold Cross Validation run with seed =  <span class="number">1234</span> </div><div class="line"></div><div class="line">* Data sets ::  a1</div><div class="line">* Learners  ::  cv.lm.v1, cv.rpart.v1, cv.rpart.v2, cv.rpart.v3</div><div class="line"></div><div class="line">* Summary of Experiment Results:</div><div class="line"></div><div class="line"></div><div class="line">-&gt; Datataset:  a1 </div><div class="line"></div><div class="line">	*Learner: cv.lm.v1 </div><div class="line">             nmse</div><div class="line">avg     <span class="number">0.7196105</span></div><div class="line">std     <span class="number">0.1833064</span></div><div class="line">min     <span class="number">0.4678248</span></div><div class="line">max     <span class="number">1.2218455</span></div><div class="line">invalid <span class="number">0.0000000</span></div><div class="line"></div><div class="line">	*Learner: cv.rpart.v1 </div><div class="line">             nmse</div><div class="line">avg     <span class="number">0.6440843</span></div><div class="line">std     <span class="number">0.2521952</span></div><div class="line">min     <span class="number">0.2146359</span></div><div class="line">max     <span class="number">1.1712674</span></div><div class="line">invalid <span class="number">0.0000000</span></div><div class="line"></div><div class="line">	*Learner: cv.rpart.v2 </div><div class="line">             nmse</div><div class="line">avg     <span class="number">0.6873747</span></div><div class="line">std     <span class="number">0.2669942</span></div><div class="line">min     <span class="number">0.2146359</span></div><div class="line">max     <span class="number">1.3356744</span></div><div class="line">invalid <span class="number">0.0000000</span></div><div class="line"></div><div class="line">	*Learner: cv.rpart.v3 </div><div class="line">             nmse</div><div class="line">avg     <span class="number">0.7167122</span></div><div class="line">std     <span class="number">0.2579089</span></div><div class="line">min     <span class="number">0.3476446</span></div><div class="line">max     <span class="number">1.3356744</span></div><div class="line">invalid <span class="number">0.0000000</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>从结果中可知，其中的一个回归树有最优的NMSE值。这个NMSE值是否明显优于其他模型，目前还不明显，本节的后面将回到这个问题。可以得到这些结果的可视化图形:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plot(res)</div></pre></td></tr></table></figure>
+
+<ul>
+<li>plot:<br><img src="/img/DMwR/02_algae_model_judge/02_nmse.PNG" alt=""></li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -152,7 +262,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型的评价和选择"><span class="toc-number">2.</span> <span class="toc-text">模型的评价和选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#预测函数predict()"><span class="toc-number">2.1.</span> <span class="toc-text">预测函数predict()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#平均绝对误差(MAE)"><span class="toc-number">2.2.</span> <span class="toc-text">平均绝对误差(MAE)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均方误差(MSE)"><span class="toc-number">2.3.</span> <span class="toc-text">均方误差(MSE)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准化的平均绝对误差(NMSE)"><span class="toc-number">2.4.</span> <span class="toc-text">标准化的平均绝对误差(NMSE)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可视化比较模型"><span class="toc-number">2.5.</span> <span class="toc-text">可视化比较模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#k折交叉验证"><span class="toc-number">2.6.</span> <span class="toc-text">k折交叉验证</span></a></li></ol></li></ol>
  
   </div>
 
@@ -166,6 +276,8 @@
 		<ul>
 		
 			<li><a href="/categories/JSP-Review/" title="JSP_Review">JSP_Review<sup>10</sup></a></li>
+		
+			<li><a href="/categories/R-Tutorial/" title="R Tutorial">R Tutorial<sup>2</sup></a></li>
 		
 			<li><a href="/categories/probability-theory-basic-conception/" title="probability-theory-basic-conception">probability-theory-basic-conception<sup>1</sup></a></li>
 		
@@ -198,23 +310,25 @@
 		
 			<li><a href="/tags/概率论/" title="概率论">概率论<sup>2</sup></a></li>
 		
-			<li><a href="/tags/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Aprior-Algorithm/" title="Aprior Algorithm">Aprior Algorithm<sup>1</sup></a></li>
-		
-			<li><a href="/tags/二值化/" title="二值化">二值化<sup>1</sup></a></li>
-		
-			<li><a href="/tags/概率论基本概念/" title="概率论基本概念">概率论基本概念<sup>1</sup></a></li>
-		
-			<li><a href="/tags/灰度直方图/" title="灰度直方图">灰度直方图<sup>1</sup></a></li>
-		
-			<li><a href="/tags/FP-growth-tree/" title="FP-growth-tree">FP-growth-tree<sup>1</sup></a></li>
+			<li><a href="/tags/R-basics/" title="R basics">R basics<sup>2</sup></a></li>
 		
 			<li><a href="/tags/机器学习入门基础/" title="机器学习入门基础">机器学习入门基础<sup>1</sup></a></li>
 		
-			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+			<li><a href="/tags/Aprior-Algorithm/" title="Aprior Algorithm">Aprior Algorithm<sup>1</sup></a></li>
 		
 			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
+		
+			<li><a href="/tags/FP-growth-tree/" title="FP-growth-tree">FP-growth-tree<sup>1</sup></a></li>
+		
+			<li><a href="/tags/概率论基本概念/" title="概率论基本概念">概率论基本概念<sup>1</sup></a></li>
+		
+			<li><a href="/tags/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
+		
+			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+		
+			<li><a href="/tags/灰度直方图/" title="灰度直方图">灰度直方图<sup>1</sup></a></li>
+		
+			<li><a href="/tags/二值化/" title="二值化">二值化<sup>1</sup></a></li>
 		
 		</ul>
 </div>
@@ -224,7 +338,7 @@
   <div class="tagcloudlist">
     <p class="asidetitle">Tag Cloud</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/Aprior-Algorithm/" style="font-size: 10.00px;">Aprior Algorithm</a><a href="/tags/FP-growth-tree/" style="font-size: 10.00px;">FP-growth-tree</a><a href="/tags/JSP-网页开发/" style="font-size: 20.00px;">JSP 网页开发</a><a href="/tags/linux-C/" style="font-size: 10.00px;">linux C</a><a href="/tags/二值化/" style="font-size: 10.00px;">二值化</a><a href="/tags/原型设计/" style="font-size: 10.00px;">原型设计</a><a href="/tags/数据挖掘/" style="font-size: 16.67px;">数据挖掘</a><a href="/tags/机器学习入门基础/" style="font-size: 10.00px;">机器学习入门基础</a><a href="/tags/概率论/" style="font-size: 13.33px;">概率论</a><a href="/tags/概率论基本概念/" style="font-size: 10.00px;">概率论基本概念</a><a href="/tags/正则表达式/" style="font-size: 10.00px;">正则表达式</a><a href="/tags/灰度直方图/" style="font-size: 10.00px;">灰度直方图</a>
+       <a href="/tags/Aprior-Algorithm/" style="font-size: 10.00px;">Aprior Algorithm</a><a href="/tags/FP-growth-tree/" style="font-size: 10.00px;">FP-growth-tree</a><a href="/tags/JSP-网页开发/" style="font-size: 20.00px;">JSP 网页开发</a><a href="/tags/R-basics/" style="font-size: 13.33px;">R basics</a><a href="/tags/linux-C/" style="font-size: 10.00px;">linux C</a><a href="/tags/二值化/" style="font-size: 10.00px;">二值化</a><a href="/tags/原型设计/" style="font-size: 10.00px;">原型设计</a><a href="/tags/数据挖掘/" style="font-size: 16.67px;">数据挖掘</a><a href="/tags/机器学习入门基础/" style="font-size: 10.00px;">机器学习入门基础</a><a href="/tags/概率论/" style="font-size: 13.33px;">概率论</a><a href="/tags/概率论基本概念/" style="font-size: 10.00px;">概率论基本概念</a><a href="/tags/正则表达式/" style="font-size: 10.00px;">正则表达式</a><a href="/tags/灰度直方图/" style="font-size: 10.00px;">灰度直方图</a>
     </div>
   </div>
 

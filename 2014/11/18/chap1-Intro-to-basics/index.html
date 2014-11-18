@@ -1,0 +1,518 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>chapter1-Intro to basics | Tim Chan&#39;s Blog!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Tim Chan">
+    
+    <meta name="description" content="How it works
+
+In the editor on the right you should type R code to solve the exercises.
+R makes use of the # sign to add comments, so that you and oth">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Tim Chan&#39;s Blog!" title="Tim Chan&#39;s Blog!"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tim Chan&#39;s Blog!">Tim Chan&#39;s Blog!</a></h1>
+				<h2 class="blog-motto">记录生活点滴！</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+						<li><a href="https://pomotodo.com/app/">ToDo</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:tim4chan.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/18/chap1-Intro-to-basics/" title="chapter1-Intro to basics" itemprop="url">chapter1-Intro to basics</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-18T12:09:15.000Z" itemprop="datePublished"> Published Nov 18 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#How_it_works"><span class="toc-number">1.</span> <span class="toc-text">How it works</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Instructions"><span class="toc-number">2.</span> <span class="toc-text">Instructions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercises"><span class="toc-number">3.</span> <span class="toc-text">Exercises</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Next_Tutorial"><span class="toc-number">4.</span> <span class="toc-text">Next Tutorial</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="How_it_works">How it works</h2>
+<ul>
+<li>In the editor on the right you should type R code to solve the exercises.</li>
+<li>R makes use of the <font color="red">#</font> sign to add comments, so that you and others can understand what the R code is about. Just like Twitter! Comments are not run as R-code,so they will not influence your result.</li>
+<li>The ouput of your R code is shown in the <strong>console</strong> int the lower right corner, while <strong>graphs</strong> are shown in the upper right corner.</li>
+</ul>
+<h2 id="Instructions">Instructions</h2>
+<ul>
+<li>In its most basic form, R can thus be used as a calculator or as a means to generate plots, but there is much more;-)!</li>
+<li>You can see that R has generated some cool visualizations in the upper right corner. Use the arrows above the graphs to browse through these.</li>
+</ul>
+<h2 id="Exercises">Exercises</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># show some demo graphs generated with R</span></div><div class="line">demo(<span class="string">"graphics"</span>)</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&gt; require(datasets)</div><div class="line"></div><div class="line">&gt; require(grDevices); require(graphics)</div><div class="line"></div><div class="line">&gt; <span class="comment">## Here is some code which illustrates some of the differences between</span></div><div class="line">&gt; <span class="comment">## R and S graphics capabilities.  Note that colors are generally specified</span></div><div class="line">&gt; <span class="comment">## by a character string name (taken from the X11 rgb.txt file) and that line</span></div><div class="line">&gt; <span class="comment">## textures are given similarly.  The parameter "bg" sets the background</span></div><div class="line">&gt; <span class="comment">## parameter for the plot and there is also an "fg" parameter which sets</span></div><div class="line">&gt; <span class="comment">## the foreground color.</span></div><div class="line">&gt; </div><div class="line">&gt; </div><div class="line">&gt; x &lt;- stats::rnorm(<span class="number">50</span>)</div><div class="line"></div><div class="line">&gt; opar &lt;- par(bg = <span class="string">"white"</span>)</div><div class="line"></div><div class="line">&gt; plot(x, ann = FALSE, <span class="built_in">type</span> = <span class="string">"n"</span>)</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&gt; abline(h = <span class="number">0</span>, col = gray(.<span class="number">90</span>))</div><div class="line"></div><div class="line">&gt; lines(x, col = <span class="string">"green4"</span>, lty = <span class="string">"dotted"</span>)</div><div class="line"></div><div class="line">&gt; points(x, bg = <span class="string">"limegreen"</span>, pch = <span class="number">21</span>)</div><div class="line"></div><div class="line">&gt; title(main = <span class="string">"Simple Use of Color In a Plot"</span>,</div><div class="line">+       xlab = <span class="string">"Just a Whisper of a Label"</span>,</div><div class="line">+       col.main = <span class="string">"blue"</span>, col.lab = gray(.<span class="number">8</span>),</div><div class="line">+       cex.main = <span class="number">1.2</span>, cex.lab = <span class="number">1.0</span>, font.main = <span class="number">4</span>, font.lab = <span class="number">3</span>)</div><div class="line"></div><div class="line">&gt; <span class="comment">## A little color wheel.	 This code just plots equally spaced hues in</span></div><div class="line">&gt; <span class="comment">## a pie chart.	If you have a cheap SVGA monitor (like me) you will</span></div><div class="line">&gt; <span class="comment">## probably find that numerically equispaced does not mean visually</span></div><div class="line">&gt; <span class="comment">## equispaced.  On my display at home, these colors tend to cluster at</span></div><div class="line">&gt; <span class="comment">## the RGB primaries.  On the other hand on the SGI Indy at work the</span></div><div class="line">&gt; <span class="comment">## effect is near perfect.</span></div><div class="line">&gt; </div><div class="line">&gt; par(bg = <span class="string">"gray"</span>)</div><div class="line"></div><div class="line">&gt; pie(rep(<span class="number">1</span>,<span class="number">24</span>), col = rainbow(<span class="number">24</span>), radius = <span class="number">0.9</span>)</div></pre></td></tr></table></figure>
+
+<center><img src="/img/r-tutorial-datacamp/01-basics/01-plot.PNG" alt=""></center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&gt; title(main = <span class="string">"A Sample Color Wheel"</span>, cex.main = <span class="number">1.4</span>, font.main = <span class="number">3</span>)</div><div class="line"></div><div class="line">&gt; title(xlab = <span class="string">"(Use this as a test of monitor linearity)"</span>,</div><div class="line">+       cex.lab = <span class="number">0.8</span>, font.lab = <span class="number">3</span>)</div><div class="line"></div><div class="line">&gt; <span class="comment">## We have already confessed to having these.  This is just showing off X11</span></div><div class="line">&gt; <span class="comment">## color names (and the example (from the postscript manual) is pretty "cute".</span></div><div class="line">&gt; </div><div class="line">&gt; pie.sales &lt;- c(<span class="number">0.12</span>, <span class="number">0.3</span>, <span class="number">0.26</span>, <span class="number">0.16</span>, <span class="number">0.04</span>, <span class="number">0.12</span>)</div><div class="line"></div><div class="line">&gt; names(pie.sales) &lt;- c(<span class="string">"Blueberry"</span>, <span class="string">"Cherry"</span>,</div><div class="line">+ 		      <span class="string">"Apple"</span>, <span class="string">"Boston Cream"</span>, <span class="string">"Other"</span>, <span class="string">"Vanilla Cream"</span>)</div><div class="line"></div><div class="line">&gt; pie(pie.sales,</div><div class="line">+     col = c(<span class="string">"purple"</span>,<span class="string">"violetred1"</span>,<span class="string">"green3"</span>,<span class="string">"cornsilk"</span>,<span class="string">"cyan"</span>,<span class="string">"white"</span>))</div></pre></td></tr></table></figure>
+
+<center><img src="/img/r-tutorial-datacamp/01-basics/02-plot.PNG" alt=""></center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt; title(main = <span class="string">"January Pie Sales"</span>, cex.main = <span class="number">1.8</span>, font.main = <span class="number">1</span>)</div><div class="line"></div><div class="line">&gt; title(xlab = <span class="string">"(Don't try this at home kids)"</span>, cex.lab = <span class="number">0.8</span>, font.lab = <span class="number">3</span>)</div><div class="line"></div><div class="line">&gt; <span class="comment">## Boxplots:  I couldn't resist the capability for filling the "box".</span></div><div class="line">&gt; <span class="comment">## The use of color seems like a useful addition, it focuses attention</span></div><div class="line">&gt; <span class="comment">## on the central bulk of the data.</span></div><div class="line">&gt; </div><div class="line">&gt; par(bg=<span class="string">"cornsilk"</span>)</div><div class="line"></div><div class="line">&gt; n &lt;- <span class="number">10</span></div><div class="line"></div><div class="line">&gt; g &lt;- gl(n, <span class="number">100</span>, n*<span class="number">100</span>)</div><div class="line"></div><div class="line">&gt; x &lt;- rnorm(n*<span class="number">100</span>) + sqrt(as.numeric(g))</div><div class="line"></div><div class="line">&gt; boxplot(split(x,g), col=<span class="string">"lavender"</span>, notch=TRUE)</div></pre></td></tr></table></figure>
+
+<center><img src="/img/r-tutorial-datacamp/01-basics/03-plot.PNG" alt=""></center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt; title(main=<span class="string">"Notched Boxplots"</span>, xlab=<span class="string">"Group"</span>, font.main=<span class="number">4</span>, font.lab=<span class="number">1</span>)</div><div class="line"></div><div class="line">&gt; <span class="comment">## An example showing how to fill between curves.</span></div><div class="line">&gt; </div><div class="line">&gt; par(bg=<span class="string">"white"</span>)</div><div class="line"></div><div class="line">&gt; n &lt;- <span class="number">100</span></div><div class="line"></div><div class="line">&gt; x &lt;- c(<span class="number">0</span>,cumsum(rnorm(n)))</div><div class="line"></div><div class="line">&gt; y &lt;- c(<span class="number">0</span>,cumsum(rnorm(n)))</div><div class="line"></div><div class="line">&gt; xx &lt;- c(<span class="number">0</span>:n, n:<span class="number">0</span>)</div><div class="line"></div><div class="line">&gt; yy &lt;- c(x, rev(y))</div><div class="line"></div><div class="line">&gt; plot(xx, yy, <span class="built_in">type</span>=<span class="string">"n"</span>, xlab=<span class="string">"Time"</span>, ylab=<span class="string">"Distance"</span>)</div></pre></td></tr></table></figure>
+
+<center><img src="/img/r-tutorial-datacamp/01-basics/04-plot.PNG" alt=""></center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt; polygon(xx, yy, col=<span class="string">"gray"</span>)</div><div class="line"></div><div class="line">&gt; title(<span class="string">"Distance Between Brownian Motions"</span>)</div><div class="line"></div><div class="line">&gt; <span class="comment">## Colored plot margins, axis labels and titles.	 You do need to be</span></div><div class="line">&gt; <span class="comment">## careful with these kinds of effects.	It's easy to go completely</span></div><div class="line">&gt; <span class="comment">## over the top and you can end up with your lunch all over the keyboard.</span></div><div class="line">&gt; <span class="comment">## On the other hand, my market research clients love it.</span></div><div class="line">&gt; </div><div class="line">&gt; x &lt;- c(<span class="number">0.00</span>, <span class="number">0.40</span>, <span class="number">0.86</span>, <span class="number">0.85</span>, <span class="number">0.69</span>, <span class="number">0.48</span>, <span class="number">0.54</span>, <span class="number">1.09</span>, <span class="number">1.11</span>, <span class="number">1.73</span>, <span class="number">2.05</span>, <span class="number">2.02</span>)</div><div class="line"></div><div class="line">&gt; par(bg=<span class="string">"lightgray"</span>)</div><div class="line"></div><div class="line">&gt; plot(x, <span class="built_in">type</span>=<span class="string">"n"</span>, axes=FALSE, ann=FALSE)</div></pre></td></tr></table></figure>
+
+<center><img src="/img/r-tutorial-datacamp/01-basics/05-plot.PNG" alt=""></center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt; usr &lt;- par(<span class="string">"usr"</span>)</div><div class="line"></div><div class="line">&gt; rect(usr[<span class="number">1</span>], usr[<span class="number">3</span>], usr[<span class="number">2</span>], usr[<span class="number">4</span>], col=<span class="string">"cornsilk"</span>, border=<span class="string">"black"</span>)</div><div class="line"></div><div class="line">&gt; lines(x, col=<span class="string">"blue"</span>)</div><div class="line"></div><div class="line">&gt; points(x, pch=<span class="number">21</span>, bg=<span class="string">"lightcyan"</span>, cex=<span class="number">1.25</span>)</div><div class="line"></div><div class="line">&gt; axis(<span class="number">2</span>, col.axis=<span class="string">"blue"</span>, las=<span class="number">1</span>)</div><div class="line"></div><div class="line">&gt; axis(<span class="number">1</span>, at=<span class="number">1</span>:<span class="number">12</span>, lab=month.abb, col.axis=<span class="string">"blue"</span>)</div><div class="line"></div><div class="line">&gt; box()</div><div class="line"></div><div class="line">&gt; title(main= <span class="string">"The Level of Interest in R"</span>, font.main=<span class="number">4</span>, col.main=<span class="string">"red"</span>)</div><div class="line"></div><div class="line">&gt; title(xlab= <span class="string">"1996"</span>, col.lab=<span class="string">"red"</span>)</div><div class="line"></div><div class="line">&gt; <span class="comment">## A filled histogram, showing how to change the font used for the</span></div><div class="line">&gt; <span class="comment">## main title without changing the other annotation.</span></div><div class="line">&gt; </div><div class="line">&gt; par(bg=<span class="string">"cornsilk"</span>)</div><div class="line"></div><div class="line">&gt; x &lt;- rnorm(<span class="number">1000</span>)</div><div class="line"></div><div class="line">&gt; hist(x, xlim=range(-<span class="number">4</span>, <span class="number">4</span>, x), col=<span class="string">"lavender"</span>, main=<span class="string">""</span>)</div></pre></td></tr></table></figure>
+
+<center><img src="/img/r-tutorial-datacamp/01-basics/06-plot.PNG" alt=""></center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt; title(main=<span class="string">"1000 Normal Random Variates"</span>, font.main=<span class="number">3</span>)</div><div class="line"></div><div class="line">&gt; <span class="comment">## A scatterplot matrix</span></div><div class="line">&gt; <span class="comment">## The good old Iris data (yet again)</span></div><div class="line">&gt; </div><div class="line">&gt; pairs(iris[<span class="number">1</span>:<span class="number">4</span>], main=<span class="string">"Edgar Anderson's Iris Data"</span>, font.main=<span class="number">4</span>, pch=<span class="number">19</span>)</div></pre></td></tr></table></figure>
+
+<center><img src="/img/r-tutorial-datacamp/01-basics/07-plot.PNG" alt=""></center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pairs(iris[<span class="number">1</span>:<span class="number">4</span>], main=<span class="string">"Edgar Anderson's Iris Data"</span>, pch=<span class="number">21</span>,</div><div class="line">+       bg = c(<span class="string">"red"</span>, <span class="string">"green3"</span>, <span class="string">"blue"</span>)[unclass(iris<span class="variable">$Species</span>)])</div></pre></td></tr></table></figure>
+
+<center><img src="/img/r-tutorial-datacamp/01-basics/08-plot.PNG" alt=""></center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment">## Contour plotting</span></div><div class="line">&gt; <span class="comment">## This produces a topographic map of one of Auckland's many volcanic "peaks".</span></div><div class="line">&gt; </div><div class="line">&gt; x &lt;- <span class="number">10</span>*<span class="number">1</span>:nrow(volcano)</div><div class="line"></div><div class="line">&gt; y &lt;- <span class="number">10</span>*<span class="number">1</span>:ncol(volcano)</div><div class="line"></div><div class="line">&gt; lev &lt;- pretty(range(volcano), <span class="number">10</span>)</div><div class="line"></div><div class="line">&gt; par(bg = <span class="string">"lightcyan"</span>)</div><div class="line"></div><div class="line">&gt; pin &lt;- par(<span class="string">"pin"</span>)</div><div class="line"></div><div class="line">&gt; xdelta &lt;- diff(range(x))</div><div class="line"></div><div class="line">&gt; ydelta &lt;- diff(range(y))</div><div class="line"></div><div class="line">&gt; xscale &lt;- pin[<span class="number">1</span>]/xdelta</div><div class="line"></div><div class="line">&gt; yscale &lt;- pin[<span class="number">2</span>]/ydelta</div><div class="line"></div><div class="line">&gt; scale &lt;- min(xscale, yscale)</div><div class="line"></div><div class="line">&gt; xadd &lt;- <span class="number">0.5</span>*(pin[<span class="number">1</span>]/scale - xdelta)</div><div class="line"></div><div class="line">&gt; yadd &lt;- <span class="number">0.5</span>*(pin[<span class="number">2</span>]/scale - ydelta)</div><div class="line"></div><div class="line">&gt; plot(numeric(<span class="number">0</span>), numeric(<span class="number">0</span>),</div><div class="line">+      xlim = range(x)+c(-<span class="number">1</span>,<span class="number">1</span>)*xadd, ylim = range(y)+c(-<span class="number">1</span>,<span class="number">1</span>)*yadd,</div><div class="line">+      <span class="built_in">type</span> = <span class="string">"n"</span>, ann = FALSE)</div></pre></td></tr></table></figure>
+
+<center><img src="/img/r-tutorial-datacamp/01-basics/09-plot.PNG" alt=""></center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&gt; usr &lt;- par(<span class="string">"usr"</span>)</div><div class="line"></div><div class="line">&gt; rect(usr[<span class="number">1</span>], usr[<span class="number">3</span>], usr[<span class="number">2</span>], usr[<span class="number">4</span>], col=<span class="string">"green3"</span>)</div><div class="line"></div><div class="line">&gt; contour(x, y, volcano, levels = lev, col=<span class="string">"yellow"</span>, lty=<span class="string">"solid"</span>, add=TRUE)</div><div class="line"></div><div class="line">&gt; box()</div><div class="line"></div><div class="line">&gt; title(<span class="string">"A Topographic Map of Maunga Whau"</span>, font= <span class="number">4</span>)</div><div class="line"></div><div class="line">&gt; title(xlab = <span class="string">"Meters North"</span>, ylab = <span class="string">"Meters West"</span>, font= <span class="number">3</span>)</div><div class="line"></div><div class="line">&gt; mtext(<span class="string">"10 Meter Contour Spacing"</span>, side=<span class="number">3</span>, line=<span class="number">0.35</span>, outer=FALSE,</div><div class="line">+       at = mean(par(<span class="string">"usr"</span>)[<span class="number">1</span>:<span class="number">2</span>]), cex=<span class="number">0.7</span>, font=<span class="number">3</span>)</div><div class="line"></div><div class="line">&gt; <span class="comment">## Conditioning plots</span></div><div class="line">&gt; </div><div class="line">&gt; par(bg=<span class="string">"cornsilk"</span>)</div><div class="line"></div><div class="line">&gt; coplot(lat ~ long | depth, data = quakes, pch = <span class="number">21</span>, bg = <span class="string">"green3"</span>)</div></pre></td></tr></table></figure>
+
+<center><img src="/img/r-tutorial-datacamp/01-basics/10-plot.PNG" alt=""></center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; par(opar)</div></pre></td></tr></table></figure>
+
+<center><img src="/img/r-tutorial-datacamp/01-basics/11-plot.PNG" alt=""></center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Calculate 3+4</span></div><div class="line"><span class="number">3</span> + <span class="number">4</span></div><div class="line">[<span class="number">1</span>] <span class="number">7</span></div></pre></td></tr></table></figure>
+
+<h2 id="Next_Tutorial"><a href="http://tim4chan.com/2014/11/18/chap1-little-arithmeics-with-R/" target="_blank" rel="external">Next Tutorial</a></h2>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/R-Tutorial/">R Tutorial</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/R-basics/">R basics</a>
+  </div>
+
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://tim4chan.com/2014/11/18/chap1-Intro-to-basics/" data-title="chapter1-Intro to basics | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/11/18/chap1-little-arithmeics-with-R/" title="chaper1-little-arithmeics-with-R">
+  <strong>上一篇：</strong><br/>
+  <span>
+  chaper1-little-arithmeics-with-R</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/11/14/机器学习入门基础大纲/"  title="机器学习入门基础大纲">
+ <strong>下一篇：</strong><br/> 
+ <span>机器学习入门基础大纲
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#How_it_works"><span class="toc-number">1.</span> <span class="toc-text">How it works</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Instructions"><span class="toc-number">2.</span> <span class="toc-text">Instructions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercises"><span class="toc-number">3.</span> <span class="toc-text">Exercises</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Next_Tutorial"><span class="toc-number">4.</span> <span class="toc-text">Next Tutorial</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+			<li><a href="/categories/JSP-Review/" title="JSP_Review">JSP_Review<sup>10</sup></a></li>
+		
+			<li><a href="/categories/R-Tutorial/" title="R Tutorial">R Tutorial<sup>2</sup></a></li>
+		
+			<li><a href="/categories/probability-theory-basic-conception/" title="probability-theory-basic-conception">probability-theory-basic-conception<sup>1</sup></a></li>
+		
+			<li><a href="/categories/医学图像处理/" title="医学图像处理">医学图像处理<sup>2</sup></a></li>
+		
+			<li><a href="/categories/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
+		
+			<li><a href="/categories/技术开发/" title="技术开发">技术开发<sup>1</sup></a></li>
+		
+			<li><a href="/categories/数据挖掘与R语言-案例学习/" title="数据挖掘与R语言-案例学习">数据挖掘与R语言-案例学习<sup>4</sup></a></li>
+		
+			<li><a href="/categories/数据挖掘算法总结/" title="数据挖掘算法总结">数据挖掘算法总结<sup>3</sup></a></li>
+		
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		
+			<li><a href="/categories/概率论笔记/" title="概率论笔记">概率论笔记<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/JSP-网页开发/" title="JSP 网页开发">JSP 网页开发<sup>10</sup></a></li>
+		
+			<li><a href="/tags/数据挖掘/" title="数据挖掘">数据挖掘<sup>5</sup></a></li>
+		
+			<li><a href="/tags/概率论/" title="概率论">概率论<sup>2</sup></a></li>
+		
+			<li><a href="/tags/R-basics/" title="R basics">R basics<sup>2</sup></a></li>
+		
+			<li><a href="/tags/机器学习入门基础/" title="机器学习入门基础">机器学习入门基础<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Aprior-Algorithm/" title="Aprior Algorithm">Aprior Algorithm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
+		
+			<li><a href="/tags/FP-growth-tree/" title="FP-growth-tree">FP-growth-tree<sup>1</sup></a></li>
+		
+			<li><a href="/tags/概率论基本概念/" title="概率论基本概念">概率论基本概念<sup>1</sup></a></li>
+		
+			<li><a href="/tags/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
+		
+			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+		
+			<li><a href="/tags/灰度直方图/" title="灰度直方图">灰度直方图<sup>1</sup></a></li>
+		
+			<li><a href="/tags/二值化/" title="二值化">二值化<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Aprior-Algorithm/" style="font-size: 10.00px;">Aprior Algorithm</a><a href="/tags/FP-growth-tree/" style="font-size: 10.00px;">FP-growth-tree</a><a href="/tags/JSP-网页开发/" style="font-size: 20.00px;">JSP 网页开发</a><a href="/tags/R-basics/" style="font-size: 13.33px;">R basics</a><a href="/tags/linux-C/" style="font-size: 10.00px;">linux C</a><a href="/tags/二值化/" style="font-size: 10.00px;">二值化</a><a href="/tags/原型设计/" style="font-size: 10.00px;">原型设计</a><a href="/tags/数据挖掘/" style="font-size: 16.67px;">数据挖掘</a><a href="/tags/机器学习入门基础/" style="font-size: 10.00px;">机器学习入门基础</a><a href="/tags/概率论/" style="font-size: 13.33px;">概率论</a><a href="/tags/概率论基本概念/" style="font-size: 10.00px;">概率论基本概念</a><a href="/tags/正则表达式/" style="font-size: 10.00px;">正则表达式</a><a href="/tags/灰度直方图/" style="font-size: 10.00px;">灰度直方图</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+<iframe width="100%" height="300" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=300&fansRow=2&ptype=1&speed=300&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2155417625&verifier=9f994c23&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+	  <li><a href="http://zjdian.com/" target="_blank" title="zjdian">中继点</li>
+      <li><a href="http://ripeconan.com/" target="_blank" title="ripeconan">Ripeconan</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Tim Chan. <br/>
+			Welcome to my personal blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2155417625" target="_blank" class="icon-weibo" title="weibo"></a>
+		
+		
+		<a href="https://github.com/chenyuqing" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:motoleisure@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2014 
+		
+		<a href="http://tim4chan.com/about" target="_blank" title="Tim Chan">Tim Chan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+
+
+<div id="totop">
+<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+
+
+
+  </body>
+</html>
+
+
+<a href="https://github.com/chenyuqing/chenyuqing.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>

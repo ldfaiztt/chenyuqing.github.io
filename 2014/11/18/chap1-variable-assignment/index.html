@@ -4,17 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>图像二值化算法笔记 | Tim Chan&#39;s Blog!</title>
+    <title>chap1-variable-assignment | Tim Chan&#39;s Blog!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Tim Chan">
     
-    <meta name="description" content="写在开头的话
-本次笔记是上海交通大学在Coursera上开设的《医学图像处理技术》第二周课程的笔记之一。文中引用资料归原作者所有。
-二值化操作
-   
+    <meta name="description" content="Last Tutorial
+Variable assignment(1)
 
-二值化是一个最简单的，没有前后关联的，非常有效的图像分割技术。">
+A basic concept in (statistical) programming is called a varibale.
+A variable allows you to store a value (e.g.4">
     
     
     
@@ -77,14 +76,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/10/20/图像二值化算法/" title="图像二值化算法笔记" itemprop="url">图像二值化算法笔记</a>
+      <a href="/2014/11/18/chap1-variable-assignment/" title="chap1-variable-assignment" itemprop="url">chap1-variable-assignment</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
 		
   <p class="article-time">
-    <time datetime="2014-10-20T04:44:15.000Z" itemprop="datePublished"> Published Oct 20 2014</time>
+    <time datetime="2014-11-18T13:35:05.000Z" itemprop="datePublished"> Published Nov 18 2014</time>
     
   </p>
 </header>
@@ -94,17 +93,42 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二值化操作"><span class="toc-number">2.</span> <span class="toc-text">二值化操作</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Last_Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Last Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(1)"><span class="toc-number">2.</span> <span class="toc-text">Variable assignment(1)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercises1"><span class="toc-number">3.</span> <span class="toc-text">Exercises1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(2)"><span class="toc-number">4.</span> <span class="toc-text">Variable assignment(2)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercises2"><span class="toc-number">5.</span> <span class="toc-text">Exercises2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(3)"><span class="toc-number">6.</span> <span class="toc-text">Variable assignment(3)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise3"><span class="toc-number">7.</span> <span class="toc-text">Exercise3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apples_and_oranges"><span class="toc-number">8.</span> <span class="toc-text">Apples and oranges</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise4"><span class="toc-number">9.</span> <span class="toc-text">Exercise4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Next_Tutorial"><span class="toc-number">10.</span> <span class="toc-text">Next Tutorial</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="写在开头的话">写在开头的话</h2>
-<p>本次笔记是上海交通大学在Coursera上开设的<a href="https://www.coursera.org/course/sjtumia" target="_blank" rel="external">《医学图像处理技术》</a>第二周课程的笔记之一。文中引用资料归原作者所有。</p>
-<h2 id="二值化操作">二值化操作</h2>
-<p><img src="/img/img-process-SHJU/week02/02-threshold/01_BinaryOperation.JPG" alt="slide 01">   </p>
+		<h2 id="Last_Tutorial"><a href="http://tim4chan.com/2014/11/18/chap1-little-arithmeics-with-R/" target="_blank" rel="external">Last Tutorial</a></h2>
+<h2 id="Variable_assignment(1)">Variable assignment(1)</h2>
 <ul>
-<li>二值化是一个最简单的，没有前后关联的，非常有效的图像分割技术。</li>
+<li>A basic concept in (statistical) programming is called a <strong>varibale.</strong></li>
+<li>A variable allows you to store a value (e.g.4) or an object (e.g. a function description) in R. You can then later use this variable’s name to easily access the value or the object that is stored within this variable.</li>
+<li>You can assign a value 4 to a variable <font color="red">my_variable</font> with the command: <font color="red">my_variable = 4.</font></li>
 </ul>
+<h2 id="Exercises1">Exercises1</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment"># Assign the value 42 to x</span></div><div class="line">&gt; x = <span class="number">42</span></div><div class="line">&gt; <span class="comment"># Print out the value of the variable x</span></div><div class="line">&gt; x</div><div class="line">[<span class="number">1</span>] <span class="number">42</span></div></pre></td></tr></table></figure>
+
+<h2 id="Variable_assignment(2)">Variable assignment(2)</h2>
+<ul>
+<li>Suppose you have a fruit basket with five apples. As a data ananlyst in training, you want to store the number of apples in a variable with the name <font color="red">my_apples.</font></li>
+</ul>
+<h2 id="Exercises2">Exercises2</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment"># Assign the value 5 to the variable called my_apples</span></div><div class="line">&gt; my_apples &lt;- <span class="number">5</span></div><div class="line">&gt; <span class="comment"># Print out the value of the variable my_apples</span></div><div class="line">&gt; my_apples</div><div class="line">[<span class="number">1</span>] <span class="number">5</span></div></pre></td></tr></table></figure>
+
+<h2 id="Variable_assignment(3)">Variable assignment(3)</h2>
+<ul>
+<li>Every tasty fruit basket needs oranges, so you decide to add six oranges. As a data ananlyst, your reflex is to immediately create the variable <font color="red">my_orange</font> and assign the value 6 to it. Next, you want to calculate how many pieces of fruit you have in total. Since you have given meaningful names to these values, you can now code this in a clear way:<font color="red">my_apples + my_oranges.</font></li>
+</ul>
+<h2 id="Exercise3">Exercise3</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment"># Assign a value to the variables called my_apples and my_oranges</span></div><div class="line">&gt; my_apples = <span class="number">5</span></div><div class="line">&gt; my_oranges = <span class="number">6</span></div><div class="line">&gt; <span class="comment"># Add these two variables together and print the result</span></div><div class="line">&gt; print(my_apples + my_oranges)</div><div class="line">[<span class="number">1</span>] <span class="number">11</span></div><div class="line">&gt; <span class="comment"># Create the variable my_fruit</span></div><div class="line">&gt; my_fruit = my_apples + my_oranges</div></pre></td></tr></table></figure>
+
+<h2 id="Apples_and_oranges">Apples and oranges</h2>
+<ul>
+<li>Common knowledge tells you not to add apples and oranges. But hey, that is what you just did, no:-)? The <font color="red">my_apples</font> and <font color="red">my_oranges</font> variables both contained a number in the previous exercise. The <font color="red"> + </font> operator works with numeric variables in R. If you really tried to add “apples” and “oranges”, and assigned a text value to the variable <font color="red"> my_oranges </font>(see the editor), you would be trying to assign the addition of a numeric a character variable to the variable <font color="red"> my_fruit. </font> This is not possible.</li>
+</ul>
+<h2 id="Exercise4">Exercise4</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment"># Assign a value to the variable called my_apples</span></div><div class="line">&gt; my_apples = <span class="number">5</span></div><div class="line">&gt; <span class="comment"># Print out the value of my_apples</span></div><div class="line">&gt; my_apples</div><div class="line">[<span class="number">1</span>] <span class="number">5</span></div><div class="line">&gt; </div><div class="line">&gt; <span class="comment"># Add a character</span></div><div class="line">&gt; my_oranges = <span class="number">6</span></div><div class="line">&gt; my_oranges</div><div class="line">[<span class="number">1</span>] <span class="number">6</span></div><div class="line">&gt; </div><div class="line">&gt; <span class="comment"># New variable that contains total amount of fruit</span></div><div class="line">&gt; my_fruit = my_apples + my_oranges</div><div class="line">&gt; my_fruit</div><div class="line">[<span class="number">1</span>] <span class="number">11</span></div></pre></td></tr></table></figure>
+
+<h2 id="Next_Tutorial"><a href="http://tim4chan.com" target="_blank" rel="external">Next Tutorial</a></h2>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -112,13 +136,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/医学图像处理/">医学图像处理</a>
+  <a class="article-category-link" href="/categories/R-Tutorial/">R Tutorial</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/二值化/">二值化</a>
+  <span></span> <a href="/tags/R-basics/">R basics</a>
   </div>
 
 </div>
@@ -126,7 +150,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://tim4chan.com/2014/10/20/图像二值化算法/" data-title="图像二值化算法笔记 | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  <div data-url="http://tim4chan.com/2014/11/18/chap1-variable-assignment/" data-title="chap1-variable-assignment | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
   </div>
 
 </div>
@@ -136,18 +160,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/10/23/axure-rp-初体验/" title="axure-rp-初体验">
+ <a href="/2014/11/18/chap1-basic-data-types-in-R/" title="chap1-basic-data-types-in-R">
   <strong>上一篇：</strong><br/>
   <span>
-  axure-rp-初体验</span>
+  chap1-basic-data-types-in-R</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/10/20/灰度直方图及其应用和特点/"  title="灰度直方图及其应用和特点">
+<a href="/2014/11/18/chap1-little-arithmeics-with-R/"  title="chap1-little-arithmeics-with-R">
  <strong>下一篇：</strong><br/> 
- <span>灰度直方图及其应用和特点
+ <span>chap1-little-arithmeics-with-R
 </span>
 </a>
 </div>
@@ -162,7 +186,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二值化操作"><span class="toc-number">2.</span> <span class="toc-text">二值化操作</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Last_Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Last Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(1)"><span class="toc-number">2.</span> <span class="toc-text">Variable assignment(1)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercises1"><span class="toc-number">3.</span> <span class="toc-text">Exercises1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(2)"><span class="toc-number">4.</span> <span class="toc-text">Variable assignment(2)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercises2"><span class="toc-number">5.</span> <span class="toc-text">Exercises2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(3)"><span class="toc-number">6.</span> <span class="toc-text">Variable assignment(3)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise3"><span class="toc-number">7.</span> <span class="toc-text">Exercise3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apples_and_oranges"><span class="toc-number">8.</span> <span class="toc-text">Apples and oranges</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise4"><span class="toc-number">9.</span> <span class="toc-text">Exercise4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Next_Tutorial"><span class="toc-number">10.</span> <span class="toc-text">Next Tutorial</span></a></li></ol>
  
   </div>
 

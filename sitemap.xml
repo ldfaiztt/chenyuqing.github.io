@@ -2,13 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tim4chan.com/2014/11/18/chap1-basic-data-types-in-R/</loc>
+    <lastmod>2014-11-18T14:14:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://tim4chan.com/2014/11/18/chap1-variable-assignment/</loc>
+    <lastmod>2014-11-18T13:57:48.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://tim4chan.com/2014/11/18/chap1-little-arithmeics-with-R/</loc>
-    <lastmod>2014-11-18T13:27:58.000Z</lastmod>
+    <lastmod>2014-11-18T13:37:18.000Z</lastmod>
   </url>
   
   <url>
     <loc>http://tim4chan.com/2014/11/18/chap1-Intro-to-basics/</loc>
-    <lastmod>2014-11-18T13:22:30.000Z</lastmod>
+    <lastmod>2014-11-18T13:36:37.000Z</lastmod>
   </url>
   
   <url>

@@ -4,17 +4,17 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>图像二值化算法笔记 | Tim Chan&#39;s Blog!</title>
+    <title>chap1-basic-data-types-in-R | Tim Chan&#39;s Blog!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Tim Chan">
     
-    <meta name="description" content="写在开头的话
-本次笔记是上海交通大学在Coursera上开设的《医学图像处理技术》第二周课程的笔记之一。文中引用资料归原作者所有。
-二值化操作
-   
+    <meta name="description" content="Last Tutorial
+Basic data types in R
 
-二值化是一个最简单的，没有前后关联的，非常有效的图像分割技术。">
+R works with numerous data types.Some of the most basic types to get started are:
+
+Decimals values like 4.5 are c">
     
     
     
@@ -77,14 +77,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/10/20/图像二值化算法/" title="图像二值化算法笔记" itemprop="url">图像二值化算法笔记</a>
+      <a href="/2014/11/18/chap1-basic-data-types-in-R/" title="chap1-basic-data-types-in-R" itemprop="url">chap1-basic-data-types-in-R</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
 		
   <p class="article-time">
-    <time datetime="2014-10-20T04:44:15.000Z" itemprop="datePublished"> Published Oct 20 2014</time>
+    <time datetime="2014-11-18T14:01:02.000Z" itemprop="datePublished"> Published Nov 18 2014</time>
     
   </p>
 </header>
@@ -94,17 +94,34 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二值化操作"><span class="toc-number">2.</span> <span class="toc-text">二值化操作</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Last_Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Last Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic_data_types_in_R"><span class="toc-number">2.</span> <span class="toc-text">Basic data types in R</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise"><span class="toc-number">3.</span> <span class="toc-text">Exercise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What’s_that_data_type_?"><span class="toc-number">4.</span> <span class="toc-text">What’s that data type ?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise2"><span class="toc-number">5.</span> <span class="toc-text">Exercise2</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="写在开头的话">写在开头的话</h2>
-<p>本次笔记是上海交通大学在Coursera上开设的<a href="https://www.coursera.org/course/sjtumia" target="_blank" rel="external">《医学图像处理技术》</a>第二周课程的笔记之一。文中引用资料归原作者所有。</p>
-<h2 id="二值化操作">二值化操作</h2>
-<p><img src="/img/img-process-SHJU/week02/02-threshold/01_BinaryOperation.JPG" alt="slide 01">   </p>
+		<h2 id="Last_Tutorial"><a href="http://tim4chan.com/2014/11/18/chap1-variable-assignment/" target="_blank" rel="external">Last Tutorial</a></h2>
+<h2 id="Basic_data_types_in_R">Basic data types in R</h2>
 <ul>
-<li>二值化是一个最简单的，没有前后关联的，非常有效的图像分割技术。</li>
+<li><p>R works with numerous data types.Some of the most basic types to get started are:</p>
+<ul>
+<li>Decimals values like <font color="red">4.5</font> are called <strong>numeric</strong></li>
+<li>Natural numbers like <font color="red">4</font> are called <strong>integers</strong>.</li>
+<li>Boolean values (<font color="red">TRUE</font> or <font color="red">FALSE</font>) are called <strong>logical</strong> (<font color="red">TRUE</font> canbe abbreviated to <font color="red">T</font> and <font color="red">FALSE</font> to <font color="red">F</font>).</li>
+<li>Text (or string) values are called <strong>characters</strong>.</li>
 </ul>
+</li>
+<li><p>Note how the quotation marks on the right indicate that “some text” is a character.</p>
+</li>
+</ul>
+<h2 id="Exercise">Exercise</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment"># What's the answer to the universe</span></div><div class="line">&gt; my_numeric = <span class="number">42</span></div><div class="line">&gt; </div><div class="line">&gt; <span class="comment"># The quotation marks indicate that the variable is of type character</span></div><div class="line">&gt; my_character = <span class="string">"forty-two"</span></div><div class="line">&gt; </div><div class="line">&gt; my_logical = FALSE</div></pre></td></tr></table></figure>
+
+<h2 id="What’s_that_data_type_?">What’s that data type ?</h2>
+<ul>
+<li>Do you remember that when you added <font color="red"> 5+”six”</font>,you got an error due to a mismatch in data types ? You can avoid such embarrassing situations by checking the data type of a variable beforehand. You can do this as follows: <font color="red"> class(some_variable_name)</font>.</li>
+</ul>
+<h2 id="Exercise2">Exercise2</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment"># Declare variables of different types</span></div><div class="line">&gt; my_numeric = <span class="number">42</span></div><div class="line">&gt; my_character = <span class="string">"forty-two"</span></div><div class="line">&gt; my_logical = FALSE</div><div class="line">&gt; </div><div class="line">&gt; <span class="comment"># Check which type these variables have:</span></div><div class="line">&gt; </div><div class="line">&gt; class(my_numeric)</div><div class="line">[<span class="number">1</span>] <span class="string">"numeric"</span></div><div class="line">&gt; class(my_character)</div><div class="line">[<span class="number">1</span>] <span class="string">"character"</span></div><div class="line">&gt; class(my_logical)</div><div class="line">[<span class="number">1</span>] <span class="string">"logical"</span></div></pre></td></tr></table></figure>
+
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -112,13 +129,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/医学图像处理/">医学图像处理</a>
+  <a class="article-category-link" href="/categories/R-Tutorial/">R Tutorial</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/二值化/">二值化</a>
+  <span></span> <a href="/tags/R-basics/">R basics</a>
   </div>
 
 </div>
@@ -126,7 +143,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://tim4chan.com/2014/10/20/图像二值化算法/" data-title="图像二值化算法笔记 | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  <div data-url="http://tim4chan.com/2014/11/18/chap1-basic-data-types-in-R/" data-title="chap1-basic-data-types-in-R | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
   </div>
 
 </div>
@@ -135,19 +152,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/10/23/axure-rp-初体验/" title="axure-rp-初体验">
-  <strong>上一篇：</strong><br/>
-  <span>
-  axure-rp-初体验</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/10/20/灰度直方图及其应用和特点/"  title="灰度直方图及其应用和特点">
+<a href="/2014/11/18/chap1-variable-assignment/"  title="chap1-variable-assignment">
  <strong>下一篇：</strong><br/> 
- <span>灰度直方图及其应用和特点
+ <span>chap1-variable-assignment
 </span>
 </a>
 </div>
@@ -162,7 +171,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在开头的话"><span class="toc-number">1.</span> <span class="toc-text">写在开头的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二值化操作"><span class="toc-number">2.</span> <span class="toc-text">二值化操作</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Last_Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Last Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic_data_types_in_R"><span class="toc-number">2.</span> <span class="toc-text">Basic data types in R</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise"><span class="toc-number">3.</span> <span class="toc-text">Exercise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What’s_that_data_type_?"><span class="toc-number">4.</span> <span class="toc-text">What’s that data type ?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise2"><span class="toc-number">5.</span> <span class="toc-text">Exercise2</span></a></li></ol>
  
   </div>
 

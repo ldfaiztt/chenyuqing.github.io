@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tim4chan.com/2014/12/25/Singleton-note/</loc>
+    <lastmod>2014-12-25T08:31:47.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://tim4chan.com/2014/12/24/SVM-note-1/</loc>
+    <lastmod>2014-12-24T06:07:29.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://tim4chan.com/2014/11/18/chap1-basic-data-types-in-R/</loc>
     <lastmod>2014-11-18T14:14:04.000Z</lastmod>
   </url>

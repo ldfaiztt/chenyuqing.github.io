@@ -1,0 +1,575 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>手写数字识别-毕业设计博客系列 | Tim Chan&#39;s Blog!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Tim Chan">
+    
+    <meta name="description" content="写在前面的话
+
+本系列博客是为记录本人大学毕业设计过程所有点滴而设。因为人生只有一次毕业设计，它如流水，一去不复返，错过了就永远失去了。很多时候，每件事情的发生，都会带着甜酸苦辣，而文字可以记录它们的痕迹，日后可让我细细品味这段曾经的奋斗。
+
+毕业设计简介
+
+本人的毕业设计的题目和其他同学的选题都不">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Tim Chan&#39;s Blog!" title="Tim Chan&#39;s Blog!"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tim Chan&#39;s Blog!">Tim Chan&#39;s Blog!</a></h1>
+				<h2 class="blog-motto">记录生活点滴！</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+						<li><a href="https://pomotodo.com/app/">ToDo</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:tim4chan.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/30/手写数字识别-毕业设计博客系列/" title="手写数字识别-毕业设计博客系列" itemprop="url">手写数字识别-毕业设计博客系列</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-30T14:33:42.000Z" itemprop="datePublished"> Published Dec 30 2015</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#毕业设计简介"><span class="toc-number">2.</span> <span class="toc-text">毕业设计简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#毕业设计时间安排"><span class="toc-number">3.</span> <span class="toc-text">毕业设计时间安排</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#毕业设计流程"><span class="toc-number">4.</span> <span class="toc-text">毕业设计流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#开题报告(11月30日)"><span class="toc-number">4.1.</span> <span class="toc-text">开题报告(11月30日)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是开题报告"><span class="toc-number">4.1.1.</span> <span class="toc-text">什么是开题报告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开题报告格式"><span class="toc-number">4.1.2.</span> <span class="toc-text">开题报告格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献规范"><span class="toc-number">4.1.3.</span> <span class="toc-text">参考文献规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#我的开题报告"><span class="toc-number">4.1.4.</span> <span class="toc-text">我的开题报告</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#我的毕业设计规划(12月22日)"><span class="toc-number">4.2.</span> <span class="toc-text">我的毕业设计规划(12月22日)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中期检查(12月24日)"><span class="toc-number">4.3.</span> <span class="toc-text">中期检查(12月24日)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#毕业设计完成情况"><span class="toc-number">4.3.1.</span> <span class="toc-text">毕业设计完成情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#做了哪些工作"><span class="toc-number">4.3.2.</span> <span class="toc-text">做了哪些工作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#系统实现路线"><span class="toc-number">4.3.2.1.</span> <span class="toc-text">系统实现路线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#理论实现路线"><span class="toc-number">4.3.2.2.</span> <span class="toc-text">理论实现路线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线路图完成度(中期检查)"><span class="toc-number">4.3.2.3.</span> <span class="toc-text">线路图完成度(中期检查)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到了哪些问题"><span class="toc-number">4.3.3.</span> <span class="toc-text">遇到了哪些问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哪些问题已经解决了，哪些没有解决"><span class="toc-number">4.3.4.</span> <span class="toc-text">哪些问题已经解决了，哪些没有解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下一步的计划"><span class="toc-number">4.3.5.</span> <span class="toc-text">下一步的计划</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#末期检查"><span class="toc-number">4.4.</span> <span class="toc-text">末期检查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参加答辩"><span class="toc-number">4.5.</span> <span class="toc-text">参加答辩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#答辩成绩"><span class="toc-number">4.6.</span> <span class="toc-text">答辩成绩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#个人总结"><span class="toc-number">4.7.</span> <span class="toc-text">个人总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">5.</span> <span class="toc-text">后记</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="写在前面的话">写在前面的话</h1>
+<ul>
+<li>本系列博客是为记录本人大学毕业设计过程所有点滴而设。因为人生只有一次毕业设计，它如流水，一去不复返，错过了就永远失去了。很多时候，每件事情的发生，都会带着甜酸苦辣，而文字可以记录它们的痕迹，日后可让我细细品味这段曾经的奋斗。</li>
+</ul>
+<h1 id="毕业设计简介">毕业设计简介</h1>
+<ul>
+<li>本人的毕业设计的题目和其他同学的选题都不大相同，同学一般都选了做个系统或网站，而我选的是“手写数字识别的设计和实现”，它是属于模式识别的范畴，模式识别这个名字看上去就感觉到好高大上。根据<a href="http://baike.baidu.com/link?url=QmW1EdwddM0FNenkkuump1MyXVxQNQ4KJYIo2QWOcUMDHb4HYwLxo44kqgwI6jUofmuHy7t2MI3OBd7Z4iBFD_" target="_blank" rel="external">百度百科</a>的解释：模式识别（英语：Pattern Recognition），就是通过计算机用数学技术方法来研究模式的自动处理和判读。通俗的来说，就是想让机器模仿人的认知，比如“听”懂人说的话(语音识别)，“看”懂人写的文字(自然语言处理)，甚至乎拥有人的思维能力。而我的“手写数字识别”就是看“懂”人写的文字的一部分，它是属于光学字符识别的一个子分支。所以，这个毕业设计还是比较有难度的，对我来说，如果我能很好的完成了这个选题，那么无论是对我个人能力的提升，还是以后的发展都是有很大的帮助的。所以，我要好好对待我的毕业设计，用心做好它。</li>
+</ul>
+<h1 id="毕业设计时间安排">毕业设计时间安排</h1>
+<ul>
+<li><img src="/img/paperBlog/schedule.png" alt=""></li>
+</ul>
+<h1 id="毕业设计流程">毕业设计流程</h1>
+<h2 id="开题报告(11月30日)">开题报告(11月30日)</h2>
+<h3 id="什么是开题报告">什么是开题报告</h3>
+<ul>
+<li>开题报告是是指开题者对科研课题的一种文字说明材料。开题报告包括综述、关键技术、可行性分析和时间安排等四个方面 。由于开题报告是用文字体现的论文总构想,因而篇幅不必过大,但要把计划研究的课题、如何研究、理论适用等主要问题写清楚。开题报告一般为表格式，它把要报告的每一项内容转换成相应的栏目，这样做，既避免遗漏；又便于评审者一目了然，把握要点。</li>
+<li><a href="http://baike.baidu.com/link?url=raHVwGFA26__ZMa8ds-SdM539mknHb5BSxwqmpFZ7eYRvUE3eCGiZ_GMIkf-tVXFEs_SV40JFjxOviu3sSCes_" target="_blank" rel="external">百度百科</a></li>
+</ul>
+<h3 id="开题报告格式">开题报告格式</h3>
+<ul>
+<li><p>毕业论文开题报告提纲</p>
+<ul>
+<li>一、开题报告封面：论文题目、系别、专业、年级、姓名、导师</li>
+<li>二、目的意义和国内外研究概况</li>
+<li>三、论文的理论依据、研究方法、研究内容</li>
+<li>四、研究条件和可能存在的问题</li>
+<li>五、预期的结果</li>
+<li>六、进度安排</li>
+</ul>
+</li>
+<li><p><a href="http://wenku.baidu.com/link?url=XOQOwUC-yYYg0y4JhSQq3RIi8FiGF-Mlynw81eeUglTJNYA27GhXzZ3lxl9s3uthkHR0gkEtcemzLDeLy2DQLc2W81IHODwJSot2befvShlkKWlFWPPNSERlu6OmdKsf" target="_blank" rel="external">参考模板</a></p>
+</li>
+</ul>
+<h3 id="参考文献规范">参考文献规范</h3>
+<ul>
+<li>参考文献的书写也是有一定的要求，所以这个不可随意乱写的。参考文献书写格式要符合GB7714-2005《文后参考文献著录规则》。</li>
+<li><p>文献标注</p>
+<ul>
+<li>参考文献类型<ul>
+<li>专著[M]，论文集[C]，报纸文章[N]，期刊文章[J]，学位论文[D]，报告[R]，标准[S]，专利[P]，论文集中的析出文献[A]</li>
+</ul>
+</li>
+<li>电子文献类型<ul>
+<li>数据库[DB]，计算机[CP]，电子公告[EB]</li>
+</ul>
+</li>
+<li>电子文献的载体类型<ul>
+<li>互联网[OL]，光盘[CD]，磁带[MT]，磁盘[DK]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>参考示例</p>
+<ul>
+<li>专著、论文集、学位论文、报告<ul>
+<li>[序号]主要责任者.文献题名[文献类型标识].出版地：出版者，出版年.起止页码（任选）.</li>
+<li>[1]刘国钧，陈绍业，王凤翥. 图书馆目录[M]. 北京：高等教育出版社，1957.15-18.</li>
+</ul>
+</li>
+<li>期刊文章<ul>
+<li>[序号]主要责任者.文献题名[J].刊名，年，卷（期）：起止页码.</li>
+<li>[8] Heider,E.R.&amp; D.C.Oliver. The structure of color space in naming and memory of two languages [J]. Foreign Language Teaching and Research,1999⑶： 62-67.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a href="http://baike.baidu.com/link?url=14wUrtxW1meyj7N7pKRq79lDfLSRIq6zieEF8WB9aboaiL5M9ATQE5fTr9evBGAi39b1QWrDVcKgVqv-z8j5yq" target="_blank" rel="external">百度百科</a></p>
+</li>
+<li><a href="http://www.360doc.com/content/12/1016/17/9728351_241853882.shtml" target="_blank" rel="external">360图书馆</a><h3 id="我的开题报告">我的开题报告</h3>
+<a href="">本地内存中</a></li>
+</ul>
+<h2 id="我的毕业设计规划(12月22日)">我的毕业设计规划(12月22日)</h2>
+<ul>
+<li>由于我的毕业设计偏向理论，所以我给自己定了两条计划路线，一条是系统实现路线(偏软件实现的)，另一条是理论学习路线(偏理论的)。整体规划如下图：<br><img src="/img/paperBlog/plan-routine.png" alt=""></li>
+<li>系统实现这一块，算法实现用的是Python语言，GUI用PyGame库实现；理论学习这一块，只要是参考了July的博客<a href="http://blog.csdn.net/v_july_v/article/details/7624837" target="_blank" rel="external">支持向量机通俗导论（理解SVM的三层境界）</a>为主线对SVM进行系统的学习。其只要学习路线如下：<br><img src="/img/paperBlog/SVM-three.png" alt=""></li>
+</ul>
+<h2 id="中期检查(12月24日)">中期检查(12月24日)</h2>
+<h3 id="毕业设计完成情况">毕业设计完成情况</h3>
+<ul>
+<li>由于课程安排，本人在前一个月中都在做HIS系统的实训，搁置了毕业设计，所以毕业设计的完成情况还是处于初始阶段。在初始阶段，我主要做了以下工作。<ul>
+<li>系统的原型设计</li>
+<li>手写画板的实现</li>
+<li>学习线性分类器-感知机</li>
+</ul>
+</li>
+</ul>
+<h3 id="做了哪些工作">做了哪些工作</h3>
+<hr>
+<h4 id="系统实现路线">系统实现路线</h4>
+<ul>
+<li>系统的原型设计<ul>
+<li>系统主面板的设计</li>
+<li><img src="/img/paperBlog/main-borad.png" alt=""></li>
+<li>数据集训练等待过程面板的设计</li>
+<li><img src="/img/paperBlog/wait-borad.png" alt=""></li>
+<li>数据集训练完成面板的设计</li>
+<li><img src="/img/paperBlog/train-result-borad.png" alt=""></li>
+</ul>
+</li>
+<li>手写画板的实现(Demo)<ul>
+<li><img src="/img/paperBlog/painting-board-demo.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<h4 id="理论实现路线">理论实现路线</h4>
+<ul>
+<li>学习线性分类器-感知机<ul>
+<li>梯度下降法</li>
+<li>对偶形式</li>
+<li>感知机</li>
+</ul>
+</li>
+</ul>
+<h4 id="线路图完成度(中期检查)">线路图完成度(中期检查)</h4>
+<ul>
+<li><img src="/img/paperBlog/plan-routine-00.png" alt=""></li>
+</ul>
+<h3 id="遇到了哪些问题">遇到了哪些问题</h3>
+<h3 id="哪些问题已经解决了，哪些没有解决">哪些问题已经解决了，哪些没有解决</h3>
+<h3 id="下一步的计划">下一步的计划</h3>
+<ul>
+<li>根据线路图，下一步的计划是继续完善面板框架，学习SVM理论知识，实现SVM识别手写数字的算法。</li>
+</ul>
+<h2 id="末期检查">末期检查</h2>
+<h2 id="参加答辩">参加答辩</h2>
+<h2 id="答辩成绩">答辩成绩</h2>
+<h2 id="个人总结">个人总结</h2>
+<h1 id="后记">后记</h1>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://tim4chan.com/2015/12/30/手写数字识别-毕业设计博客系列/" data-title="手写数字识别-毕业设计博客系列 | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/12/28/blog-list-record/"  title="博客-列表-记录">
+ <strong>下一篇：</strong><br/> 
+ <span>博客-列表-记录
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#毕业设计简介"><span class="toc-number">2.</span> <span class="toc-text">毕业设计简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#毕业设计时间安排"><span class="toc-number">3.</span> <span class="toc-text">毕业设计时间安排</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#毕业设计流程"><span class="toc-number">4.</span> <span class="toc-text">毕业设计流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#开题报告(11月30日)"><span class="toc-number">4.1.</span> <span class="toc-text">开题报告(11月30日)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是开题报告"><span class="toc-number">4.1.1.</span> <span class="toc-text">什么是开题报告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开题报告格式"><span class="toc-number">4.1.2.</span> <span class="toc-text">开题报告格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献规范"><span class="toc-number">4.1.3.</span> <span class="toc-text">参考文献规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#我的开题报告"><span class="toc-number">4.1.4.</span> <span class="toc-text">我的开题报告</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#我的毕业设计规划(12月22日)"><span class="toc-number">4.2.</span> <span class="toc-text">我的毕业设计规划(12月22日)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中期检查(12月24日)"><span class="toc-number">4.3.</span> <span class="toc-text">中期检查(12月24日)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#毕业设计完成情况"><span class="toc-number">4.3.1.</span> <span class="toc-text">毕业设计完成情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#做了哪些工作"><span class="toc-number">4.3.2.</span> <span class="toc-text">做了哪些工作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#系统实现路线"><span class="toc-number">4.3.2.1.</span> <span class="toc-text">系统实现路线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#理论实现路线"><span class="toc-number">4.3.2.2.</span> <span class="toc-text">理论实现路线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线路图完成度(中期检查)"><span class="toc-number">4.3.2.3.</span> <span class="toc-text">线路图完成度(中期检查)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到了哪些问题"><span class="toc-number">4.3.3.</span> <span class="toc-text">遇到了哪些问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哪些问题已经解决了，哪些没有解决"><span class="toc-number">4.3.4.</span> <span class="toc-text">哪些问题已经解决了，哪些没有解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下一步的计划"><span class="toc-number">4.3.5.</span> <span class="toc-text">下一步的计划</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#末期检查"><span class="toc-number">4.4.</span> <span class="toc-text">末期检查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参加答辩"><span class="toc-number">4.5.</span> <span class="toc-text">参加答辩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#答辩成绩"><span class="toc-number">4.6.</span> <span class="toc-text">答辩成绩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#个人总结"><span class="toc-number">4.7.</span> <span class="toc-text">个人总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">5.</span> <span class="toc-text">后记</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+			<li><a href="/categories/JSP-Review/" title="JSP_Review">JSP_Review<sup>10</sup></a></li>
+		
+			<li><a href="/categories/R-Tutorial/" title="R Tutorial">R Tutorial<sup>4</sup></a></li>
+		
+			<li><a href="/categories/probability-theory-basic-conception/" title="probability-theory-basic-conception">probability-theory-basic-conception<sup>1</sup></a></li>
+		
+			<li><a href="/categories/医学图像处理/" title="医学图像处理">医学图像处理<sup>2</sup></a></li>
+		
+			<li><a href="/categories/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
+		
+			<li><a href="/categories/备忘/" title="备忘">备忘<sup>1</sup></a></li>
+		
+			<li><a href="/categories/技术开发/" title="技术开发">技术开发<sup>1</sup></a></li>
+		
+			<li><a href="/categories/数据挖掘与R语言-案例学习/" title="数据挖掘与R语言-案例学习">数据挖掘与R语言-案例学习<sup>4</sup></a></li>
+		
+			<li><a href="/categories/数据挖掘算法总结/" title="数据挖掘算法总结">数据挖掘算法总结<sup>3</sup></a></li>
+		
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		
+			<li><a href="/categories/概率论笔记/" title="概率论笔记">概率论笔记<sup>2</sup></a></li>
+		
+			<li><a href="/categories/黑马程序员/" title="黑马程序员">黑马程序员<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/JSP-网页开发/" title="JSP 网页开发">JSP 网页开发<sup>10</sup></a></li>
+		
+			<li><a href="/tags/数据挖掘/" title="数据挖掘">数据挖掘<sup>5</sup></a></li>
+		
+			<li><a href="/tags/R-basics/" title="R basics">R basics<sup>4</sup></a></li>
+		
+			<li><a href="/tags/概率论/" title="概率论">概率论<sup>2</sup></a></li>
+		
+			<li><a href="/tags/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
+		
+			<li><a href="/tags/FP-growth-tree/" title="FP-growth-tree">FP-growth-tree<sup>1</sup></a></li>
+		
+			<li><a href="/tags/机器学习入门基础/" title="机器学习入门基础">机器学习入门基础<sup>1</sup></a></li>
+		
+			<li><a href="/tags/二值化/" title="二值化">二值化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
+		
+			<li><a href="/tags/概率论基本概念/" title="概率论基本概念">概率论基本概念<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Aprior-Algorithm/" title="Aprior Algorithm">Aprior Algorithm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/单例设计模式/" title="单例设计模式">单例设计模式<sup>1</sup></a></li>
+		
+			<li><a href="/tags/多线程/" title="多线程">多线程<sup>1</sup></a></li>
+		
+			<li><a href="/tags/有价值的博客记录/" title="有价值的博客记录">有价值的博客记录<sup>1</sup></a></li>
+		
+			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+		
+			<li><a href="/tags/灰度直方图/" title="灰度直方图">灰度直方图<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Aprior-Algorithm/" style="font-size: 10.00px;">Aprior Algorithm</a><a href="/tags/FP-growth-tree/" style="font-size: 10.00px;">FP-growth-tree</a><a href="/tags/JSP-网页开发/" style="font-size: 20.00px;">JSP 网页开发</a><a href="/tags/R-basics/" style="font-size: 15.00px;">R basics</a><a href="/tags/linux-C/" style="font-size: 10.00px;">linux C</a><a href="/tags/二值化/" style="font-size: 10.00px;">二值化</a><a href="/tags/单例设计模式/" style="font-size: 10.00px;">单例设计模式</a><a href="/tags/原型设计/" style="font-size: 10.00px;">原型设计</a><a href="/tags/多线程/" style="font-size: 10.00px;">多线程</a><a href="/tags/数据挖掘/" style="font-size: 17.50px;">数据挖掘</a><a href="/tags/有价值的博客记录/" style="font-size: 10.00px;">有价值的博客记录</a><a href="/tags/机器学习入门基础/" style="font-size: 10.00px;">机器学习入门基础</a><a href="/tags/概率论/" style="font-size: 12.50px;">概率论</a><a href="/tags/概率论基本概念/" style="font-size: 10.00px;">概率论基本概念</a><a href="/tags/正则表达式/" style="font-size: 10.00px;">正则表达式</a><a href="/tags/灰度直方图/" style="font-size: 10.00px;">灰度直方图</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+<iframe width="100%" height="300" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=300&fansRow=2&ptype=1&speed=300&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2155417625&verifier=9f994c23&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+	  <li><a href="http://zjdian.com/" target="_blank" title="zjdian">中继点</li>
+      <li><a href="http://ripeconan.com/" target="_blank" title="ripeconan">Ripeconan</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Tim Chan. <br/>
+			Welcome to my personal blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2155417625" target="_blank" class="icon-weibo" title="weibo"></a>
+		
+		
+		<a href="https://github.com/chenyuqing" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:motoleisure@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2014 
+		
+		<a href="http://tim4chan.com/about" target="_blank" title="Tim Chan">Tim Chan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+
+
+<div id="totop">
+<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+
+
+
+  </body>
+</html>
+
+
+<a href="https://github.com/chenyuqing/chenyuqing.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>

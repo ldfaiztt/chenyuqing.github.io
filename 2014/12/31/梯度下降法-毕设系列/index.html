@@ -4,16 +4,21 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>chap1-variable-assignment | Tim Chan&#39;s Blog!</title>
+    <title>梯度下降法-毕设系列 | Tim Chan&#39;s Blog!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Tim Chan">
     
-    <meta name="description" content="Last Tutorial
-Variable assignment(1)
+    <meta name="description" content="写在前面的话
 
-A basic concept in (statistical) programming is called a varibale.
-A variable allows you to store a value (e.g.4">
+本篇笔记是属于毕业设计系列博客的第一篇笔记—-感知机。
+
+梯度下降法
+后记
+参考文献列表
+
+(转)对梯度下降法的简单理解-360图书馆
+机器学习中的数学(1)-回归(regression)、梯度下降(gradient descent)">
     
     
     
@@ -76,14 +81,14 @@ A variable allows you to store a value (e.g.4">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/18/chap1-variable-assignment/" title="chap1-variable-assignment" itemprop="url">chap1-variable-assignment</a>
+      <a href="/2014/12/31/梯度下降法-毕设系列/" title="梯度下降法-毕设系列" itemprop="url">梯度下降法-毕设系列</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
 		
   <p class="article-time">
-    <time datetime="2014-11-18T13:35:05.000Z" itemprop="datePublished"> Published Nov 18 2014</time>
+    <time datetime="2014-12-31T04:29:24.000Z" itemprop="datePublished"> Published Dec 31 2014</time>
     
   </p>
 </header>
@@ -93,42 +98,22 @@ A variable allows you to store a value (e.g.4">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Last_Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Last Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(1)"><span class="toc-number">2.</span> <span class="toc-text">Variable assignment(1)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercises1"><span class="toc-number">3.</span> <span class="toc-text">Exercises1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(2)"><span class="toc-number">4.</span> <span class="toc-text">Variable assignment(2)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercises2"><span class="toc-number">5.</span> <span class="toc-text">Exercises2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(3)"><span class="toc-number">6.</span> <span class="toc-text">Variable assignment(3)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise3"><span class="toc-number">7.</span> <span class="toc-text">Exercise3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apples_and_oranges"><span class="toc-number">8.</span> <span class="toc-text">Apples and oranges</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise4"><span class="toc-number">9.</span> <span class="toc-text">Exercise4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Next_Tutorial"><span class="toc-number">10.</span> <span class="toc-text">Next Tutorial</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#梯度下降法"><span class="toc-number">2.</span> <span class="toc-text">梯度下降法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献列表"><span class="toc-number">4.</span> <span class="toc-text">参考文献列表</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="Last_Tutorial"><a href="http://tim4chan.com/2014/11/18/chap1-little-arithmeics-with-R/" target="_blank" rel="external">Last Tutorial</a></h2>
-<h2 id="Variable_assignment(1)">Variable assignment(1)</h2>
+		<h1 id="写在前面的话">写在前面的话</h1>
 <ul>
-<li>A basic concept in (statistical) programming is called a <strong>varibale.</strong></li>
-<li>A variable allows you to store a value (e.g.4) or an object (e.g. a function description) in R. You can then later use this variable’s name to easily access the value or the object that is stored within this variable.</li>
-<li>You can assign a value 4 to a variable <font color="red">my_variable</font> with the command: <font color="red">my_variable = 4.</font></li>
+<li>本篇笔记是属于毕业设计系列博客的第一篇笔记—-感知机。</li>
 </ul>
-<h2 id="Exercises1">Exercises1</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment"># Assign the value 42 to x</span></div><div class="line">&gt; x = <span class="number">42</span></div><div class="line">&gt; <span class="comment"># Print out the value of the variable x</span></div><div class="line">&gt; x</div><div class="line">[<span class="number">1</span>] <span class="number">42</span></div></pre></td></tr></table></figure>
-
-<h2 id="Variable_assignment(2)">Variable assignment(2)</h2>
+<h1 id="梯度下降法">梯度下降法</h1>
+<h1 id="后记">后记</h1>
+<h1 id="参考文献列表">参考文献列表</h1>
 <ul>
-<li>Suppose you have a fruit basket with five apples. As a data ananlyst in training, you want to store the number of apples in a variable with the name <font color="red">my_apples.</font></li>
+<li><a href="http://www.360doc.com/content/12/0529/22/4617781_214618453.shtml" target="_blank" rel="external">(转)对梯度下降法的简单理解-360图书馆</a></li>
+<li><a href="http://www.cnblogs.com/LeftNotEasy/archive/2010/12/05/mathmatic_in_machine_learning_1_regression_and_gradient_descent.html" target="_blank" rel="external">机器学习中的数学(1)-回归(regression)、梯度下降(gradient descent)</a></li>
+<li></li>
 </ul>
-<h2 id="Exercises2">Exercises2</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment"># Assign the value 5 to the variable called my_apples</span></div><div class="line">&gt; my_apples &lt;- <span class="number">5</span></div><div class="line">&gt; <span class="comment"># Print out the value of the variable my_apples</span></div><div class="line">&gt; my_apples</div><div class="line">[<span class="number">1</span>] <span class="number">5</span></div></pre></td></tr></table></figure>
-
-<h2 id="Variable_assignment(3)">Variable assignment(3)</h2>
-<ul>
-<li>Every tasty fruit basket needs oranges, so you decide to add six oranges. As a data ananlyst, your reflex is to immediately create the variable <font color="red">my_orange</font> and assign the value 6 to it. Next, you want to calculate how many pieces of fruit you have in total. Since you have given meaningful names to these values, you can now code this in a clear way:<font color="red">my_apples + my_oranges.</font></li>
-</ul>
-<h2 id="Exercise3">Exercise3</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment"># Assign a value to the variables called my_apples and my_oranges</span></div><div class="line">&gt; my_apples = <span class="number">5</span></div><div class="line">&gt; my_oranges = <span class="number">6</span></div><div class="line">&gt; <span class="comment"># Add these two variables together and print the result</span></div><div class="line">&gt; print(my_apples + my_oranges)</div><div class="line">[<span class="number">1</span>] <span class="number">11</span></div><div class="line">&gt; <span class="comment"># Create the variable my_fruit</span></div><div class="line">&gt; my_fruit = my_apples + my_oranges</div></pre></td></tr></table></figure>
-
-<h2 id="Apples_and_oranges">Apples and oranges</h2>
-<ul>
-<li>Common knowledge tells you not to add apples and oranges. But hey, that is what you just did, no:-)? The <font color="red">my_apples</font> and <font color="red">my_oranges</font> variables both contained a number in the previous exercise. The <font color="red"> + </font> operator works with numeric variables in R. If you really tried to add “apples” and “oranges”, and assigned a text value to the variable <font color="red"> my_oranges </font>(see the editor), you would be trying to assign the addition of a numeric a character variable to the variable <font color="red"> my_fruit. </font> This is not possible.</li>
-</ul>
-<h2 id="Exercise4">Exercise4</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment"># Assign a value to the variable called my_apples</span></div><div class="line">&gt; my_apples = <span class="number">5</span></div><div class="line">&gt; <span class="comment"># Print out the value of my_apples</span></div><div class="line">&gt; my_apples</div><div class="line">[<span class="number">1</span>] <span class="number">5</span></div><div class="line">&gt; </div><div class="line">&gt; <span class="comment"># Add a character</span></div><div class="line">&gt; my_oranges = <span class="number">6</span></div><div class="line">&gt; my_oranges</div><div class="line">[<span class="number">1</span>] <span class="number">6</span></div><div class="line">&gt; </div><div class="line">&gt; <span class="comment"># New variable that contains total amount of fruit</span></div><div class="line">&gt; my_fruit = my_apples + my_oranges</div><div class="line">&gt; my_fruit</div><div class="line">[<span class="number">1</span>] <span class="number">11</span></div></pre></td></tr></table></figure>
-
-<h2 id="Next_Tutorial"><a href="http://tim4chan.com" target="_blank" rel="external">Next Tutorial</a></h2>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -136,13 +121,13 @@ A variable allows you to store a value (e.g.4">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/R-Tutorial/">R Tutorial</a>
+  <a class="article-category-link" href="/categories/毕业设计系列/">毕业设计系列</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/R-basics/">R basics</a>
+  <span></span> <a href="/tags/梯度下降法/">梯度下降法</a>
   </div>
 
 </div>
@@ -150,7 +135,7 @@ A variable allows you to store a value (e.g.4">
 
 <div class="article-share" id="share">
 
-  <div data-url="http://tim4chan.com/2014/11/18/chap1-variable-assignment/" data-title="chap1-variable-assignment | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
+  <div data-url="http://tim4chan.com/2014/12/31/梯度下降法-毕设系列/" data-title="梯度下降法-毕设系列 | Tim Chan&#39;s Blog!" data-tsina="2155417625" class="share clearfix">
   </div>
 
 </div>
@@ -160,18 +145,18 @@ A variable allows you to store a value (e.g.4">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/11/18/chap1-basic-data-types-in-R/" title="chap1-basic-data-types-in-R">
+ <a href="/2015/12/30/手写数字识别-毕业设计博客系列/" title="基于SVM技术的手写数字识别-毕业设计博客系列(连载)">
   <strong>上一篇：</strong><br/>
   <span>
-  chap1-basic-data-types-in-R</span>
+  基于SVM技术的手写数字识别-毕业设计博客系列(连载)</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/11/18/chap1-little-arithmeics-with-R/"  title="chap1-little-arithmeics-with-R">
+<a href="/2014/12/31/感知机笔记-毕设系列/"  title="感知机笔记-毕设系列">
  <strong>下一篇：</strong><br/> 
- <span>chap1-little-arithmeics-with-R
+ <span>感知机笔记-毕设系列
 </span>
 </a>
 </div>
@@ -186,7 +171,7 @@ A variable allows you to store a value (e.g.4">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Last_Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Last Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(1)"><span class="toc-number">2.</span> <span class="toc-text">Variable assignment(1)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercises1"><span class="toc-number">3.</span> <span class="toc-text">Exercises1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(2)"><span class="toc-number">4.</span> <span class="toc-text">Variable assignment(2)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercises2"><span class="toc-number">5.</span> <span class="toc-text">Exercises2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variable_assignment(3)"><span class="toc-number">6.</span> <span class="toc-text">Variable assignment(3)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise3"><span class="toc-number">7.</span> <span class="toc-text">Exercise3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apples_and_oranges"><span class="toc-number">8.</span> <span class="toc-text">Apples and oranges</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise4"><span class="toc-number">9.</span> <span class="toc-text">Exercise4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Next_Tutorial"><span class="toc-number">10.</span> <span class="toc-text">Next Tutorial</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#梯度下降法"><span class="toc-number">2.</span> <span class="toc-text">梯度下降法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献列表"><span class="toc-number">4.</span> <span class="toc-text">参考文献列表</span></a></li></ol>
  
   </div>
 

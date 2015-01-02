@@ -117,7 +117,7 @@ Steven J. Miller*
 <ul>
 <li>原文<br><img src="/img/paperBlog/LSM-translation/LSM-abstract.png" alt=""></li>
 <li>译文</li>
-<li>最小二乘法是求解数据的最佳线性的过程；它可以用简单微积分和线性代数来证明。根本的问题就是根据给定数据集(xn,yn),其中n属于{1,…,N}，然后对这些数据集求解y=ax+b最佳拟合直线。这个方法容易推广为求解最佳拟合直线的形式为：<br><img src="/img/paperBlog/LSM-translation/LSM-formula-0.1.png" alt=""><br>上式中右边的f(x)不需要对x成线性关系，但等式右边的必须是函数的线性组合。</li>
+<li>最小二乘法是求解数据的最佳线性拟合的过程；它可以用简单微积分和线性代数来证明。根本的问题就是根据给定数据集(xn,yn),其中n属于{1,…,N}，然后对这些数据集求解y=ax+b最佳拟合直线。这个方法容易推广为求解最佳拟合直线的形式为：<br><img src="/img/paperBlog/LSM-translation/LSM-formula-0.1.png" alt=""><br>上式中右边的f(x)不需要对x成线性关系，但等式右边的必须是函数的线性组合。</li>
 </ul>
 <h2 id="目录">目录</h2>
 <ol>
@@ -165,10 +165,16 @@ Steven J. Miller*
 </li>
 <li><p><strong>结论是，只要所有的x都不相等，那么最好的拟合的a和b的值可以通过求解一个线性方程组而得到；解在式子3.16给出了。</strong></p>
 </li>
-<li><p><strong>标记3.1</strong> 描绘在图1中的点</p>
+<li><p><strong>标记3.1</strong> 描绘在图1中的点是令xn=5+0.2<em>n，然后令yn=5</em>xn，再加上一个均值为0，标准差为4(n ∈ {1, . . . , 100})的正态分布的随机误差。利用这些值，我们找到一条最佳拟合直线为：<br><img src="/img/paperBlog/LSM-translation/LSM-formula-3.20.png" alt=""><br>所以，a=4.99,b=0.48.相比我们期望的关系：y=5*x,我们期望一个更好的拟合值，a=5,b=0.</p>
 </li>
+<li>当a的值越来越接近真实值，b的值就会越来越小了。我们特地选取数据的这个特性来反映出在使用最小二乘法的问题。我们知道斜率的最佳值是4.99，而截距的最佳值是0.48，但是这并不是最好的估计。理论需要误差评估的技术支持。所以，我们想知道根据给定的数据，a落在(4.96,5.02)之间和b落在(-0.33,1.18)之间有99%的机会；这比我们仅仅知道最佳值更有用。</li>
+<li>另外，如果我们用绝对值的方法：<br><img src="/img/paperBlog/LSM-translation/LSM-formula-3.21.png" alt=""><br>那么算出的a的最佳值是5.03，b的最佳值是小于10的负10次方。这两种方法(绝对值方法和最小二乘法)求解出的不同的a和b是因为它们对错误的权值取值不同。</li>
 </ul>
 <h1 id="后记">后记</h1>
+<ul>
+<li>这次虽然不是第一次翻译，但还是遇到许多人埋怨的翻译问题，就是由原文翻译到中文是一道很大的坑，真的很多地方不知道如何翻译，你要联系上下文，分析清楚语境，才能准确地翻译出它想表达的意思，而这不是一件很容易的事件，对于那些需要某些领域的专业知识的就是更难了。</li>
+<li>所以，那么老是埋怨翻译人翻译的很差的人，还是不要那么激动的好，毕竟翻译也有翻译的痛。不过，无论怎样，这次翻译无论对我的理论知识的理解还是阅读英文文刊的能力都是有所增进的。</li>
+</ul>
 <h1 id="参考文献列表">参考文献列表</h1>
 <p><img src="/img/paperBlog/LSM-translation/LSM-reference.png" alt=""></p>
   
@@ -284,7 +290,7 @@ Steven J. Miller*
 		
 			<li><a href="/tags/概率论/" title="概率论">概率论<sup>2</sup></a></li>
 		
-			<li><a href="/tags/概率论基本概念/" title="概率论基本概念">概率论基本概念<sup>1</sup></a></li>
+			<li><a href="/tags/机器学习入门基础/" title="机器学习入门基础">机器学习入门基础<sup>1</sup></a></li>
 		
 			<li><a href="/tags/最小二乘法-论文翻译/" title="最小二乘法 论文翻译">最小二乘法 论文翻译<sup>1</sup></a></li>
 		
@@ -296,13 +302,13 @@ Steven J. Miller*
 		
 			<li><a href="/tags/手写数字-SVM/" title="手写数字 SVM">手写数字 SVM<sup>1</sup></a></li>
 		
-			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
+			<li><a href="/tags/多线程/" title="多线程">多线程<sup>1</sup></a></li>
 		
 			<li><a href="/tags/二值化/" title="二值化">二值化<sup>1</sup></a></li>
 		
-			<li><a href="/tags/机器学习入门基础/" title="机器学习入门基础">机器学习入门基础<sup>1</sup></a></li>
-		
 			<li><a href="/tags/梯度下降法/" title="梯度下降法">梯度下降法<sup>1</sup></a></li>
+		
+			<li><a href="/tags/概率论基本概念/" title="概率论基本概念">概率论基本概念<sup>1</sup></a></li>
 		
 			<li><a href="/tags/有价值的博客记录/" title="有价值的博客记录">有价值的博客记录<sup>1</sup></a></li>
 		
@@ -310,9 +316,9 @@ Steven J. Miller*
 		
 			<li><a href="/tags/单例设计模式/" title="单例设计模式">单例设计模式<sup>1</sup></a></li>
 		
-			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
+			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
 		
-			<li><a href="/tags/多线程/" title="多线程">多线程<sup>1</sup></a></li>
+			<li><a href="/tags/正则表达式/" title="正则表达式">正则表达式<sup>1</sup></a></li>
 		
 			<li><a href="/tags/灰度直方图/" title="灰度直方图">灰度直方图<sup>1</sup></a></li>
 		

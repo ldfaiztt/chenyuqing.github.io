@@ -1,0 +1,610 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>序列-Python笔记 | Tim Chan&#39;s Blog!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Tim Chan">
+    
+    <meta name="description" content="序列
+
+列表，元组和字符串都是序列。
+序列的两个主要特点是索引操作符和切片操作符。
+
+索引操作符让我们可以从序列中抓取一个特定项目。
+切片操作符让我们能够获取序列的一个切片，即一部分序列。
+
+
+索引操作符
+
+索引操作符是一个中括号中带数字。
+索引同样可以是负数，位置是从序列尾开始计算的。
+
+
+切片操">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Tim Chan&#39;s Blog!" title="Tim Chan&#39;s Blog!"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tim Chan&#39;s Blog!">Tim Chan&#39;s Blog!</a></h1>
+				<h2 class="blog-motto">记录生活点滴！</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+						<li><a href="https://pomotodo.com/app/">ToDo</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:tim4chan.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/02/03/序列-Python笔记/" title="序列-Python笔记" itemprop="url">序列-Python笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://tim4chan.com/about" title="Tim Chan" target="_blank" itemprop="author">Tim Chan</a>
+		
+  <p class="article-time">
+    <time datetime="2015-02-03T00:28:36.000Z" itemprop="datePublished"> Published Feb 3 2015</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#序列"><span class="toc-number">1.</span> <span class="toc-text">序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#元组"><span class="toc-number">1.1.</span> <span class="toc-text">元组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表"><span class="toc-number">1.2.</span> <span class="toc-text">列表</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="序列">序列</h2>
+<ul>
+<li>列表，元组和字符串都是序列。</li>
+<li><p>序列的两个主要特点是索引操作符和切片操作符。</p>
+<ul>
+<li>索引操作符让我们可以从序列中抓取一个特定项目。</li>
+<li>切片操作符让我们能够获取序列的一个切片，即一部分序列。</li>
+</ul>
+</li>
+<li><p>索引操作符</p>
+<ul>
+<li>索引操作符是一个中括号中带数字。</li>
+<li>索引同样可以是负数，位置是从序列尾开始计算的。</li>
+</ul>
+</li>
+<li><p>切片操作符</p>
+<ul>
+<li>切片操作符是序列名后跟一个方括号，方括号中有一对可选的数字，并用冒号分割。</li>
+<li>注意这与你使用的索引操作符十分相似的。记住数是可选的，而冒号是必须的。</li>
+<li>切片操作符的第一个数(冒号之前)表示切片开始的位置，第二个数(冒号之后)表示切片到哪里结束。如果不指定第一个数，Python就从序列的首位开始。如果没有指定第二个数，Python就会从读到序列尾</li>
+<li>注意： 返回的序列从开始位置开始，刚好在结束为止之前结束。即开始位置是包含在序列切片中的，而结束为止被排斥在切片外。</li>
+</ul>
+</li>
+<li><p>序列的基本操作</p>
+<ul>
+<li>len()： 求序列长度</li>
+<li>+： 连接2个序列</li>
+<li>*： 重复序列元素</li>
+<li>in： 判断元素是否在序列中</li>
+<li>max()： 返回最大的值</li>
+<li>min()： 返回最小的值</li>
+<li>cmp(tuple1, tuple2) 比较2个序列值是否相同</li>
+</ul>
+</li>
+</ul>
+<h3 id="元组">元组</h3>
+<ul>
+<li><p>元组()</p>
+<ul>
+<li>元组和列表十分类似，只不过元组和字符串一样是不可变的，即你不能修改元组。</li>
+<li>元组通过圆括号中用逗号分隔的项目定义。</li>
+<li>元组通常用在使语句或用户定义的函数能够安全地采用一组值的时候，即被使用的元组的值不会改变。</li>
+</ul>
+</li>
+<li><p>创建元组</p>
+<ul>
+<li>一个空元组由一对空的圆括号组成，如myempty=()</li>
+<li>含有单个元素的元组，singleton = (2,)</li>
+<li>一般的元组，zoo = (‘wolf’, ‘elephant’, ‘penguin’)</li>
+</ul>
+</li>
+<li><p>元组操作</p>
+<ul>
+<li>元组和字符串类型一样属于序列类型，可通过索引和切片操作</li>
+<li>元组值亦不可改变</li>
+</ul>
+</li>
+</ul>
+<h3 id="列表">列表</h3>
+<ul>
+<li>list是处理一组有序项目的数据结构，即你可以在一个列表中存储一个序列的项目。</li>
+<li>列表是可变类型的数据</li>
+<li><p>列表的组成：即[]表示列表，包含了多个以逗号分割开的数字，或者字串。</p>
+<ul>
+<li>List1 = [‘Simon’, ‘David’, ‘Clotho’, ‘张三’]</li>
+</ul>
+</li>
+<li><p>列表的操作</p>
+<ul>
+<li>取值<ul>
+<li>切片和索引</li>
+<li>list[]</li>
+</ul>
+</li>
+<li>添加<ul>
+<li>list.append()</li>
+</ul>
+</li>
+<li>删除<ul>
+<li>del(list[])</li>
+<li>list.remove(list[])</li>
+</ul>
+</li>
+<li>修改<ul>
+<li>list[] = x</li>
+</ul>
+</li>
+<li>查找<ul>
+<li>var in list</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Python笔记/">Python笔记</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/序列/">序列</a>
+  </div>
+
+</div>
+
+
+<div class="article-share" id="share">
+
+<div class="share-jiathis">
+  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"2155417625"},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+" charset="utf-8"></script>      
+
+ </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/02/08/程序员必须知道的10大基础实用算法及其讲解-慕可网制作/" title="程序员必须知道的10大基础实用算法及其讲解-@慕可网制作">
+  <strong>上一篇：</strong><br/>
+  <span>
+  程序员必须知道的10大基础实用算法及其讲解-@慕可网制作</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/01/27/Django-1-7-3-Tutorial-Part-3-视图和模板/"  title="Django-1-7-3-Tutorial-Part-3-视图和模板">
+ <strong>下一篇：</strong><br/> 
+ <span>Django-1-7-3-Tutorial-Part-3-视图和模板
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tim4chan"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+		</script>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#序列"><span class="toc-number">1.</span> <span class="toc-text">序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#元组"><span class="toc-number">1.1.</span> <span class="toc-text">元组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表"><span class="toc-number">1.2.</span> <span class="toc-text">列表</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+			<li><a href="/categories/Django/" title="Django">Django<sup>1</sup></a></li>
+		
+			<li><a href="/categories/JSP-Review/" title="JSP_Review">JSP_Review<sup>10</sup></a></li>
+		
+			<li><a href="/categories/Python笔记/" title="Python笔记">Python笔记<sup>1</sup></a></li>
+		
+			<li><a href="/categories/R-Tutorial/" title="R Tutorial">R Tutorial<sup>4</sup></a></li>
+		
+			<li><a href="/categories/probability-theory-basic-conception/" title="probability-theory-basic-conception">probability-theory-basic-conception<sup>1</sup></a></li>
+		
+			<li><a href="/categories/医学图像处理/" title="医学图像处理">医学图像处理<sup>2</sup></a></li>
+		
+			<li><a href="/categories/原型设计/" title="原型设计">原型设计<sup>1</sup></a></li>
+		
+			<li><a href="/categories/备忘/" title="备忘">备忘<sup>1</sup></a></li>
+		
+			<li><a href="/categories/技术开发/" title="技术开发">技术开发<sup>1</sup></a></li>
+		
+			<li><a href="/categories/数据挖掘与R语言-案例学习/" title="数据挖掘与R语言-案例学习">数据挖掘与R语言-案例学习<sup>4</sup></a></li>
+		
+			<li><a href="/categories/数据挖掘算法总结/" title="数据挖掘算法总结">数据挖掘算法总结<sup>3</sup></a></li>
+		
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>2</sup></a></li>
+		
+			<li><a href="/categories/概率论笔记/" title="概率论笔记">概率论笔记<sup>2</sup></a></li>
+		
+			<li><a href="/categories/毕业设计系列/" title="毕业设计系列">毕业设计系列<sup>8</sup></a></li>
+		
+			<li><a href="/categories/毕设系列/" title="毕设系列">毕设系列<sup>1</sup></a></li>
+		
+			<li><a href="/categories/算法/" title="算法">算法<sup>1</sup></a></li>
+		
+			<li><a href="/categories/面试分享/" title="面试分享">面试分享<sup>2</sup></a></li>
+		
+			<li><a href="/categories/黑马程序员/" title="黑马程序员">黑马程序员<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/JSP-网页开发/" title="JSP 网页开发">JSP 网页开发<sup>10</sup></a></li>
+		
+			<li><a href="/tags/数据挖掘/" title="数据挖掘">数据挖掘<sup>5</sup></a></li>
+		
+			<li><a href="/tags/R-basics/" title="R basics">R basics<sup>4</sup></a></li>
+		
+			<li><a href="/tags/SVM入门/" title="SVM入门">SVM入门<sup>2</sup></a></li>
+		
+			<li><a href="/tags/概率论/" title="概率论">概率论<sup>2</sup></a></li>
+		
+			<li><a href="/tags/FP-growth-tree/" title="FP-growth-tree">FP-growth-tree<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Aprior-Algorithm/" title="Aprior Algorithm">Aprior Algorithm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/概率论基本概念/" title="概率论基本概念">概率论基本概念<sup>1</sup></a></li>
+		
+			<li><a href="/tags/10大基础实用算法/" title="10大基础实用算法">10大基础实用算法<sup>1</sup></a></li>
+		
+			<li><a href="/tags/手写数字-SVM/" title="手写数字 SVM">手写数字 SVM<sup>1</sup></a></li>
+		
+			<li><a href="/tags/最小二乘法-论文翻译/" title="最小二乘法 论文翻译">最小二乘法 论文翻译<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux-C/" title="linux C">linux C<sup>1</sup></a></li>
+		
+			<li><a href="/tags/手写数字识别-Kernel-Support-Vector-Machine/" title="手写数字识别 Kernel Support Vector Machine">手写数字识别 Kernel Support Vector Machine<sup>1</sup></a></li>
+		
+			<li><a href="/tags/梯度下降法/" title="梯度下降法">梯度下降法<sup>1</sup></a></li>
+		
+			<li><a href="/tags/多线程/" title="多线程">多线程<sup>1</sup></a></li>
+		
+			<li><a href="/tags/单例设计模式/" title="单例设计模式">单例设计模式<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Django-Models/" title="Django-Models">Django-Models<sup>1</sup></a></li>
+		
+			<li><a href="/tags/面试算法/" title="面试算法">面试算法<sup>1</sup></a></li>
+		
+			<li><a href="/tags/机器学习基础/" title="机器学习基础">机器学习基础<sup>1</sup></a></li>
+		
+			<li><a href="/tags/灰度直方图/" title="灰度直方图">灰度直方图<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/10大基础实用算法/" style="font-size: 10.00px;">10大基础实用算法</a><a href="/tags/Aprior-Algorithm/" style="font-size: 10.00px;">Aprior Algorithm</a><a href="/tags/Django-Models/" style="font-size: 10.00px;">Django-Models</a><a href="/tags/FP-growth-tree/" style="font-size: 10.00px;">FP-growth-tree</a><a href="/tags/JSP-网页开发/" style="font-size: 20.00px;">JSP 网页开发</a><a href="/tags/R-basics/" style="font-size: 15.00px;">R basics</a><a href="/tags/SVM/" style="font-size: 10.00px;">SVM</a><a href="/tags/SVM入门/" style="font-size: 12.50px;">SVM入门</a><a href="/tags/linux-C/" style="font-size: 10.00px;">linux C</a><a href="/tags/二值化/" style="font-size: 10.00px;">二值化</a><a href="/tags/单例设计模式/" style="font-size: 10.00px;">单例设计模式</a><a href="/tags/原型设计/" style="font-size: 10.00px;">原型设计</a><a href="/tags/多线程/" style="font-size: 10.00px;">多线程</a><a href="/tags/字符串操作/" style="font-size: 10.00px;">字符串操作</a><a href="/tags/序列/" style="font-size: 10.00px;">序列</a><a href="/tags/感知机/" style="font-size: 10.00px;">感知机</a><a href="/tags/手写数字-SVM/" style="font-size: 10.00px;">手写数字 SVM</a><a href="/tags/手写数字识别-Kernel-Support-Vector-Machine/" style="font-size: 10.00px;">手写数字识别 Kernel Support Vector Machine</a><a href="/tags/数据挖掘/" style="font-size: 17.50px;">数据挖掘</a><a href="/tags/最小二乘法/" style="font-size: 10.00px;">最小二乘法</a><a href="/tags/最小二乘法-论文翻译/" style="font-size: 10.00px;">最小二乘法 论文翻译</a><a href="/tags/有价值的博客记录/" style="font-size: 10.00px;">有价值的博客记录</a><a href="/tags/机器学习入门基础/" style="font-size: 10.00px;">机器学习入门基础</a><a href="/tags/机器学习基础/" style="font-size: 10.00px;">机器学习基础</a><a href="/tags/梯度下降法/" style="font-size: 10.00px;">梯度下降法</a><a href="/tags/概率论/" style="font-size: 12.50px;">概率论</a><a href="/tags/概率论基本概念/" style="font-size: 10.00px;">概率论基本概念</a><a href="/tags/正则表达式/" style="font-size: 10.00px;">正则表达式</a><a href="/tags/灰度直方图/" style="font-size: 10.00px;">灰度直方图</a><a href="/tags/面试算法/" style="font-size: 10.00px;">面试算法</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+<iframe width="100%" height="300" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=300&fansRow=2&ptype=1&speed=300&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2155417625&verifier=9f994c23&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+	  <li><a href="http://zjdian.com/" target="_blank" title="zjdian">中继点</li>
+      <li><a href="http://ripeconan.com/" target="_blank" title="ripeconan">Ripeconan</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Tim Chan. <br/>
+			Welcome to my personal blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2155417625" target="_blank" class="icon-weibo" title="weibo"></a>
+		
+		
+		<a href="https://github.com/chenyuqing" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.douban.com/people/motoleiusre" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		
+		<a href="mailto:motoleisure@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2015 
+		
+		<a href="http://tim4chan.com/about" target="_blank" title="Tim Chan">Tim Chan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"乐果404"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+
+
+<div id="totop">
+<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+
+
+
+  </body>
+</html>
+
+
+<a href="https://github.com/chenyuqing/chenyuqing.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
